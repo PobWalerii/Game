@@ -1,107 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back1_portr"
-    tools:context=".ui.game1.Game1Fragment">
+    android:background="@drawable/back1_portr">
 
     <ImageView
         android:id="@+id/image"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:src="@drawable/untit1"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.55"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription" />
-
-    <ImageView
-        android:id="@+id/balance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="115dp"
-        android:paddingHorizontal="100dp"
-        android:src="@drawable/balance1"
-        android:translationZ="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/image"
-        tools:ignore="ContentDescription" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+<!--    <ImageView
+        android:id="@+id/balance"
+        android:layout_width="match_parent"
+        android:layout_height="67dp"
+        android:layout_marginTop="240dp"
+        android:elevation="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/image"
+        app:srcCompat="@drawable/balance1" />-->
+    <include
+        android:id="@+id/balance_include"
+        layout="@layout/balance_game1"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="240dp"
+        android:elevation="2dp"
+        android:translationZ="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/image" />
 
     <ImageView
         android:id="@+id/playing"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:paddingHorizontal="20dp"
-        android:src="@drawable/playing1"
+        android:layout_height="321dp"
+        android:layout_marginTop="270dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/image"
-        tools:ignore="ContentDescription" />
-
-    <ImageView
-        android:id="@+id/oper_minus"
-        android:layout_width="125dp"
-        android:layout_height="166dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="470dp"
-        android:src="@drawable/rate_oper1"
-        app:layout_constraintStart_toStartOf="@id/playing"
-        app:layout_constraintTop_toTopOf="@+id/playing"
-        tools:ignore="ContentDescription" />
-
-    <ImageView
-        android:id="@+id/oper_plus"
-        android:layout_width="125dp"
-        android:layout_height="166dp"
-        android:layout_marginEnd="28dp"
-        android:layout_marginTop="470dp"
-        android:src="@drawable/rate_oper1"
-        app:layout_constraintEnd_toEndOf="@id/playing"
-        app:layout_constraintTop_toTopOf="@+id/playing"
-        tools:ignore="ContentDescription" />
+        app:srcCompat="@drawable/playing1" />
 
     <ImageView
         android:id="@+id/rate"
-        android:layout_width="283dp"
-        android:layout_height="150dp"
-        android:src="@drawable/rate1"
-        android:paddingHorizontal="35dp"
-        app:layout_constraintTop_toTopOf="@+id/oper_minus"
-        app:layout_constraintBottom_toBottomOf="@+id/oper_minus"
-        app:layout_constraintEnd_toEndOf="@id/playing"
-        app:layout_constraintStart_toStartOf="@id/playing"
-        tools:ignore="ContentDescription" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:background="@drawable/button"
-        android:text="@string/text_spin"
-        android:textSize="25sp"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:layout_marginBottom="35dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="96dp"
+        android:layout_marginTop="550dp"
+        android:elevation="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/oper_minus" />
+        app:layout_constraintTop_toTopOf="@+id/image"
+        app:srcCompat="@drawable/rate1" />
+
+    <ImageView
+        android:id="@+id/minus"
+        android:layout_width="120dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="18dp"
+        app:layout_constraintBottom_toBottomOf="@+id/rate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/rate"
+        app:srcCompat="@drawable/rate_oper1" />
+
+    <ImageView
+        android:id="@+id/plus"
+        android:layout_width="120dp"
+        android:layout_height="75dp"
+        android:layout_marginEnd="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/rate"
+        app:layout_constraintBottom_toBottomOf="@+id/rate"
+        app:srcCompat="@drawable/rate_oper1" />
 
     <ImageView
         android:id="@+id/arrow"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:src="@drawable/arrow"
-        android:layout_margin="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
+    <TextView
+        android:id="@+id/splin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="15dp"
+        android:text="@string/text_spin"
+        android:textSize="25sp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rate" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,15 +6,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/back1_land"
     android:orientation="horizontal"
-    android:weightSum="100">
+    android:weightSum="100"
+    android:baselineAligned="false">
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="fill_parent"
-        android:layout_weight="60"
+        android:layout_weight="55"
         android:gravity="center"
-        android:orientation="vertical"
-        tools:ignore="UselessLeaf">
+        android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -27,46 +27,41 @@
                 android:src="@drawable/arrow"
                 android:layout_margin="20dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ContentDescription" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <ImageView
                 android:id="@+id/image"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:src="@drawable/untit1"
+                android:layout_marginStart="40dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHeight_percent="0.55"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ContentDescription" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <ImageView
                 android:id="@+id/balance"
-                android:layout_width="426dp"
-                android:layout_height="89dp"
-                android:paddingHorizontal="100dp"
-                android:layout_marginTop="95dp"
-                android:src="@drawable/balance1"
-                android:translationZ="1dp"
+                android:layout_width="match_parent"
+                android:layout_height="67dp"
+                android:layout_marginTop="110dp"
+                android:layout_marginStart="40dp"
+                android:elevation="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ContentDescription,MissingConstraints" />
+                app:layout_constraintTop_toTopOf="@+id/image"
+                app:srcCompat="@drawable/balance1" />
 
             <ImageView
                 android:id="@+id/playing"
-                android:layout_width="940dp"
-                android:layout_height="306dp"
-                android:paddingHorizontal="20dp"
-                android:src="@drawable/playing1"
-                android:layout_marginTop="150dp"
-                android:paddingBottom="30dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/balance"
-                app:layout_constraintStart_toStartOf="@+id/balance"
+                android:layout_width="436dp"
+                android:layout_height="232dp"
+                android:layout_marginTop="140dp"
+                android:layout_marginStart="40dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/image"
-                tools:ignore="ContentDescription" />
+                app:srcCompat="@drawable/playing1_land" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -77,7 +72,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_weight="40"
+            android:layout_weight="45"
             android:gravity="center"
             android:orientation="vertical"
             tools:ignore="UselessLeaf">
@@ -86,63 +81,56 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/oper_minus"
-                android:layout_width="125dp"
-                android:layout_height="166dp"
-                android:src="@drawable/rate_oper1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                tools:ignore="ContentDescription" />
-
                 <ImageView
                     android:id="@+id/rate"
-                    android:layout_width="283dp"
-                    android:layout_height="150dp"
-                    android:paddingHorizontal="35dp"
-                    android:src="@drawable/rate1"
-                    android:layout_marginTop="75dp"
-                    android:translationZ="1dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="96dp"
+                    android:elevation="2dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="ContentDescription" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:srcCompat="@drawable/rate1" />
 
                 <ImageView
-                    android:id="@+id/oper_plus"
-                    android:layout_width="127dp"
-                    android:layout_height="79dp"
-                    android:layout_marginTop="5dp"
-                    android:src="@drawable/rate_oper1"
-                    app:layout_constraintEnd_toEndOf="@+id/oper_minus"
-                    app:layout_constraintStart_toStartOf="@+id/oper_minus"
-                    app:layout_constraintTop_toBottomOf="@+id/oper_minus"
-                    tools:ignore="ContentDescription" />
-
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:background="@drawable/button"
-                    android:gravity="center"
-                    android:text="@string/text_spin"
-                    android:textColor="@color/white"
-                    android:textSize="25sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:id="@+id/minus"
+                    android:layout_width="120dp"
+                    android:layout_height="75dp"
+                    android:layout_marginBottom="80dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/rate"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/oper_plus" />
+                    app:srcCompat="@drawable/rate_oper1" />
+
+                <ImageView
+                    android:id="@+id/plus"
+                    android:layout_width="120dp"
+                    android:layout_height="75dp"
+                    android:layout_marginTop="80dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/rate"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/rate_oper1" />
+
+                <TextView
+                    android:id="@+id/splin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="15dp"
+                    android:text="@string/text_spin"
+                    android:textSize="25sp"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/plus"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
-
-
 
 
         </LinearLayout>
