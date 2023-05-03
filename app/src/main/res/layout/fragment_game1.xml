@@ -1,18 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/back1_portr"
     tools:context=".ui.game1.Game1Fragment">
 
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/untit1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.55"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
 
+    <ImageView
+        android:id="@+id/balance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="115dp"
+        android:paddingHorizontal="100dp"
+        android:src="@drawable/balance1"
+        android:translationZ="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/image"
+        tools:ignore="ContentDescription" />
 
+    <ImageView
+        android:id="@+id/playing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:paddingHorizontal="20dp"
+        android:src="@drawable/playing1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/image"
+        tools:ignore="ContentDescription" />
 
+    <ImageView
+        android:id="@+id/oper_minus"
+        android:layout_width="125dp"
+        android:layout_height="166dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="470dp"
+        android:src="@drawable/rate_oper1"
+        app:layout_constraintStart_toStartOf="@id/playing"
+        app:layout_constraintTop_toTopOf="@+id/playing"
+        tools:ignore="ContentDescription" />
 
+    <ImageView
+        android:id="@+id/oper_plus"
+        android:layout_width="125dp"
+        android:layout_height="166dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginTop="470dp"
+        android:src="@drawable/rate_oper1"
+        app:layout_constraintEnd_toEndOf="@id/playing"
+        app:layout_constraintTop_toTopOf="@+id/playing"
+        tools:ignore="ContentDescription" />
 
+    <ImageView
+        android:id="@+id/rate"
+        android:layout_width="283dp"
+        android:layout_height="150dp"
+        android:src="@drawable/rate1"
+        android:paddingHorizontal="35dp"
+        app:layout_constraintTop_toTopOf="@+id/oper_minus"
+        app:layout_constraintBottom_toBottomOf="@+id/oper_minus"
+        app:layout_constraintEnd_toEndOf="@id/playing"
+        app:layout_constraintStart_toStartOf="@id/playing"
+        tools:ignore="ContentDescription" />
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button"
+        android:text="@string/text_spin"
+        android:textSize="25sp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:layout_marginBottom="35dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/oper_minus" />
 
+    <ImageView
+        android:id="@+id/arrow"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/arrow"
+        android:layout_margin="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

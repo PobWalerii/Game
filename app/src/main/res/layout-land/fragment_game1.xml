@@ -1,8 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/back1_land">
+    android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/back1_land"
+    android:orientation="horizontal"
+    android:weightSum="100">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="60"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:ignore="UselessLeaf">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/arrow"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/arrow"
+                android:layout_margin="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/untit1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.55"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/balance"
+                android:layout_width="426dp"
+                android:layout_height="89dp"
+                android:paddingHorizontal="100dp"
+                android:layout_marginTop="95dp"
+                android:src="@drawable/balance1"
+                android:translationZ="1dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription,MissingConstraints" />
+
+            <ImageView
+                android:id="@+id/playing"
+                android:layout_width="940dp"
+                android:layout_height="306dp"
+                android:paddingHorizontal="20dp"
+                android:src="@drawable/playing1"
+                android:layout_marginTop="150dp"
+                android:paddingBottom="30dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/balance"
+                app:layout_constraintStart_toStartOf="@+id/balance"
+                app:layout_constraintTop_toTopOf="@+id/image"
+                tools:ignore="ContentDescription" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="40"
+            android:gravity="center"
+            android:orientation="vertical"
+            tools:ignore="UselessLeaf">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/oper_minus"
+                android:layout_width="125dp"
+                android:layout_height="166dp"
+                android:src="@drawable/rate_oper1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:ignore="ContentDescription" />
+
+                <ImageView
+                    android:id="@+id/rate"
+                    android:layout_width="283dp"
+                    android:layout_height="150dp"
+                    android:paddingHorizontal="35dp"
+                    android:src="@drawable/rate1"
+                    android:layout_marginTop="75dp"
+                    android:translationZ="1dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
+
+                <ImageView
+                    android:id="@+id/oper_plus"
+                    android:layout_width="127dp"
+                    android:layout_height="79dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/rate_oper1"
+                    app:layout_constraintEnd_toEndOf="@+id/oper_minus"
+                    app:layout_constraintStart_toStartOf="@+id/oper_minus"
+                    app:layout_constraintTop_toBottomOf="@+id/oper_minus"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/button"
+                    android:gravity="center"
+                    android:text="@string/text_spin"
+                    android:textColor="@color/white"
+                    android:textSize="25sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/oper_plus" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
@@ -11,6 +145,6 @@
 
 
 
+        </LinearLayout>
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>

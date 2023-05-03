@@ -2,6 +2,7 @@ package com.example.game.ui.main
 
 import android.os.Build
 import android.os.Bundle
+import android.view.WindowInsets
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.game.R
@@ -14,7 +15,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        //val insetsController = window.insetsController
-        //insetsController?.hide(WindowInsets.Type.statusBars())
+        val insetsController = window.insetsController
+        insetsController?.hide(WindowInsets.Type.statusBars())
     }
 }
