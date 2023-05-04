@@ -27,7 +27,7 @@
         app:srcCompat="@drawable/playing1" />
 
     <LinearLayout
-        android:layout_width="268dp"
+        android:layout_width="290dp"
         android:layout_height="265dp"
         android:layout_marginHorizontal="65dp"
         android:orientation="horizontal"
@@ -35,8 +35,7 @@
         app:layout_constraintEnd_toEndOf="@+id/playing"
         app:layout_constraintStart_toStartOf="@+id/playing"
         app:layout_constraintBottom_toBottomOf="@+id/playing"
-        tools:ignore="DisableBaselineAlignment,MissingConstraints,UselessLeaf"
-        tools:layout_editor_absoluteY="299dp">
+        tools:ignore="DisableBaselineAlignment,MissingConstraints,UselessLeaf">
 
         <include
             android:id="@+id/wheel1"
