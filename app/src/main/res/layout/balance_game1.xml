@@ -1,15 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<data>
+    <variable
+        name="balance"
+        type="Integer" />
+</data>
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/balance1"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="67dp"
-        android:elevation="2dp"
-        app:srcCompat="@drawable/balance1" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/balance1"
+        tools:ignore="ContentDescription" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/text_balance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@{@string/text_balance + ' ' + balance.toString()}"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/balance1"
+        app:layout_constraintStart_toStartOf="@+id/balance1"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

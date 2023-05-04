@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Game</string>
     <string name="text_spin">SPIN</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
+    <string name="text_balance">Balance</string>
+    <string name="text_rate">RATE</string>
 </resources>

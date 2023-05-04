@@ -10,13 +10,20 @@ import javax.inject.Inject
 class Game1ViewModel @Inject constructor(
     private val gameRepository: GameRepository
 ): ViewModel() {
+
     val gamerBalance: StateFlow<Int> = gameRepository.gamerBalance
+    val gamerRate: StateFlow<Int> = gameRepository.gamerRateGame1
+
+    init {
+        gameRepository.startRateGame1()
+    }
+
+    fun changeRate(plus: Boolean) {
+        gameRepository.changeRateGame1(plus)
+    }
 
     fun setGamerBalance(addSumm: Int) {
         gameRepository.setGamerBalance(addSumm)
     }
-
-
-
 
 }
