@@ -23,14 +23,14 @@ class GameRepository @Inject constructor(
     private val _gamerRateGame1 = MutableStateFlow(0)
     val gamerRateGame1: StateFlow<Int> = _gamerRateGame1.asStateFlow()
 
-    private val _listWheel1 = MutableStateFlow(emptyList<Drawable>())
-    val listWheel1: Flow<List<Drawable>> = _listWheel1.asStateFlow()
+    private val _listWheel1 = MutableStateFlow(emptyList<WheelImages>())
+    val listWheel1: Flow<List<WheelImages>> = _listWheel1.asStateFlow()
 
-    private val _listWheel2 = MutableStateFlow(emptyList<Drawable>())
-    val listWheel2: Flow<List<Drawable>> = _listWheel2.asStateFlow()
+    private val _listWheel2 = MutableStateFlow(emptyList<WheelImages>())
+    val listWheel2: Flow<List<WheelImages>> = _listWheel2.asStateFlow()
 
-    private val _listWheel3 = MutableStateFlow(emptyList<Drawable>())
-    val listWheel3: Flow<List<Drawable>> = _listWheel3.asStateFlow()
+    private val _listWheel3 = MutableStateFlow(emptyList<WheelImages>())
+    val listWheel3: Flow<List<WheelImages>> = _listWheel3.asStateFlow()
 
     private val list_images = listOf(
         ContextCompat.getDrawable(context, R.drawable.game1_slot1),
@@ -42,16 +42,16 @@ class GameRepository @Inject constructor(
         ContextCompat.getDrawable(context, R.drawable.game1_slot7),
     )
 
-    private var wheel1 = mutableListOf<Drawable>()
-    private var wheel2 = mutableListOf<Drawable>()
-    private var wheel3 = mutableListOf<Drawable>()
+    private var wheel1 = mutableListOf<WheelImages>()
+    private var wheel2 = mutableListOf<WheelImages>()
+    private var wheel3 = mutableListOf<WheelImages>()
 
     init {
         _gamerBalance.value = 10000
-        initWheel()
+        initWheels()
     }
 
-    private fun initWheel() {
+    private fun initWheels() {
         for(i in 1..3) {
             val list = when (i) {
                 1 -> wheel1
@@ -61,7 +61,7 @@ class GameRepository @Inject constructor(
             val random = Random()
             var startImage = random.nextInt(list_images.size)
             for (j in 1..list_images.size) {
-                list.add(list_images[startImage]!!)
+                list.add(WheelImages(j.toLong(), list_images[startImage]!!))
                 startImage++
                 if (startImage == list_images.size) {
                     startImage = 0
@@ -71,15 +71,28 @@ class GameRepository @Inject constructor(
         }
     }
 
-    private fun setFlowListWheel(i: Int, list: List<Drawable>) {
-        Log.d("tag", "Список post $i $list")
+
+
+    private fun setFlowListWheel(i: Int, list: List<WheelImages>) {
         val flowList = when (i) {
             1 -> _listWheel1
             2 -> _listWheel2
             else -> _listWheel3
         }
         flowList.value = emptyList()
-        flowList.value = list
+        flowList.value = list.reversed()
+    }
+
+    fun changePosition(wheel: Int) {
+        val list = when (wheel) {
+            1 -> wheel1
+            2 -> wheel2
+            else -> wheel3
+        }
+        val first = list[0]
+        list.removeAt(0)
+        list.add(first)
+        setFlowListWheel(wheel, list)
     }
 
     fun startRateGame1() {
@@ -119,3 +132,8 @@ class GameRepository @Inject constructor(
 
 
 }
+
+data class WheelImages (
+    val id: Long,
+    val image: Drawable
+)

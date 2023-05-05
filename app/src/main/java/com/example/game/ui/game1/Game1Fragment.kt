@@ -4,19 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.game.R
 import com.example.game.databinding.FragmentGame1Binding
 import com.example.game.ui.adapter.WheelsAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import java.util.*
 
 
 @AndroidEntryPoint
@@ -54,7 +52,7 @@ class Game1Fragment : Fragment() {
         observeGamersBalance()
         observeRateChange()
         rateKeysListener()
-        clickAndRotete()
+        clickAndRotate()
     }
 
 
@@ -84,40 +82,51 @@ class Game1Fragment : Fragment() {
         }
     }
 
-    private fun clickAndRotete() {
+    private fun clickAndRotate() {
         binding.splinInclude.splin.setOnClickListener {
             startScrolling()
-
         }
     }
 
     private fun startScrolling() {
-        val imageSize = resources.getDimensionPixelSize(R.dimen.size_image_slot)
-        recyclerView1.smoothScrollBy(0, -imageSize)
-        recyclerView2.smoothScrollBy(0, -imageSize)
-        recyclerView3.smoothScrollBy(0, -imageSize)
+        val imageSize = resources.getDimensionPixelSize(R.dimen.size_image_slot)/2
+        viewLifecycleOwner.lifecycleScope.launch {
+            //for (i in 1..10) {
+                recyclerView1.smoothScrollBy(0, -imageSize)
+                recyclerView2.smoothScrollBy(0, -imageSize)
+                recyclerView3.smoothScrollBy(0, -imageSize)
+                //delay(1000)
+            //}
+        }
+
+
+
+
+
     }
+
+
 
 
     private fun observeWheelsState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.listWheel1.collect {
                 if (it.isNotEmpty()) {
-                    adapter1.setImagesList(it)
+                    adapter1.submitList(it.reversed())
                 }
             }
         }
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.listWheel2.collect {
                 if (it.isNotEmpty()) {
-                    adapter2.setImagesList(it)
+                    adapter2.submitList(it.reversed())
                 }
             }
         }
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.listWheel3.collect {
                 if (it.isNotEmpty()) {
-                    adapter3.setImagesList(it)
+                    adapter3.submitList(it.reversed())
                 }
             }
         }
@@ -132,12 +141,35 @@ class Game1Fragment : Fragment() {
     private fun setupRecyclers() {
         recyclerView1 = binding.wheel1.recycler
         recyclerView1.adapter = adapter1
+        setScrollListener(1)
         recyclerView2 = binding.wheel2.recycler
         recyclerView2.adapter = adapter2
+        setScrollListener(2)
         recyclerView3 = binding.wheel3.recycler
         recyclerView3.adapter = adapter3
+        setScrollListener(3)
     }
 
+    private fun setScrollListener(wheel: Int) {
+        val recycler = when(wheel) {
+            1 -> recyclerView1
+            2 -> recyclerView2
+            else -> recyclerView3
+        }
+        recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (dy < 0) {
+                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                    val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
+                    Toast.makeText(context,"$lastVisibleItemPosition",Toast.LENGTH_LONG).show()
+                    if (lastVisibleItemPosition == adapter1.itemCount - 1) {
+                        Toast.makeText(context,"change",Toast.LENGTH_LONG).show()
+                        viewModel.changePosition(wheel)
+                    }
+                }
+            }
+        })
+    }
     private fun scrollWheelsToBottom() {
         recyclerView1.layoutManager?.scrollToPosition(adapter1.itemCount-1)
         recyclerView2.layoutManager?.scrollToPosition(adapter2.itemCount-1)

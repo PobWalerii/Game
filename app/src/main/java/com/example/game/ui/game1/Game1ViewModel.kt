@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable
 import androidx.lifecycle.ViewModel
 import com.example.game.R
 import com.example.game.repository.GameRepository
+import com.example.game.repository.WheelImages
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,9 +18,9 @@ class Game1ViewModel @Inject constructor(
 
     val gamerBalance: StateFlow<Int> = gameRepository.gamerBalance
     val gamerRate: StateFlow<Int> = gameRepository.gamerRateGame1
-    val listWheel1: Flow<List<Drawable>> = gameRepository.listWheel1
-    val listWheel2: Flow<List<Drawable>> = gameRepository.listWheel2
-    val listWheel3: Flow<List<Drawable>> = gameRepository.listWheel3
+    val listWheel1: Flow<List<WheelImages>> = gameRepository.listWheel1
+    val listWheel2: Flow<List<WheelImages>> = gameRepository.listWheel2
+    val listWheel3: Flow<List<WheelImages>> = gameRepository.listWheel3
 
     init {
         gameRepository.startRateGame1()
@@ -31,6 +32,10 @@ class Game1ViewModel @Inject constructor(
 
     fun setGamerBalance(addSum: Int) {
         gameRepository.setGamerBalance(addSum)
+    }
+
+    fun changePosition(wheel: Int) {
+        gameRepository.changePosition(wheel)
     }
 
 }

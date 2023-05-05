@@ -1,23 +1,21 @@
 package com.example.game.ui.adapter
 
-import android.annotation.SuppressLint
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.game.R
 import com.example.game.databinding.WheelItemBinding
+import com.example.game.repository.WheelImages
 
-@SuppressLint("NotifyDataSetChanged")
-class WheelsAdapter : RecyclerView.Adapter<WheelsAdapter.ViewHolder>() {
-
-    private var listImages: List<Drawable> = emptyList()
+class WheelsAdapter: ListAdapter<WheelImages, WheelsAdapter.ViewHolder>(COMPARATOR) {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = WheelItemBinding.bind(itemView)
-        fun bind(item: Drawable) {
-            binding.itemImage = item
+        fun bind(item: WheelImages) {
+            binding.itemImage = item.image
         }
     }
 
@@ -27,13 +25,22 @@ class WheelsAdapter : RecyclerView.Adapter<WheelsAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(listImages[position])
+        holder.bind(currentList[position])
     }
 
-    override fun getItemCount() = listImages.size
+    override fun getItemCount() = currentList.size
+    override fun getItemId(position: Int): Long = currentList[position].id
 
-    fun setImagesList(list: List<Drawable>) {
-        listImages = list
-        notifyDataSetChanged()
+    companion object {
+        private val COMPARATOR = object : DiffUtil.ItemCallback<WheelImages>() {
+            override fun areItemsTheSame(oldItem: WheelImages, newItem: WheelImages): Boolean {
+                return oldItem == newItem
+            }
+
+            override fun areContentsTheSame(oldItem: WheelImages, newItem: WheelImages): Boolean {
+                return oldItem.id == newItem.id
+            }
+        }
     }
 }
+
