@@ -1,45 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
-    <data>
-        <variable
-            name="image_slot1"
-            type="Integer" />
-        <variable
-            name="image_slot2"
-            type="Integer" />
-        <variable
-            name="image_slot3"
-            type="Integer" />
-        <variable
-            name="image_slot4"
-            type="Integer" />
-    </data>
-
-<LinearLayout android:id="@+id/wheel_container"
-    android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/wheel_container"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="center_horizontal">
-    <ImageView
-        android:id="@+id/slot4"
-        android:layout_width="@dimen/size_image_slot"
-        android:layout_height="@dimen/size_image_slot"
-        android:src="@{image_slot4}" />
-    <ImageView
-        android:id="@+id/slot3"
-        android:layout_width="@dimen/size_image_slot"
-        android:layout_height="@dimen/size_image_slot"
-        android:src="@{image_slot3}" />
-    <ImageView
-        android:id="@+id/slot2"
-        android:layout_width="@dimen/size_image_slot"
-        android:layout_height="@dimen/size_image_slot"
-        android:src="@{image_slot2}" />
-    <ImageView
-        android:id="@+id/slot1"
-        android:layout_width="@dimen/size_image_slot"
-        android:layout_height="@dimen/size_image_slot"
-        android:src="@{image_slot1}" />
-</LinearLayout>
 
-</layout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+</LinearLayout>

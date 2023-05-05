@@ -1,10 +1,13 @@
 package com.example.game.ui.game1
 
+import android.graphics.drawable.Drawable
 import androidx.lifecycle.ViewModel
 import com.example.game.R
 import com.example.game.repository.GameRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -14,15 +17,9 @@ class Game1ViewModel @Inject constructor(
 
     val gamerBalance: StateFlow<Int> = gameRepository.gamerBalance
     val gamerRate: StateFlow<Int> = gameRepository.gamerRateGame1
-    val list_images: List<Int> = listOf(
-        R.drawable.game1_slot1,
-        R.drawable.game1_slot2,
-        R.drawable.game1_slot3,
-        R.drawable.game1_slot4,
-        R.drawable.game1_slot5,
-        R.drawable.game1_slot6,
-        R.drawable.game1_slot7,
-    )
+    val listWheel1: Flow<List<Drawable>> = gameRepository.listWheel1
+    val listWheel2: Flow<List<Drawable>> = gameRepository.listWheel2
+    val listWheel3: Flow<List<Drawable>> = gameRepository.listWheel3
 
     init {
         gameRepository.startRateGame1()
@@ -32,8 +29,8 @@ class Game1ViewModel @Inject constructor(
         gameRepository.changeRateGame1(plus)
     }
 
-    fun setGamerBalance(addSumm: Int) {
-        gameRepository.setGamerBalance(addSumm)
+    fun setGamerBalance(addSum: Int) {
+        gameRepository.setGamerBalance(addSum)
     }
 
 }

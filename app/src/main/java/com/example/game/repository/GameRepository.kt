@@ -1,12 +1,21 @@
 package com.example.game.repository
 
+import android.content.Context
+import android.graphics.drawable.Drawable
+import android.util.Log
+import androidx.core.content.ContextCompat
+import com.example.game.R
 import com.example.game.constants.GamesConstants.DELTA_CHANGE_RATE_GAME1
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import java.util.*
 import javax.inject.Inject
 
-class GameRepository @Inject constructor() {
+class GameRepository @Inject constructor(
+    private val context: Context
+) {
 
     private val _gamerBalance = MutableStateFlow(0)
     val gamerBalance: StateFlow<Int> = _gamerBalance.asStateFlow()
@@ -14,8 +23,63 @@ class GameRepository @Inject constructor() {
     private val _gamerRateGame1 = MutableStateFlow(0)
     val gamerRateGame1: StateFlow<Int> = _gamerRateGame1.asStateFlow()
 
+    private val _listWheel1 = MutableStateFlow(emptyList<Drawable>())
+    val listWheel1: Flow<List<Drawable>> = _listWheel1.asStateFlow()
+
+    private val _listWheel2 = MutableStateFlow(emptyList<Drawable>())
+    val listWheel2: Flow<List<Drawable>> = _listWheel2.asStateFlow()
+
+    private val _listWheel3 = MutableStateFlow(emptyList<Drawable>())
+    val listWheel3: Flow<List<Drawable>> = _listWheel3.asStateFlow()
+
+    private val list_images = listOf(
+        ContextCompat.getDrawable(context, R.drawable.game1_slot1),
+        ContextCompat.getDrawable(context, R.drawable.game1_slot2),
+        ContextCompat.getDrawable(context, R.drawable.game1_slot3),
+        ContextCompat.getDrawable(context, R.drawable.game1_slot4),
+        ContextCompat.getDrawable(context, R.drawable.game1_slot5),
+        ContextCompat.getDrawable(context, R.drawable.game1_slot6),
+        ContextCompat.getDrawable(context, R.drawable.game1_slot7),
+    )
+
+    private var wheel1 = mutableListOf<Drawable>()
+    private var wheel2 = mutableListOf<Drawable>()
+    private var wheel3 = mutableListOf<Drawable>()
+
     init {
         _gamerBalance.value = 10000
+        initWheel()
+    }
+
+    private fun initWheel() {
+        for(i in 1..3) {
+            val list = when (i) {
+                1 -> wheel1
+                2 -> wheel2
+                else -> wheel3
+            }
+            val random = Random()
+            var startImage = random.nextInt(list_images.size)
+            for (j in 1..list_images.size) {
+                list.add(list_images[startImage]!!)
+                startImage++
+                if (startImage == list_images.size) {
+                    startImage = 0
+                }
+            }
+            setFlowListWheel(i, list)
+        }
+    }
+
+    private fun setFlowListWheel(i: Int, list: List<Drawable>) {
+        Log.d("tag", "Список post $i $list")
+        val flowList = when (i) {
+            1 -> _listWheel1
+            2 -> _listWheel2
+            else -> _listWheel3
+        }
+        flowList.value = emptyList()
+        flowList.value = list
     }
 
     fun startRateGame1() {
