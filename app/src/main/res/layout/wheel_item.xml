@@ -5,14 +5,25 @@
         <import type="android.graphics.drawable.Drawable"/>
         <variable
             name="itemImage"
-            type="Drawable" />
+            type="Integer" />
     </data>
 
-    <ImageView
+   <!-- <ImageView
         android:id="@+id/slot"
         android:layout_width="@dimen/size_image_slot"
         android:layout_height="@dimen/size_image_slot"
         android:src="@{itemImage}"
-        tools:ignore="ContentDescription" />
+        tools:ignore="ContentDescription" />-->
+
+    <TextView
+        android:id="@+id/slot"
+        android:layout_width="@dimen/size_image_slot"
+        android:layout_height="@dimen/size_image_slot"
+        android:text="@{itemImage.toString()}"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:background="@color/black"
+        android:textColor="@color/gray"/>
+
 
 </layout>

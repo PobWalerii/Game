@@ -32,7 +32,8 @@ class GameRepository @Inject constructor(
     private val _listWheel3 = MutableStateFlow(emptyList<WheelImages>())
     val listWheel3: Flow<List<WheelImages>> = _listWheel3.asStateFlow()
 
-    private val list_images = listOf(
+    private val list_images = listOf(1,2,3,4,5,6,7
+        /*
         ContextCompat.getDrawable(context, R.drawable.game1_slot1),
         ContextCompat.getDrawable(context, R.drawable.game1_slot2),
         ContextCompat.getDrawable(context, R.drawable.game1_slot3),
@@ -40,6 +41,8 @@ class GameRepository @Inject constructor(
         ContextCompat.getDrawable(context, R.drawable.game1_slot5),
         ContextCompat.getDrawable(context, R.drawable.game1_slot6),
         ContextCompat.getDrawable(context, R.drawable.game1_slot7),
+
+         */
     )
 
     private var wheel1 = mutableListOf<WheelImages>()
@@ -61,7 +64,7 @@ class GameRepository @Inject constructor(
             val random = Random()
             var startImage = random.nextInt(list_images.size)
             for (j in 1..list_images.size) {
-                list.add(WheelImages(j.toLong(), list_images[startImage]!!))
+                list.add(WheelImages(j.toLong(), list_images[startImage]))
                 startImage++
                 if (startImage == list_images.size) {
                     startImage = 0
@@ -133,7 +136,3 @@ class GameRepository @Inject constructor(
 
 }
 
-data class WheelImages (
-    val id: Long,
-    val image: Drawable
-)
