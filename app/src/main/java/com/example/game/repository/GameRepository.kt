@@ -1,18 +1,18 @@
 package com.example.game.repository
 
 import android.content.Context
-import android.graphics.drawable.Drawable
-import android.util.Log
-import androidx.core.content.ContextCompat
 import com.example.game.R
 import com.example.game.constants.GamesConstants.DELTA_CHANGE_RATE_GAME1
+import com.example.game.constants.GamesConstants.DELTA_CHANGE_RATE_GAME2
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import java.util.*
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class GameRepository @Inject constructor(
     private val context: Context
 ) {
@@ -23,64 +23,96 @@ class GameRepository @Inject constructor(
     private val _gamerRateGame1 = MutableStateFlow(0)
     val gamerRateGame1: StateFlow<Int> = _gamerRateGame1.asStateFlow()
 
-    private val _listWheel1 = MutableStateFlow(emptyList<WheelImages>())
-    val listWheel1: Flow<List<WheelImages>> = _listWheel1.asStateFlow()
+    private val _gamerRateGame2 = MutableStateFlow(0)
+    val gamerRateGame2: StateFlow<Int> = _gamerRateGame2.asStateFlow()
 
-    private val _listWheel2 = MutableStateFlow(emptyList<WheelImages>())
-    val listWheel2: Flow<List<WheelImages>> = _listWheel2.asStateFlow()
+    private val _listWheel1Game1 = MutableStateFlow(emptyList<WheelImages>())
+    val listWheel1Game1: Flow<List<WheelImages>> = _listWheel1Game1.asStateFlow()
 
-    private val _listWheel3 = MutableStateFlow(emptyList<WheelImages>())
-    val listWheel3: Flow<List<WheelImages>> = _listWheel3.asStateFlow()
+    private val _listWheel2Game1 = MutableStateFlow(emptyList<WheelImages>())
+    val listWheel2Game1: Flow<List<WheelImages>> = _listWheel2Game1.asStateFlow()
 
-    private val list_images = listOf(1,2,3,4,5,6,7
-        /*
-        ContextCompat.getDrawable(context, R.drawable.game1_slot1),
-        ContextCompat.getDrawable(context, R.drawable.game1_slot2),
-        ContextCompat.getDrawable(context, R.drawable.game1_slot3),
-        ContextCompat.getDrawable(context, R.drawable.game1_slot4),
-        ContextCompat.getDrawable(context, R.drawable.game1_slot5),
-        ContextCompat.getDrawable(context, R.drawable.game1_slot6),
-        ContextCompat.getDrawable(context, R.drawable.game1_slot7),
+    private val _listWheel3Game1 = MutableStateFlow(emptyList<WheelImages>())
+    val listWheel3Game1: Flow<List<WheelImages>> = _listWheel3Game1.asStateFlow()
 
-         */
+    private val _listWheel1Game2 = MutableStateFlow(emptyList<WheelImages>())
+    val listWheel1Game2: Flow<List<WheelImages>> = _listWheel1Game2.asStateFlow()
+
+    private val _listWheel2Game2 = MutableStateFlow(emptyList<WheelImages>())
+    val listWheel2Game2: Flow<List<WheelImages>> = _listWheel2Game2.asStateFlow()
+
+    private val _listWheel3Game2 = MutableStateFlow(emptyList<WheelImages>())
+    val listWheel3Game2: Flow<List<WheelImages>> = _listWheel3Game2.asStateFlow()
+
+    private val listImagesGame1 = listOf(
+        R.drawable.game1_slot1,
+        R.drawable.game1_slot2,
+        R.drawable.game1_slot3,
+        R.drawable.game1_slot4,
+        R.drawable.game1_slot5,
+        R.drawable.game1_slot6,
+        R.drawable.game1_slot7
+    )
+    private val listImagesGame2 = listOf(
+        R.drawable.game1_slot1,
+        R.drawable.game1_slot2,
+        R.drawable.game1_slot3,
+        R.drawable.game1_slot4,
+        R.drawable.game1_slot5,
     )
 
-    private var wheel1 = mutableListOf<WheelImages>()
-    private var wheel2 = mutableListOf<WheelImages>()
-    private var wheel3 = mutableListOf<WheelImages>()
+    private var wheel1Game1 = mutableListOf<WheelImages>()
+    private var wheel2Game1 = mutableListOf<WheelImages>()
+    private var wheel3Game1 = mutableListOf<WheelImages>()
+
+    private var wheel1Game2 = mutableListOf<WheelImages>()
+    private var wheel2Game2 = mutableListOf<WheelImages>()
+    private var wheel3Game2 = mutableListOf<WheelImages>()
+
+    private val wheelsGame1 = listOf(wheel1Game1,wheel2Game1,wheel3Game1)
+    private val wheelsGame2 = listOf(wheel1Game2,wheel2Game2,wheel3Game2)
+    private val flowListWheelsGame1 = listOf(_listWheel1Game1,_listWheel2Game1,_listWheel3Game1)
+    private val flowListWheelsGame2 = listOf(_listWheel1Game2,_listWheel2Game2,_listWheel3Game2)
 
     init {
         _gamerBalance.value = 10000
         initWheels()
+        startRateGame()
     }
 
     private fun initWheels() {
-        for(i in 1..3) {
-            val list = when (i) {
-                1 -> wheel1
-                2 -> wheel2
-                else -> wheel3
+        for(game in 1..2) {
+            val listImages = if(game==1) {
+                listImagesGame1
+            } else {
+                listImagesGame2
             }
-            val random = Random()
-            var startImage = random.nextInt(list_images.size)
-            for (j in 1..list_images.size) {
-                list.add(WheelImages(j.toLong(), list_images[startImage]))
-                startImage++
-                if (startImage == list_images.size) {
-                    startImage = 0
+            val wheels = if(game==1) {
+                wheelsGame1
+            } else {
+                wheelsGame2
+            }
+            for (i in 1..3) {
+                val list = wheels[i-1]
+                val random = Random()
+                var startImage = random.nextInt(listImages.size)
+                for (j in 1..listImages.size) {
+                    list.add(WheelImages(j.toLong(), listImages[startImage]))
+                    startImage++
+                    if (startImage == listImages.size) {
+                        startImage = 0
+                    }
                 }
+                setFlowListWheel(game, i, list)
             }
-            setFlowListWheel(i, list)
         }
     }
 
-
-
-    private fun setFlowListWheel(i: Int, list: List<WheelImages>) {
-        val flowList = when (i) {
-            1 -> _listWheel1
-            2 -> _listWheel2
-            else -> _listWheel3
+    private fun setFlowListWheel(game: Int, i: Int, list: List<WheelImages>) {
+        val flowList = if(game==1) {
+            flowListWheelsGame1[i]
+        } else {
+            flowListWheelsGame2[i]
         }
         flowList.value = emptyList()
         flowList.value = list.reversed()
@@ -98,12 +130,18 @@ class GameRepository @Inject constructor(
         setFlowListWheel(wheel, list)
     }
 
-    fun startRateGame1() {
+    fun startRateGame() {
         _gamerRateGame1.value =
             if (gamerBalance.value < DELTA_CHANGE_RATE_GAME1) {
                 gamerBalance.value
             } else {
                 DELTA_CHANGE_RATE_GAME1
+            }
+        _gamerRateGame2.value =
+            if (gamerBalance.value < DELTA_CHANGE_RATE_GAME2) {
+                gamerBalance.value
+            } else {
+                DELTA_CHANGE_RATE_GAME2
             }
     }
 
