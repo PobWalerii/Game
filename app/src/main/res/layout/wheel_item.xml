@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
     <data>
-        <import type="android.graphics.drawable.Drawable"/>
         <variable
             name="itemImage"
             type="Integer" />
+
+        <variable
+            name="orientation"
+            type="Boolean" />
     </data>
 
-   <!-- <ImageView
+    <ImageView
         android:id="@+id/slot"
         android:layout_width="@dimen/size_image_slot"
         android:layout_height="@dimen/size_image_slot"
-        android:src="@{itemImage}"
-        tools:ignore="ContentDescription" />-->
-
-    <TextView
-        android:id="@+id/slot"
-        android:layout_width="@dimen/size_image_slot"
-        android:layout_height="@dimen/size_image_slot"
-        android:text="@{itemImage.toString()}"
-        android:gravity="center"
-        android:textSize="30sp"
-        android:background="@color/black"
-        android:textColor="@color/gray"/>
-
+        app:showImage="@{itemImage}"
+        tools:ignore="ContentDescription"/>
+    <ImageView
+        android:id="@+id/slot_land"
+        android:layout_width="@dimen/size_image_slot_land"
+        android:layout_height="@dimen/size_image_slot_land"
+        app:showImage="@{itemImage}"
+        tools:ignore="ContentDescription"/>
 
 </layout>

@@ -108,26 +108,27 @@ class GameRepository @Inject constructor(
         }
     }
 
-    private fun setFlowListWheel(game: Int, i: Int, list: List<WheelImages>) {
+    private fun setFlowListWheel(game: Int, wheel: Int, list: List<WheelImages>) {
         val flowList = if(game==1) {
-            flowListWheelsGame1[i]
+            flowListWheelsGame1
         } else {
-            flowListWheelsGame2[i]
-        }
+            flowListWheelsGame2
+        }[wheel-1]
         flowList.value = emptyList()
         flowList.value = list.reversed()
     }
 
-    fun changePosition(wheel: Int) {
-        val list = when (wheel) {
-            1 -> wheel1
-            2 -> wheel2
-            else -> wheel3
-        }
+    fun changePosition(game: Int, wheel: Int) {
+        val list = if(game==1) {
+            wheelsGame1
+        } else {
+            wheelsGame2
+        }[wheel-1]
+
         val first = list[0]
         list.removeAt(0)
         list.add(first)
-        setFlowListWheel(wheel, list)
+        setFlowListWheel(game, wheel, list)
     }
 
     fun startRateGame() {
@@ -145,14 +146,27 @@ class GameRepository @Inject constructor(
             }
     }
 
-    fun changeRateGame1(plus: Boolean) {
-        val newValue = gamerRateGame1.value +
-                if (plus) {
-                    DELTA_CHANGE_RATE_GAME1
-                } else {
-                    -DELTA_CHANGE_RATE_GAME1
-                }
-        _gamerRateGame1.value =
+    fun changeRateGame(game: Int, plus: Boolean) {
+        val delta = if (game == 1) {
+            DELTA_CHANGE_RATE_GAME1
+        } else {
+            DELTA_CHANGE_RATE_GAME2
+        }
+        val newValue = if (game == 1) {
+            gamerRateGame1.value
+        } else {
+            gamerRateGame2.value
+        } + if (plus) {
+            delta
+        } else {
+            -delta
+        }
+        val flowValue = if (game == 1) {
+            _gamerRateGame1
+        } else {
+            _gamerRateGame2
+        }
+        flowValue.value =
             if (newValue <= 0) {
                 0
             } else if (newValue <= gamerBalance.value) {

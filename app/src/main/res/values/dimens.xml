@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="size_image_slot">85dp</dimen>
-
-
+    <dimen name="size_image_slot_land">35dp</dimen>
 </resources>
