@@ -4,16 +4,21 @@ import android.content.Context
 import com.example.game.R
 import com.example.game.constants.GamesConstants.DELTA_CHANGE_RATE_GAME1
 import com.example.game.constants.GamesConstants.DELTA_CHANGE_RATE_GAME2
+import com.example.game.wheels.WheelsManager
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class GameRepository @Inject constructor(
+    private val wheelsManager: WheelsManager,
     private val context: Context
 ) {
 
@@ -43,6 +48,11 @@ class GameRepository @Inject constructor(
 
     private val _listWheel3Game2 = MutableStateFlow(emptyList<WheelImages>())
     val listWheel3Game2: Flow<List<WheelImages>> = _listWheel3Game2.asStateFlow()
+
+
+
+
+
 
     private val listImagesGame1 = listOf(
         R.drawable.game1_slot1,
@@ -74,10 +84,16 @@ class GameRepository @Inject constructor(
     private val flowListWheelsGame1 = listOf(_listWheel1Game1,_listWheel2Game1,_listWheel3Game1)
     private val flowListWheelsGame2 = listOf(_listWheel1Game2,_listWheel2Game2,_listWheel3Game2)
 
+    val wheelChangePosition1: StateFlow<Int> = wheelsManager.wheelChangePosition1
+    val wheelChangePosition2: StateFlow<Int> = wheelsManager.wheelChangePosition2
+    val wheelChangePosition3: StateFlow<Int> = wheelsManager.wheelChangePosition3
+    val gameNumber: StateFlow<Int> = wheelsManager.gameNumber
+
     init {
         _gamerBalance.value = 10000
         initWheels()
         startRateGame()
+        observeWheelChangePosition()
     }
 
     private fun initWheels() {
@@ -118,7 +134,31 @@ class GameRepository @Inject constructor(
         flowList.value = list.reversed()
     }
 
-    fun changePosition(game: Int, wheel: Int) {
+    private fun observeWheelChangePosition() {
+        CoroutineScope(Dispatchers.Default).launch {
+            wheelChangePosition1.collect {
+                if(it != 0) {
+                    changePosition(gameNumber.value, it)
+                }
+            }
+        }
+        CoroutineScope(Dispatchers.Default).launch {
+            wheelChangePosition2.collect {
+                if(it != 0) {
+                    changePosition(gameNumber.value, it)
+                }
+            }
+        }
+        CoroutineScope(Dispatchers.Default).launch {
+            wheelChangePosition3.collect {
+                if(it != 0) {
+                    changePosition(gameNumber.value, it)
+                }
+            }
+        }
+    }
+
+    private fun changePosition(game: Int, wheel: Int) {
         val list = if(game==1) {
             wheelsGame1
         } else {

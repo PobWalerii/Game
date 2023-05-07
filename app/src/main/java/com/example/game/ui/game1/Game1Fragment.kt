@@ -24,8 +24,10 @@ import com.example.game.ui.adapter.WheelsAdapter
 import com.example.game.ui.main.MainActivity
 import com.example.game.ui.viewmodel.GameViewModel
 import com.example.game.utils.RecyclerViewDisabler
+import com.example.game.wheels.WheelsManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -41,6 +43,8 @@ class Game1Fragment : Fragment() {
     private lateinit var recyclerView1: RecyclerView
     private lateinit var recyclerView2: RecyclerView
     private lateinit var recyclerView3: RecyclerView
+
+    @Inject lateinit var wheelsManager: WheelsManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,13 +62,17 @@ class Game1Fragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclers()
+        setupWheelsManager()
         observeWheelsState()
-        scrollWheelsToBottom()
+
+        //scrollWheelsToBottom()
+
         observeGamersBalance()
         observeRateChange()
         rateKeysListener()
         clickAndRotate()
-        setScrollListeners()
+
+        //setScrollListeners()
     }
 
     private fun observeGamersBalance() {
@@ -204,37 +212,37 @@ class Game1Fragment : Fragment() {
         adapter1 = WheelsAdapter()
         adapter2 = WheelsAdapter()
         adapter3 = WheelsAdapter()
-        setOrientation()
-    }
-
-    private fun setOrientation() {
-        val orientation = resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
-        adapter1.setOrientation(orientation)
-        adapter2.setOrientation(orientation)
-        adapter3.setOrientation(orientation)
-    }
-
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        setOrientation()
     }
 
     private fun setupRecyclers() {
-        val disabler = RecyclerViewDisabler()
+        //val disabler = RecyclerViewDisabler()
         recyclerView1 = binding.wheel1.recycler
-        recyclerView1.adapter = adapter1
-        recyclerView1.itemAnimator = null
-        recyclerView1.addOnItemTouchListener(disabler)
+        //recyclerView1.adapter = adapter1
+        //recyclerView1.itemAnimator = null
+        //recyclerView1.addOnItemTouchListener(disabler)
         recyclerView2 = binding.wheel2.recycler
-        recyclerView2.adapter = adapter2
-        recyclerView2.itemAnimator = null
-        recyclerView2.addOnItemTouchListener(disabler)
+        //recyclerView2.adapter = adapter2
+        //recyclerView2.itemAnimator = null
+        //recyclerView2.addOnItemTouchListener(disabler)
         recyclerView3 = binding.wheel3.recycler
-        recyclerView3.adapter = adapter3
-        recyclerView3.itemAnimator = null
-        recyclerView3.addOnItemTouchListener(disabler)
+        //recyclerView3.adapter = adapter3
+        //recyclerView3.itemAnimator = null
+        //recyclerView3.addOnItemTouchListener(disabler)
     }
 
+    private fun setupWheelsManager() {
+        wheelsManager.init(
+            adapter1,
+            adapter2,
+            adapter3,
+            recyclerView1,
+            recyclerView2,
+            recyclerView3,
+            1
+        )
+    }
+
+/*
     private fun setScrollListeners() {
         val layoutManager1 = recyclerView1.layoutManager as LinearLayoutManager
         recyclerView1.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -267,11 +275,13 @@ class Game1Fragment : Fragment() {
         })
 
     }
-    private fun scrollWheelsToBottom() {
-        recyclerView1.layoutManager?.scrollToPosition(adapter1.itemCount-1)
-        recyclerView2.layoutManager?.scrollToPosition(adapter2.itemCount-1)
-        recyclerView3.layoutManager?.scrollToPosition(adapter3.itemCount-1)
-    }
+
+ */
+    //private fun scrollWheelsToBottom() {
+    //    recyclerView1.layoutManager?.scrollToPosition(adapter1.itemCount-1)
+    //    recyclerView2.layoutManager?.scrollToPosition(adapter2.itemCount-1)
+    //    recyclerView3.layoutManager?.scrollToPosition(adapter3.itemCount-1)
+    //}
 
     override fun onDestroyView() {
         super.onDestroyView()

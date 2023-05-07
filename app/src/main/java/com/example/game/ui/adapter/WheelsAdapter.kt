@@ -12,12 +12,10 @@ import com.example.game.repository.WheelImages
 
 class WheelsAdapter: ListAdapter<WheelImages, WheelsAdapter.ViewHolder>(COMPARATOR) {
 
-    private var orientation = true
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = WheelItemBinding.bind(itemView)
-        fun bind(item: WheelImages, orientation: Boolean) {
+        fun bind(item: WheelImages) {
             binding.itemImage = item.image
-            binding.orientation = orientation
         }
     }
 
@@ -27,7 +25,7 @@ class WheelsAdapter: ListAdapter<WheelImages, WheelsAdapter.ViewHolder>(COMPARAT
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(currentList[position], orientation)
+        holder.bind(currentList[position])
     }
 
     override fun getItemCount() = currentList.size
@@ -42,10 +40,6 @@ class WheelsAdapter: ListAdapter<WheelImages, WheelsAdapter.ViewHolder>(COMPARAT
                 return oldItem.id == newItem.id
             }
         }
-    }
-
-    fun setOrientation(orient: Boolean) {
-        orientation = orient
     }
 
 }

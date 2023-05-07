@@ -30,8 +30,8 @@ class GameViewModel @Inject constructor(
         gameRepository.setGamerBalance(addSum)
     }
 
-    fun changePosition(game: Int, wheel: Int) {
-        gameRepository.changePosition(game, wheel)
-    }
+    //fun changePosition(game: Int, wheel: Int) {
+    //    gameRepository.changePosition(game, wheel)
+    //}
 
 }

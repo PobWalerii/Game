@@ -2,6 +2,7 @@ package com.example.game.di
 
 import android.content.Context
 import com.example.game.repository.GameRepository
+import com.example.game.wheels.WheelsManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,9 +17,10 @@ object RepositoryModule {
     @Singleton
     @Provides
     fun provideGameRepository(
+        wheelsManager: WheelsManager,
         @ApplicationContext applicationContext: Context
     ): GameRepository {
-        return GameRepository(applicationContext)
+        return GameRepository(wheelsManager, applicationContext)
     }
 
 }
