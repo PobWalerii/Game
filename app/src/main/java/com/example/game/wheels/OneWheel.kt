@@ -1,29 +1,33 @@
 package com.example.game.wheels
 
-import android.annotation.SuppressLint
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.game.ui.adapter.WheelsAdapter
 import com.example.game.utils.RecyclerViewDisabler
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.NonCancellable.children
-import kotlinx.coroutines.NonDisposableHandle.parent
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
 
-@SuppressLint("NotifyDataSetChanged")
 class OneWheel(
-    adapter: WheelsAdapter,
-    recycler: RecyclerView,
-    numberWheel: Int
+    private val adapter: WheelsAdapter,
+    private val recycler: RecyclerView,
+    private val numberWheel: Int,
+    private val lifecycleOwner: LifecycleOwner,
 ) {
 
     private val _wheelChangePosition = MutableStateFlow(0)
     val wheelChangePosition: StateFlow<Int> = _wheelChangePosition.asStateFlow()
+
+    private val _isRotate = MutableStateFlow(false)
+    val isRotate: StateFlow<Boolean> = _isRotate.asStateFlow()
+
+    private val _isStop = MutableStateFlow(true)
+    val isStop: StateFlow<Boolean> = _isStop.asStateFlow()
+
+    private var job: Job? = null
 
     init {
         recycler.adapter = adapter
@@ -40,16 +44,42 @@ class OneWheel(
                 _wheelChangePosition.value = 0
                 val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
                 if (lastVisibleItemPosition == adapter.itemCount - 2) {
-                    _wheelChangePosition.value = numberWheel
-
-                    //viewModel.changePosition(1,1)
-
+                    changePosition()
                 }
             }
         })
     }
 
+    private fun changePosition() {
+        _wheelChangePosition.value = numberWheel
+    }
+
+    fun startRotate(shiftSize: Int, start: Long, speed: Int) {
+        _isRotate.value = true
+        _isStop.value = false
+        job = lifecycleOwner.lifecycleScope.launch {
+            delay(start)
+            for(i in 1..shiftSize/4) {
+                withContext(Dispatchers.Main){recycler.smoothScrollBy(0, -i*4)}
+                delay(20)
+            }
+            for (i in 1..50) {
+                withContext(Dispatchers.Main){recycler.smoothScrollBy(0, -speed*shiftSize)}
+                delay(50)
+            }
+            withContext(Dispatchers.Main){recycler.smoothScrollBy(0, -shiftSize/4)}
+            delay(20)
+            withContext(Dispatchers.Main){recycler.smoothScrollBy(0, 2*shiftSize)}
+            withContext(Dispatchers.Main){ stopRotate()}
+        }
 
 
+    }
+
+    private fun stopRotate() {
+        job?.cancel()
+        _isRotate.value = false
+        _isStop.value = true
+    }
 
 }

@@ -21,17 +21,11 @@ class GameViewModel @Inject constructor(
     val listWheel1Game2: Flow<List<WheelImages>> = gameRepository.listWheel1Game2
     val listWheel2Game2: Flow<List<WheelImages>> = gameRepository.listWheel2Game2
     val listWheel3Game2: Flow<List<WheelImages>> = gameRepository.listWheel3Game2
+    val isWheelsRotate: StateFlow<Boolean> = gameRepository.isWheelsRotate
+    val isWheelsStoped: StateFlow<Boolean> = gameRepository.isWheelsStoped
 
     fun changeRate(game: Int, plus: Boolean) {
         gameRepository.changeRateGame(game, plus)
     }
-
-    fun setGamerBalance(addSum: Int) {
-        gameRepository.setGamerBalance(addSum)
-    }
-
-    //fun changePosition(game: Int, wheel: Int) {
-    //    gameRepository.changePosition(game, wheel)
-    //}
 
 }

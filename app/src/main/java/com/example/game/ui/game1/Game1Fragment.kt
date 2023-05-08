@@ -1,32 +1,21 @@
 package com.example.game.ui.game1
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.content.pm.ActivityInfo
-import android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-import android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-import android.content.res.Configuration
-import android.os.Build
 import android.os.Bundle
-import android.os.VibrationEffect
-import android.os.Vibrator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.game.R
 import com.example.game.databinding.FragmentGame1Binding
 import com.example.game.ui.adapter.WheelsAdapter
-import com.example.game.ui.main.MainActivity
 import com.example.game.ui.viewmodel.GameViewModel
-import com.example.game.utils.RecyclerViewDisabler
+import com.example.game.utils.ScreenStatus.setScreenStatus
 import com.example.game.wheels.WheelsManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.combine
 import javax.inject.Inject
 
 
@@ -46,11 +35,6 @@ class Game1Fragment : Fragment() {
 
     @Inject lateinit var wheelsManager: WheelsManager
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-            setupAdapters()
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -61,18 +45,14 @@ class Game1Fragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupAdapters()
         setupRecyclers()
         setupWheelsManager()
         observeWheelsState()
-
-        //scrollWheelsToBottom()
-
         observeGamersBalance()
         observeRateChange()
         rateKeysListener()
-        clickAndRotate()
-
-        //setScrollListeners()
+        observeSplin()
     }
 
     private fun observeGamersBalance() {
@@ -87,7 +67,6 @@ class Game1Fragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.gamerRate.collect { rate ->
                 binding.rateInclude.rate = rate
-                binding.splinInclude.isEnable = rate != 0
             }
         }
     }
@@ -101,86 +80,21 @@ class Game1Fragment : Fragment() {
         }
     }
 
-    private fun clickAndRotate() {
+    private fun observeSplin() {
         binding.splinInclude.splin.setOnClickListener {
-            val orientation = resources.configuration.orientation
-            val currentOrientation = if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-                SCREEN_ORIENTATION_PORTRAIT
-            } else {
-                SCREEN_ORIENTATION_LANDSCAPE
-            }
-            (activity as MainActivity).requestedOrientation = currentOrientation
-            startScrolling()
+            wheelsManager.startRotate()
         }
-    }
-
-
-
-    private fun startScrolling() {
-        binding.splinInclude.isEnable = false
-        val shiftSize = resources.getDimensionPixelSize(R.dimen.size_image_slot)
         viewLifecycleOwner.lifecycleScope.launch {
-            for(i in 1..shiftSize/4) {
-                recyclerView1.smoothScrollBy(0, -i*4)
-                delay(20)
+            combine(
+                viewModel.isWheelsRotate,
+                //viewModel.isWheelsStoped,
+                viewModel.gamerRate
+            ) { isRotate, rate ->
+                !isRotate && rate !=0
+            }.collect {
+                binding.splinInclude.isEnable = it
+                setScreenStatus(requireActivity(), it)
             }
-            for (i in 1..100) {
-                recyclerView1.smoothScrollBy(0, -7*shiftSize)
-                delay(20)
-            }
-            recyclerView1.smoothScrollBy(0, -shiftSize/4)
-            delay(20)
-            recyclerView1.smoothScrollBy(0, 2*shiftSize)
-            startVibrator()
-        }
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            delay(750)
-            for(i in 1..shiftSize/4) {
-                recyclerView2.smoothScrollBy(0, -i*4)
-                delay(20)
-            }
-            for (i in 1..100) {
-                recyclerView2.smoothScrollBy(0, -5*shiftSize)
-                delay(20)
-            }
-            recyclerView2.smoothScrollBy(0, -shiftSize/4)
-            delay(20)
-            recyclerView2.smoothScrollBy(0, 2*shiftSize)
-            startVibrator()
-        }
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            delay(500)
-            for(i in 1..shiftSize/4) {
-                recyclerView3.smoothScrollBy(0, -i*4)
-                delay(20)
-            }
-            for (i in 1..100) {
-                recyclerView3.smoothScrollBy(0, -3*shiftSize)
-                delay(20)
-            }
-            recyclerView3.smoothScrollBy(0, -shiftSize/4)
-            delay(20)
-            recyclerView3.smoothScrollBy(0, 2*shiftSize)
-            startVibrator()
-            activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
-            binding.splinInclude.isEnable = true
-        }
-
-    }
-
-    @SuppressLint("ServiceCast")
-    private fun startVibrator() {
-        val vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            requireContext().getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as? Vibrator
-        } else {
-            requireContext().getSystemService(Context.VIBRATOR_SERVICE) as? Vibrator
-        }
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            vibrator?.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE))
-        } else {
-            vibrator?.vibrate(50)
         }
     }
 
@@ -215,19 +129,9 @@ class Game1Fragment : Fragment() {
     }
 
     private fun setupRecyclers() {
-        //val disabler = RecyclerViewDisabler()
         recyclerView1 = binding.wheel1.recycler
-        //recyclerView1.adapter = adapter1
-        //recyclerView1.itemAnimator = null
-        //recyclerView1.addOnItemTouchListener(disabler)
         recyclerView2 = binding.wheel2.recycler
-        //recyclerView2.adapter = adapter2
-        //recyclerView2.itemAnimator = null
-        //recyclerView2.addOnItemTouchListener(disabler)
         recyclerView3 = binding.wheel3.recycler
-        //recyclerView3.adapter = adapter3
-        //recyclerView3.itemAnimator = null
-        //recyclerView3.addOnItemTouchListener(disabler)
     }
 
     private fun setupWheelsManager() {
@@ -238,50 +142,10 @@ class Game1Fragment : Fragment() {
             recyclerView1,
             recyclerView2,
             recyclerView3,
-            1
+            1,
+            viewLifecycleOwner,
         )
     }
-
-/*
-    private fun setScrollListeners() {
-        val layoutManager1 = recyclerView1.layoutManager as LinearLayoutManager
-        recyclerView1.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    val lastVisibleItemPosition = layoutManager1.findLastVisibleItemPosition()
-                    if (lastVisibleItemPosition == adapter1.itemCount - 2) {
-                        viewModel.changePosition(1,1)
-                    }
-            }
-        })
-
-        val layoutManager2 = recyclerView2.layoutManager as LinearLayoutManager
-        recyclerView2.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    val lastVisibleItemPosition = layoutManager2.findLastVisibleItemPosition()
-                    if (lastVisibleItemPosition == adapter2.itemCount - 2) {
-                        viewModel.changePosition(1,2)
-                    }
-            }
-        })
-
-        val layoutManager3 = recyclerView3.layoutManager as LinearLayoutManager
-        recyclerView3.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    val lastVisibleItemPosition = layoutManager3.findLastVisibleItemPosition()
-                    if (lastVisibleItemPosition == adapter3.itemCount - 2) {
-                        viewModel.changePosition(1,3)
-                    }
-            }
-        })
-
-    }
-
- */
-    //private fun scrollWheelsToBottom() {
-    //    recyclerView1.layoutManager?.scrollToPosition(adapter1.itemCount-1)
-    //    recyclerView2.layoutManager?.scrollToPosition(adapter2.itemCount-1)
-    //    recyclerView3.layoutManager?.scrollToPosition(adapter3.itemCount-1)
-    //}
 
     override fun onDestroyView() {
         super.onDestroyView()

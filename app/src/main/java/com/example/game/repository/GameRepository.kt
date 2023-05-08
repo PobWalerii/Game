@@ -7,10 +7,7 @@ import com.example.game.constants.GamesConstants.DELTA_CHANGE_RATE_GAME2
 import com.example.game.wheels.WheelsManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
@@ -50,10 +47,6 @@ class GameRepository @Inject constructor(
     val listWheel3Game2: Flow<List<WheelImages>> = _listWheel3Game2.asStateFlow()
 
 
-
-
-
-
     private val listImagesGame1 = listOf(
         R.drawable.game1_slot1,
         R.drawable.game1_slot2,
@@ -84,16 +77,69 @@ class GameRepository @Inject constructor(
     private val flowListWheelsGame1 = listOf(_listWheel1Game1,_listWheel2Game1,_listWheel3Game1)
     private val flowListWheelsGame2 = listOf(_listWheel1Game2,_listWheel2Game2,_listWheel3Game2)
 
-    val wheelChangePosition1: StateFlow<Int> = wheelsManager.wheelChangePosition1
-    val wheelChangePosition2: StateFlow<Int> = wheelsManager.wheelChangePosition2
-    val wheelChangePosition3: StateFlow<Int> = wheelsManager.wheelChangePosition3
-    val gameNumber: StateFlow<Int> = wheelsManager.gameNumber
+    private val wheelChangePosition1: StateFlow<Int> = wheelsManager.wheelChangePosition1
+    private val wheelChangePosition2: StateFlow<Int> = wheelsManager.wheelChangePosition2
+    private val wheelChangePosition3: StateFlow<Int> = wheelsManager.wheelChangePosition3
+    private val gameNumber: StateFlow<Int> = wheelsManager.gameNumber
+    val isWheelsRotate: StateFlow<Boolean> = wheelsManager.isRotate
+    val isWheelsStoped: StateFlow<Boolean> = wheelsManager.isStop
+    private val coroutineScope = CoroutineScope(Dispatchers.Default)
+
 
     init {
         _gamerBalance.value = 10000
         initWheels()
         startRateGame()
         observeWheelChangePosition()
+        observeStopRotate()
+    }
+
+    private fun observeStopRotate() {
+        coroutineScope.launch {
+            combine(isWheelsRotate, isWheelsStoped) { isRotate, isStoped ->
+                isRotate && isStoped
+            }.collect {
+                if (it) {
+                    processResult()
+                }
+            }
+        }
+    }
+
+    private fun processResult() {
+        CoroutineScope(Dispatchers.Main).launch {
+            //val wheels = if(gameNumber.value == 1) {
+            //    wheelsGame1
+            //} else {
+            //    wheelsGame2
+            //}
+
+            val wheels = if(gameNumber.value == 1) {
+                flowListWheelsGame1
+            } else {
+                flowListWheelsGame2
+            }
+
+            val a = wheels[0].value[1].id
+            val b = wheels[1].value[1].id
+            val c = wheels[2].value[1].id
+
+                val index = when {
+                    a == b && b == c -> 2
+                    a == b || a == c || b == c -> 1
+                    else -> -1
+                }
+                //Toast.makeText(context,"$a , $b, $c = $index",Toast.LENGTH_LONG).show()
+                val result =
+                    index * if (gameNumber.value == 1) {
+                        gamerRateGame1.value
+                    } else {
+                        gamerRateGame2.value
+                    }
+                _gamerBalance.value += result
+
+            wheelsManager.fixsedStopRotate()
+        }
     }
 
     private fun initWheels() {
@@ -171,7 +217,7 @@ class GameRepository @Inject constructor(
         setFlowListWheel(game, wheel, list)
     }
 
-    fun startRateGame() {
+    private fun startRateGame() {
         _gamerRateGame1.value =
             if (gamerBalance.value < DELTA_CHANGE_RATE_GAME1) {
                 gamerBalance.value
@@ -214,15 +260,6 @@ class GameRepository @Inject constructor(
             } else {
                 gamerBalance.value
             }
-    }
-
-    fun setGamerBalance(addSum: Int) {
-        val newBalance = gamerBalance.value + addSum
-        _gamerBalance.value = newBalance
-
-        if(gamerRateGame1.value < newBalance) {
-            _gamerRateGame1.value = newBalance
-        }
     }
 
 

@@ -1,9 +1,11 @@
 package com.example.game.di
 
+import android.content.Context
 import com.example.game.wheels.WheelsManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -14,7 +16,8 @@ object WheelsModule {
     @Singleton
     @Provides
     fun provideWheelsManager(
+        @ApplicationContext applicationContext: Context
     ): WheelsManager {
-        return WheelsManager()
+        return WheelsManager(applicationContext)
     }
 }
