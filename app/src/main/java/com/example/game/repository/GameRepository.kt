@@ -77,9 +77,9 @@ class GameRepository @Inject constructor(
     private val flowListWheelsGame1 = listOf(_listWheel1Game1,_listWheel2Game1,_listWheel3Game1)
     private val flowListWheelsGame2 = listOf(_listWheel1Game2,_listWheel2Game2,_listWheel3Game2)
 
-    private val wheelChangePosition1: StateFlow<Int> = wheelsManager.wheelChangePosition1
-    private val wheelChangePosition2: StateFlow<Int> = wheelsManager.wheelChangePosition2
-    private val wheelChangePosition3: StateFlow<Int> = wheelsManager.wheelChangePosition3
+    private val wheelChangePosition1: SharedFlow<Int> = wheelsManager.wheelChangePosition1
+    private val wheelChangePosition2: SharedFlow<Int> = wheelsManager.wheelChangePosition2
+    private val wheelChangePosition3: SharedFlow<Int> = wheelsManager.wheelChangePosition3
     private val gameNumber: StateFlow<Int> = wheelsManager.gameNumber
     val isWheelsRotate: StateFlow<Boolean> = wheelsManager.isRotate
     val isWheelsStoped: StateFlow<Boolean> = wheelsManager.isStop

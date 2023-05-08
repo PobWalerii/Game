@@ -11,10 +11,7 @@ import com.example.game.R
 import com.example.game.ui.adapter.WheelsAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
@@ -33,9 +30,9 @@ class WheelsManager @Inject constructor(
     private val _isStop = MutableStateFlow(false)
     val isStop: StateFlow<Boolean> = _isStop.asStateFlow()
 
-    lateinit var wheelChangePosition1: StateFlow<Int>
-    lateinit var wheelChangePosition2: StateFlow<Int>
-    lateinit var wheelChangePosition3: StateFlow<Int>
+    lateinit var wheelChangePosition1: SharedFlow<Int>
+    lateinit var wheelChangePosition2: SharedFlow<Int>
+    lateinit var wheelChangePosition3: SharedFlow<Int>
     private lateinit var wheel1: OneWheel
     private lateinit var wheel2: OneWheel
     private lateinit var wheel3: OneWheel
@@ -95,17 +92,10 @@ class WheelsManager @Inject constructor(
     }
 
     fun startRotate() {
-        val random = Random()
-        val start1 = random.nextInt(750).toLong()
-        val start2 = random.nextInt(750).toLong()
-        val start3 = random.nextInt(750).toLong()
-        val speed1 = random.nextInt(10)
-        val speed2 = random.nextInt(10)
-        val speed3 = random.nextInt(10)
         val shiftSize = context.resources.getDimensionPixelSize(R.dimen.size_image_slot)
-        wheel1.startRotate(shiftSize, start1, speed1)
-        wheel2.startRotate(shiftSize, start2, speed2)
-        wheel3.startRotate(shiftSize, start3, speed3)
+        wheel1.startRotate(shiftSize)
+        wheel2.startRotate(shiftSize)
+        wheel3.startRotate(shiftSize)
     }
 
     @SuppressLint("ServiceCast")

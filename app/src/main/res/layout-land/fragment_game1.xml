@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/back1_land"
+    android:background="@drawable/game1_back_land"
     android:orientation="horizontal"
     android:weightSum="100"
     android:baselineAligned="false">
@@ -33,7 +33,7 @@
                 android:id="@+id/image"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:src="@drawable/untit1"
+                android:src="@drawable/game1_pers"
                 android:layout_marginStart="40dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHeight_percent="0.55"
@@ -49,7 +49,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/image"
-                app:srcCompat="@drawable/playing1_land" />
+                app:srcCompat="@drawable/game1_playing_land" />
 
 
 

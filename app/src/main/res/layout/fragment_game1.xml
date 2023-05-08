@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back1_portr">
+    android:background="@drawable/game1_back_portr">
 
     <ImageView
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:src="@drawable/untit1"
+        android:src="@drawable/game1_pers"
         app:layout_constraintHeight_percent="0.55"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +25,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/image"
-        app:srcCompat="@drawable/playing1"
+        app:srcCompat="@drawable/game1_playing_portr"
         tools:ignore="ContentDescription" />
 
     <LinearLayout
