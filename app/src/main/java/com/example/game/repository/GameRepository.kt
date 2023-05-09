@@ -47,6 +47,8 @@ class GameRepository @Inject constructor(
     val listWheel3Game2: Flow<List<WheelImages>> = _listWheel3Game2.asStateFlow()
 
 
+
+    /******************************************************
     private val listImagesGame1 = listOf(
         R.drawable.game1_slot1,
         R.drawable.game1_slot2,
@@ -63,6 +65,9 @@ class GameRepository @Inject constructor(
         R.drawable.game1_slot4,
         R.drawable.game1_slot5,
     )
+    */
+
+
 
     private var wheel1Game1 = mutableListOf<WheelImages>()
     private var wheel2Game1 = mutableListOf<WheelImages>()
@@ -77,10 +82,10 @@ class GameRepository @Inject constructor(
     private val flowListWheelsGame1 = listOf(_listWheel1Game1,_listWheel2Game1,_listWheel3Game1)
     private val flowListWheelsGame2 = listOf(_listWheel1Game2,_listWheel2Game2,_listWheel3Game2)
 
-    private val wheelChangePosition1: SharedFlow<Int> = wheelsManager.wheelChangePosition1
-    private val wheelChangePosition2: SharedFlow<Int> = wheelsManager.wheelChangePosition2
-    private val wheelChangePosition3: SharedFlow<Int> = wheelsManager.wheelChangePosition3
-    private val gameNumber: StateFlow<Int> = wheelsManager.gameNumber
+    //private val wheelChangePosition1: SharedFlow<Int> = wheelsManager.wheelChangePosition1
+    //private val wheelChangePosition2: SharedFlow<Int> = wheelsManager.wheelChangePosition2
+    //private val wheelChangePosition3: SharedFlow<Int> = wheelsManager.wheelChangePosition3
+    //private val gameNumber: StateFlow<Int> = wheelsManager.gameNumber
     val isWheelsRotate: StateFlow<Boolean> = wheelsManager.isRotate
     val isWheelsStoped: StateFlow<Boolean> = wheelsManager.isStop
     private val coroutineScope = CoroutineScope(Dispatchers.Default)

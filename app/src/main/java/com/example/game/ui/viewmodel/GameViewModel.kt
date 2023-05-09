@@ -23,6 +23,7 @@ class GameViewModel @Inject constructor(
     val listWheel3Game2: Flow<List<WheelImages>> = gameRepository.listWheel3Game2
     val isWheelsRotate: StateFlow<Boolean> = gameRepository.isWheelsRotate
     val isWheelsStoped: StateFlow<Boolean> = gameRepository.isWheelsStoped
+    var currentGame = 0
 
     fun changeRate(game: Int, plus: Boolean) {
         gameRepository.changeRateGame(game, plus)

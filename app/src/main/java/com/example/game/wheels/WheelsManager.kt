@@ -6,8 +6,10 @@ import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.example.game.R
+import com.example.game.repository.WheelImages
 import com.example.game.ui.adapter.WheelsAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -21,8 +23,6 @@ import javax.inject.Singleton
 class WheelsManager @Inject constructor(
     private val context: Context
 ) {
-    private val _gameNumber = MutableStateFlow(0)
-    val gameNumber: StateFlow<Int> = _gameNumber.asStateFlow()
 
     private val _isRotate = MutableStateFlow(false)
     val isRotate: StateFlow<Boolean> = _isRotate.asStateFlow()
@@ -30,66 +30,94 @@ class WheelsManager @Inject constructor(
     private val _isStop = MutableStateFlow(false)
     val isStop: StateFlow<Boolean> = _isStop.asStateFlow()
 
-    lateinit var wheelChangePosition1: SharedFlow<Int>
-    lateinit var wheelChangePosition2: SharedFlow<Int>
-    lateinit var wheelChangePosition3: SharedFlow<Int>
     private lateinit var wheel1: OneWheel
     private lateinit var wheel2: OneWheel
     private lateinit var wheel3: OneWheel
 
     private var firstRotate = false
-    private val coroutineScope = CoroutineScope(Dispatchers.Default)
 
-    fun init(adapter1: WheelsAdapter,
-             adapter2: WheelsAdapter,
-             adapter3: WheelsAdapter,
-             recycler1: RecyclerView,
-             recycler2: RecyclerView,
-             recycler3: RecyclerView,
-             game: Int,
-             lifecycleOwner: LifecycleOwner,
+    private fun getRandomList(listImages: List<Int>): MutableList<WheelImages> {
+        val list = mutableListOf<WheelImages>()
+        val random = Random()
+        var startImage = random.nextInt(listImages.size)
+        repeat(listImages.size) {
+            list.add(WheelImages(startImage+1.toLong(), listImages[startImage]))
+            startImage++
+            if (startImage == listImages.size) {
+                startImage = 0
+            }
+        }
+        return list
+    }
+
+    fun init(
+        adapter1: WheelsAdapter,
+        adapter2: WheelsAdapter,
+        adapter3: WheelsAdapter,
+        recycler1: RecyclerView,
+        recycler2: RecyclerView,
+        recycler3: RecyclerView,
+        lifecycleOwner: LifecycleOwner,
+        game: Int
     ) {
-        wheel1 = OneWheel(adapter1, recycler1, 1,lifecycleOwner)
-        wheel2 = OneWheel(adapter2, recycler2, 2,lifecycleOwner)
-        wheel3 = OneWheel(adapter3, recycler3, 3,lifecycleOwner)
 
-        wheelChangePosition1 = wheel1.wheelChangePosition
-        wheelChangePosition2 = wheel2.wheelChangePosition
-        wheelChangePosition3 = wheel3.wheelChangePosition
+        val listImages = if (game == 1) {
+            listOf(
+                R.drawable.game1_slot1,
+                R.drawable.game1_slot2,
+                R.drawable.game1_slot3,
+                R.drawable.game1_slot4,
+                R.drawable.game1_slot5,
+                R.drawable.game1_slot6,
+                R.drawable.game1_slot7
+            )
+        } else
+            listOf(
+                R.drawable.game1_slot1,
+                R.drawable.game1_slot2,
+                R.drawable.game1_slot3,
+                R.drawable.game1_slot4,
+                R.drawable.game1_slot5,
+            )
 
-        if (game != gameNumber.value) {
-            _gameNumber.value = game
-            coroutineScope.launch {
-                combine(wheel1.isRotate, wheel2.isRotate, wheel3.isRotate) { isRt1, isRt2, isRt3 ->
-                    isRt1 || isRt2 || isRt3
-                }.collect {
-                    if (it) {
-                        _isRotate.value = true
-                        firstRotate = true
-                    }
+        wheel1 = OneWheel(adapter1, recycler1, getRandomList(listImages), lifecycleOwner)
+        wheel2 = OneWheel(adapter2, recycler2, getRandomList(listImages), lifecycleOwner)
+        wheel3 = OneWheel(adapter3, recycler3, getRandomList(listImages), lifecycleOwner)
+
+        lifecycleOwner.lifecycleScope.launch {
+            combine(wheel1.isRotate, wheel2.isRotate, wheel3.isRotate) { isRt1, isRt2, isRt3 ->
+                isRt1 || isRt2 || isRt3
+            }.collect {
+                if (it) {
+                    _isRotate.value = true
+                    _isStop.value = false
+                    firstRotate = true
                 }
             }
-            coroutineScope.launch {
-                combine(wheel1.isStop, wheel2.isStop, wheel3.isStop) { isSt1, isSt2, isSt3 ->
-                    Triple(isSt1, isSt2, isSt3)
-                }.collect { (isSt1, isSt2, isSt3) ->
-                    if (isSt1 || isSt2 || isSt3) {
-                        if (firstRotate) {
-                            startVibrator()
-                        }
+        }
+
+        lifecycleOwner.lifecycleScope.launch {
+            combine(wheel1.isStop, wheel2.isStop, wheel3.isStop) { isSt1, isSt2, isSt3 ->
+                Triple(isSt1, isSt2, isSt3)
+            }.collect { (isSt1, isSt2, isSt3) ->
+                if (isSt1 || isSt2 || isSt3) {
+                    if (firstRotate) {
+                        startVibrator()
                     }
-                    if(isSt1 && isSt2 && isSt3) {
-                        _isStop.value = true
-                    }
+                }
+                if (isSt1 && isSt2 && isSt3) {
+                    _isStop.value = true
                 }
             }
         }
     }
 
-    fun fixsedStopRotate() {
-        _isRotate.value = false
-        _isStop.value = false
-    }
+
+
+    //fun fixsedStopRotate() {
+    //    _isRotate.value = false
+    //    _isStop.value = false
+    //}
 
     fun startRotate() {
         val shiftSize = context.resources.getDimensionPixelSize(R.dimen.size_image_slot)
