@@ -18,7 +18,6 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.combine
 import javax.inject.Inject
 
-
 @AndroidEntryPoint
 class Game1Fragment : Fragment() {
 
@@ -37,7 +36,7 @@ class Game1Fragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        setupAdapters()
+
     }
 
     override fun onCreateView(
@@ -50,15 +49,17 @@ class Game1Fragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupAdapters()
         setupRecyclers()
         setupWheelsManager()
 
 
-        observeWheelsState()
         observeGamersBalance()
         observeRateChange()
         rateKeysListener()
-        observeSplin()
+
+        observeSplinPress()
+        observeRotateStatus()
     }
 
     private fun observeGamersBalance() {
@@ -79,51 +80,29 @@ class Game1Fragment : Fragment() {
 
     private fun rateKeysListener() {
         binding.plus.fieldClick.setOnClickListener {
-            viewModel.changeRate(1,true)
+            viewModel.changeRate(true)
         }
         binding.minus.fieldClick.setOnClickListener {
-            viewModel.changeRate(1,false)
+            viewModel.changeRate(false)
         }
     }
 
-    private fun observeSplin() {
+    private fun observeSplinPress() {
         binding.splinInclude.splin.setOnClickListener {
             wheelsManager.startRotate()
         }
+    }
+
+    private fun observeRotateStatus() {
         viewLifecycleOwner.lifecycleScope.launch {
             combine(
                 viewModel.isWheelsRotate,
-                //viewModel.isWheelsStoped,
                 viewModel.gamerRate
             ) { isRotate, rate ->
                 !isRotate && rate !=0
             }.collect {
                 binding.splinInclude.isEnable = it
                 setScreenStatus(requireActivity(), it)
-            }
-        }
-    }
-
-    private fun observeWheelsState() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.listWheel1Game1.collect {
-                if (it.isNotEmpty()) {
-                    adapter1.submitList(it)
-                }
-            }
-        }
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.listWheel2Game1.collect {
-                if (it.isNotEmpty()) {
-                    adapter2.submitList(it)
-                }
-            }
-        }
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.listWheel3Game1.collect {
-                if (it.isNotEmpty()) {
-                    adapter3.submitList(it)
-                }
             }
         }
     }

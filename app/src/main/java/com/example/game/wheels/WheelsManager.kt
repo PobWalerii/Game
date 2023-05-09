@@ -2,6 +2,7 @@ package com.example.game.wheels
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.res.Configuration
 import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
@@ -9,10 +10,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.example.game.R
-import com.example.game.repository.WheelImages
 import com.example.game.ui.adapter.WheelsAdapter
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.util.*
@@ -27,28 +25,14 @@ class WheelsManager @Inject constructor(
     private val _isRotate = MutableStateFlow(false)
     val isRotate: StateFlow<Boolean> = _isRotate.asStateFlow()
 
-    private val _isStop = MutableStateFlow(false)
-    val isStop: StateFlow<Boolean> = _isStop.asStateFlow()
+    private val _gameResult = MutableStateFlow("")
+    val gameResult: StateFlow<String> = _gameResult.asStateFlow()
 
     private lateinit var wheel1: OneWheel
     private lateinit var wheel2: OneWheel
     private lateinit var wheel3: OneWheel
 
     private var firstRotate = false
-
-    private fun getRandomList(listImages: List<Int>): MutableList<WheelImages> {
-        val list = mutableListOf<WheelImages>()
-        val random = Random()
-        var startImage = random.nextInt(listImages.size)
-        repeat(listImages.size) {
-            list.add(WheelImages(startImage+1.toLong(), listImages[startImage]))
-            startImage++
-            if (startImage == listImages.size) {
-                startImage = 0
-            }
-        }
-        return list
-    }
 
     fun init(
         adapter1: WheelsAdapter,
@@ -90,7 +74,6 @@ class WheelsManager @Inject constructor(
             }.collect {
                 if (it) {
                     _isRotate.value = true
-                    _isStop.value = false
                     firstRotate = true
                 }
             }
@@ -100,30 +83,52 @@ class WheelsManager @Inject constructor(
             combine(wheel1.isStop, wheel2.isStop, wheel3.isStop) { isSt1, isSt2, isSt3 ->
                 Triple(isSt1, isSt2, isSt3)
             }.collect { (isSt1, isSt2, isSt3) ->
-                if (isSt1 || isSt2 || isSt3) {
+                if (isSt1 !=0 || isSt2 !=0 || isSt3 !=0) {
                     if (firstRotate) {
                         startVibrator()
                     }
                 }
-                if (isSt1 && isSt2 && isSt3) {
-                    _isStop.value = true
+                if (isSt1 !=0 && isSt2 !=0 && isSt3 !=0) {
+                    _gameResult.value = when {
+                        isSt1 == isSt2 && isSt2 == isSt3 -> "x5"
+                        isSt1 == isSt2 || isSt1 == isSt3 || isSt2 == isSt3 -> "x2"
+                        else -> "--"
+                    }
+                    _isRotate.value = false
                 }
             }
         }
     }
 
-
-
-    //fun fixsedStopRotate() {
-    //    _isRotate.value = false
-    //    _isStop.value = false
-    //}
-
     fun startRotate() {
-        val shiftSize = context.resources.getDimensionPixelSize(R.dimen.size_image_slot)
-        wheel1.startRotate(shiftSize)
-        wheel2.startRotate(shiftSize)
-        wheel3.startRotate(shiftSize)
+        _gameResult.value = ""
+        val shiftSize =
+            context.resources.getDimensionPixelSize(
+                if (context.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                    R.dimen.size_image_slot
+                } else {
+                    R.dimen.size_image_slot_land
+                }
+            )
+        val startOrder = mutableListOf(0,1,2)
+        startOrder.shuffle()
+        wheel1.startRotate(startOrder[0],shiftSize)
+        wheel2.startRotate(startOrder[1],shiftSize)
+        wheel3.startRotate(startOrder[2],shiftSize)
+    }
+
+    private fun getRandomList(listImages: List<Int>): MutableList<WheelImages> {
+        val list = mutableListOf<WheelImages>()
+        val random = Random()
+        var startImage = random.nextInt(listImages.size)
+        repeat(listImages.size*2) {
+            list.add(WheelImages(startImage+1.toLong(), listImages[startImage]))
+            startImage++
+            if (startImage == listImages.size) {
+                startImage = 0
+            }
+        }
+        return list
     }
 
     @SuppressLint("ServiceCast")

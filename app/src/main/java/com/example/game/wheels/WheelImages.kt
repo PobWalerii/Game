@@ -1,4 +1,4 @@
-package com.example.game.repository
+package com.example.game.wheels
 
 data class WheelImages (
     val id: Long,
