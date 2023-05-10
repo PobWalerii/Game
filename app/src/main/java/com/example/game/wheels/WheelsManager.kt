@@ -1,16 +1,13 @@
 package com.example.game.wheels
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Configuration
-import android.os.Build
-import android.os.VibrationEffect
-import android.os.Vibrator
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.example.game.R
 import com.example.game.ui.adapter.WheelsAdapter
+import com.example.game.utils.Vibrator.startVibrator
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.util.*
@@ -42,26 +39,16 @@ class WheelsManager @Inject constructor(
         recycler2: RecyclerView,
         recycler3: RecyclerView,
         lifecycleOwner: LifecycleOwner,
-        game: Int
     ) {
 
-        val listImages = if (game == 1) {
-            listOf(
+        val listImages = listOf(
                 R.drawable.game1_slot1,
                 R.drawable.game1_slot2,
                 R.drawable.game1_slot3,
                 R.drawable.game1_slot4,
-                R.drawable.game1_slot5_,
+                R.drawable.game1_slot5,
                 R.drawable.game1_slot6,
                 R.drawable.game1_slot7
-            )
-        } else
-            listOf(
-                R.drawable.game1_slot1,
-                R.drawable.game1_slot2,
-                R.drawable.game1_slot3,
-                R.drawable.game1_slot4,
-                R.drawable.game1_slot5_,
             )
 
         wheel1 = OneWheel(adapter1, recycler1, getRandomList(listImages), lifecycleOwner)
@@ -85,7 +72,7 @@ class WheelsManager @Inject constructor(
             }.collect { (isSt1, isSt2, isSt3) ->
                 if (isSt1 !=0 || isSt2 !=0 || isSt3 !=0) {
                     if (firstRotate) {
-                        startVibrator()
+                        startVibrator(context)
                     }
                 }
                 if (isSt1 !=0 && isSt2 !=0 && isSt3 !=0) {
@@ -130,20 +117,5 @@ class WheelsManager @Inject constructor(
         }
         return list
     }
-
-    @SuppressLint("ServiceCast")
-    private fun startVibrator() {
-        val vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as? Vibrator
-        } else {
-            context.getSystemService(Context.VIBRATOR_SERVICE) as? Vibrator
-        }
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            vibrator?.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE))
-        } else {
-            vibrator?.vibrate(50)
-        }
-    }
-
 
 }

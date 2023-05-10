@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.example.game.databinding.FragmentGame1Binding
 import com.example.game.ui.adapter.WheelsAdapter
+import com.example.game.ui.main.MainActivity
 import com.example.game.ui.viewmodel.GameViewModel
 import com.example.game.utils.ScreenStatus.setScreenStatus
 import com.example.game.wheels.WheelsManager
@@ -52,6 +54,7 @@ class Game1Fragment : Fragment() {
         rateKeysListener()
         observeSplinPress()
         observeRotateStatus()
+        setupNaviButton()
     }
 
     private fun observeGamersBalance() {
@@ -106,9 +109,9 @@ class Game1Fragment : Fragment() {
     }
 
     private fun setupRecyclers() {
-        recyclerView1 = binding.wheel1.recycler
-        recyclerView2 = binding.wheel2.recycler
-        recyclerView3 = binding.wheel3.recycler
+        recyclerView1 = binding.layoutWheels.wheel1.recycler
+        recyclerView2 = binding.layoutWheels.wheel2.recycler
+        recyclerView3 = binding.layoutWheels.wheel3.recycler
     }
 
     private fun setupWheelsManager() {
@@ -120,8 +123,13 @@ class Game1Fragment : Fragment() {
             recyclerView2,
             recyclerView3,
             viewLifecycleOwner,
-            1
         )
+    }
+
+    private fun setupNaviButton() {
+        binding.arrow.setOnClickListener {
+            (activity as MainActivity).onSupportNavigateUp()
+        }
     }
 
     override fun onDestroyView() {
