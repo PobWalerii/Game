@@ -34,11 +34,6 @@ class Game1Fragment : Fragment() {
 
     @Inject lateinit var wheelsManager: WheelsManager
 
-    override fun onStart() {
-        super.onStart()
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -52,12 +47,9 @@ class Game1Fragment : Fragment() {
         setupAdapters()
         setupRecyclers()
         setupWheelsManager()
-
-
         observeGamersBalance()
         observeRateChange()
         rateKeysListener()
-
         observeSplinPress()
         observeRotateStatus()
     }
@@ -120,7 +112,6 @@ class Game1Fragment : Fragment() {
     }
 
     private fun setupWheelsManager() {
-        viewModel.currentGame = 1
         wheelsManager.init(
             adapter1,
             adapter2,

@@ -19,8 +19,8 @@
 
     <ImageView
         android:id="@+id/playing"
-        android:layout_width="match_parent"
-        android:layout_height="321dp"
+        android:layout_width="357dp"
+        android:layout_height="318dp"
         android:layout_marginTop="270dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,6 +75,50 @@
         app:layout_constraintTop_toTopOf="@+id/image" />
 
     <include
+        android:id="@+id/minus"
+        layout="@layout/oper_game1"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="5dp"
+        app:layout_constraintTop_toTopOf="@+id/rate_include"
+        app:layout_constraintBottom_toBottomOf="@+id/rate_include"
+        app:layout_constraintStart_toStartOf="@+id/playing"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/minus"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintTop_toTopOf="@+id/minus"
+        app:layout_constraintBottom_toBottomOf="@+id/minus"
+        app:layout_constraintStart_toStartOf="@+id/minus"
+        app:layout_constraintEnd_toEndOf="@+id/minus"/>
+
+    <include
+        android:id="@+id/plus"
+        layout="@layout/oper_game1"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintTop_toTopOf="@+id/rate_include"
+        app:layout_constraintBottom_toBottomOf="@+id/rate_include"
+        app:layout_constraintEnd_toEndOf="@+id/playing"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/plus"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:layout_marginStart="12dp"
+        app:layout_constraintTop_toTopOf="@+id/plus"
+        app:layout_constraintBottom_toBottomOf="@+id/plus"
+        app:layout_constraintEnd_toEndOf="@+id/plus"
+        app:layout_constraintStart_toStartOf="@+id/plus"/>
+
+    <include
         android:id="@+id/rate_include"
         layout="@layout/rate_game1"
         android:layout_height="wrap_content"
@@ -84,26 +128,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/image" />
-
-    <include
-        android:id="@+id/minus"
-        layout="@layout/minus_game1"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_marginStart="18dp"
-        app:layout_constraintBottom_toBottomOf="@+id/rate_include"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/rate_include"/>
-
-    <include
-        android:id="@+id/plus"
-        layout="@layout/plus_game1"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_marginEnd="18dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/rate_include"
-        app:layout_constraintBottom_toBottomOf="@+id/rate_include"/>
 
     <ImageView
         android:id="@+id/arrow"

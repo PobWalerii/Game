@@ -2,6 +2,7 @@ package com.example.game.repository
 
 import android.content.Context
 import com.example.game.constants.GamesConstants.DELTA_CHANGE_RATE_GAME
+import com.example.game.constants.GamesConstants.PARTS_OF_BALANCE_SHEET
 import com.example.game.constants.GamesConstants.START_GAMER_BALANCE
 import com.example.game.wheels.WheelsManager
 import kotlinx.coroutines.CoroutineScope
@@ -11,11 +12,10 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton
-import kotlin.math.abs
 
 @Singleton
 class GameRepository @Inject constructor(
-    private val wheelsManager: WheelsManager,
+    wheelsManager: WheelsManager,
     private val context: Context
 ) {
 
@@ -41,7 +41,6 @@ class GameRepository @Inject constructor(
                 var delta = when (stringResult) {
                     "x2" -> rateGame.value*2
                     "x5" -> rateGame.value*5
-                    "+2" -> 2
                     "--" -> -rateGame.value
                     else -> 0
                 }
@@ -52,8 +51,8 @@ class GameRepository @Inject constructor(
                 delta = newBalance - gamerBalance.value
 
                 if(delta !=0) {
-                    val shift = if(delta>0) 1 else -1
-                    repeat(abs(delta)) {
+                    val shift = delta/(PARTS_OF_BALANCE_SHEET)
+                    repeat(PARTS_OF_BALANCE_SHEET-1) {
                         delay(5)
                         _gamerBalance.value = gamerBalance.value + shift
                     }

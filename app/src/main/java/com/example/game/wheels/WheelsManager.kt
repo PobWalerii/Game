@@ -51,7 +51,7 @@ class WheelsManager @Inject constructor(
                 R.drawable.game1_slot2,
                 R.drawable.game1_slot3,
                 R.drawable.game1_slot4,
-                R.drawable.game1_slot5,
+                R.drawable.game1_slot5_,
                 R.drawable.game1_slot6,
                 R.drawable.game1_slot7
             )
@@ -61,7 +61,7 @@ class WheelsManager @Inject constructor(
                 R.drawable.game1_slot2,
                 R.drawable.game1_slot3,
                 R.drawable.game1_slot4,
-                R.drawable.game1_slot5,
+                R.drawable.game1_slot5_,
             )
 
         wheel1 = OneWheel(adapter1, recycler1, getRandomList(listImages), lifecycleOwner)
@@ -72,8 +72,8 @@ class WheelsManager @Inject constructor(
             combine(wheel1.isRotate, wheel2.isRotate, wheel3.isRotate) { isRt1, isRt2, isRt3 ->
                 isRt1 || isRt2 || isRt3
             }.collect {
+                _isRotate.value = it
                 if (it) {
-                    _isRotate.value = true
                     firstRotate = true
                 }
             }
