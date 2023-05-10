@@ -5,4 +5,7 @@
     <string name="minus">-</string>
     <string name="text_balance">Balance</string>
     <string name="text_rate">RATE</string>
+    <string name="text_menu">Menu</string>
+    <string name="text_play">Play</string>
+    <string name="text_bonus_play">Play bonus game</string>
 </resources>
