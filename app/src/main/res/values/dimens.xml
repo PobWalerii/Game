@@ -2,4 +2,18 @@
 <resources>
     <dimen name="size_image_slot">82dp</dimen>
     <dimen name="size_image_slot_land">60dp</dimen>
+
+    <dimen name="menu_text_size">36sp</dimen>
+    <dimen name="menu_button_text_size">20sp</dimen>
+    <dimen name="back_menu_height">140dp</dimen>
+    <dimen name="back_menu_start">50dp</dimen>
+    <dimen name="back_menu_end">60dp</dimen>
+    <dimen name="play_padding_vertical">10dp</dimen>
+    <dimen name="play_padding_horizontal">15dp</dimen>
+
+    <dimen name="size_game_arrow">20dp</dimen>
+    <dimen name="margin_game_arrow">35dp</dimen>
+
+    <dimen name="image_balance_height">67dp</dimen>
+    <dimen name="text_game_info_size">18sp</dimen>
 </resources>

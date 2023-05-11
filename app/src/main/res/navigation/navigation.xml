@@ -3,11 +3,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/game1Fragment">
+    app:startDestination="@id/menuFragment">
 
     <fragment
         android:id="@+id/game1Fragment"
         android:name="com.example.game.ui.game1.Game1Fragment"
         android:label="fragment_game1"
-        tools:layout="@layout/fragment_game1_land" />
+        tools:layout="@layout/fragment_game1" />
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.example.game.ui.menu.MenuFragment"
+        android:label="fragment_menu"
+        tools:layout="@layout/fragment_menu" >
+        <action
+            android:id="@+id/action_menuFragment_to_game1Fragment"
+            app:destination="@id/game1Fragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_menuFragment_to_game2Fragment"
+            app:destination="@id/game2Fragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/game2Fragment"
+        android:name="com.example.game.ui.game2.Game2Fragment"
+        android:label="fragment_game2"
+        tools:layout="@layout/fragment_game2" />
 </navigation>
