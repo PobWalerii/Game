@@ -4,20 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/menu_back"
-    tools:context=".ui.main.MainActivity">
+    tools:context=".ui.splash.SplashFragment">
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerView"
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:src="@drawable/game2_pers"
         android:background="@drawable/menu_back"
-        app:defaultNavHost="true"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        app:navGraph="@navigation/navigation"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

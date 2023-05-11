@@ -16,13 +16,13 @@
 
         <ImageView
             android:id="@+id/balance"
-            android:layout_width="287dp"
-            android:layout_height="117dp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/image_balance_height"
+            android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-
             app:srcCompat="@drawable/game2_balance"
             tools:ignore="ContentDescription" />
 

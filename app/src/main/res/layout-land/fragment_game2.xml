@@ -45,10 +45,10 @@
             <include
                 android:id="@+id/balance_include"
                 layout="@layout/balance_game2"
-                android:layout_width="wrap_content"
+                android:layout_width="230dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
-                android:layout_marginTop="110dp"
+                android:layout_marginTop="145dp"
                 android:elevation="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

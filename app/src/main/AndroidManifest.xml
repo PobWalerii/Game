@@ -11,7 +11,7 @@
         android:icon="@drawable/game2_pers"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Game"
+        android:theme="@style/Theme.App.SplashScreen"
         tools:targetApi="33">
         <activity
             android:name=".ui.main.MainActivity"

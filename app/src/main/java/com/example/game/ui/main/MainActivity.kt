@@ -7,12 +7,14 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import com.example.game.R
+import com.example.game.utils.AppSplashScreen.startSplash
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        startSplash(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         hideStatusBar()
