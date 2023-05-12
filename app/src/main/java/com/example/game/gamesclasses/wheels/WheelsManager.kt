@@ -1,4 +1,4 @@
-package com.example.game.wheels
+package com.example.game.gamesclasses.wheels
 
 import android.content.Context
 import android.content.res.Configuration
@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.game.R
 import com.example.game.dataclass.ItemImages
 import com.example.game.ui.adapter.WheelsAdapter
+import com.example.game.utils.RandomList.makeRandomList
 import com.example.game.utils.Vibrator.startVibrator
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -52,9 +53,9 @@ class WheelsManager @Inject constructor(
                 R.drawable.game1_slot7
             )
 
-        wheel1 = OneWheel(adapter1, recycler1, getRandomList(listImages), lifecycleOwner)
-        wheel2 = OneWheel(adapter2, recycler2, getRandomList(listImages), lifecycleOwner)
-        wheel3 = OneWheel(adapter3, recycler3, getRandomList(listImages), lifecycleOwner)
+        wheel1 = OneWheel(adapter1, recycler1, makeRandomList(listImages,2), lifecycleOwner)
+        wheel2 = OneWheel(adapter2, recycler2, makeRandomList(listImages,2), lifecycleOwner)
+        wheel3 = OneWheel(adapter3, recycler3, makeRandomList(listImages,2), lifecycleOwner)
 
         lifecycleOwner.lifecycleScope.launch {
             combine(wheel1.isRotate, wheel2.isRotate, wheel3.isRotate) { isRt1, isRt2, isRt3 ->
@@ -105,18 +106,6 @@ class WheelsManager @Inject constructor(
         wheel3.startRotate(startOrder[2],shiftSize)
     }
 
-    private fun getRandomList(listImages: List<Int>): MutableList<ItemImages> {
-        val list = mutableListOf<ItemImages>()
-        val random = Random()
-        var startImage = random.nextInt(listImages.size)
-        repeat(listImages.size*2) {
-            list.add(ItemImages(startImage+1.toLong(), listImages[startImage]))
-            startImage++
-            if (startImage == listImages.size) {
-                startImage = 0
-            }
-        }
-        return list
-    }
+
 
 }

@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.game.databinding.FragmentGame2Binding
-import com.example.game.rows.RowsManager
+import com.example.game.gamesclasses.rows.RowsManager
 import com.example.game.ui.main.MainActivity
 import com.example.game.ui.viewmodel.GameViewModel
 import com.example.game.utils.ScreenStatus

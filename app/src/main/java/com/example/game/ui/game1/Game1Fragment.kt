@@ -13,7 +13,7 @@ import com.example.game.ui.adapter.WheelsAdapter
 import com.example.game.ui.main.MainActivity
 import com.example.game.ui.viewmodel.GameViewModel
 import com.example.game.utils.ScreenStatus.setScreenStatus
-import com.example.game.wheels.WheelsManager
+import com.example.game.gamesclasses.wheels.WheelsManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.combine

@@ -13,10 +13,9 @@
         android:id="@+id/slot"
         android:layout_width="@dimen/size_image_slot"
         android:layout_height="@dimen/size_image_slot"
-        android:src="@drawable/game2_img1"
+        app:showImage="@{itemImage}"
         android:paddingVertical="10dp"
         android:paddingHorizontal="15dp"
         android:scaleType="fitXY"
         tools:ignore="ContentDescription"/>
-    <!--app:showImage="@{itemImage}"-->
 </layout>

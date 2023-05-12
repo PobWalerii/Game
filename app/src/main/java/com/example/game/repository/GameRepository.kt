@@ -4,8 +4,8 @@ import android.content.Context
 import com.example.game.constants.GamesConstants.DELTA_CHANGE_RATE_GAME
 import com.example.game.constants.GamesConstants.PARTS_OF_BALANCE_SHEET
 import com.example.game.constants.GamesConstants.START_GAMER_BALANCE
-import com.example.game.rows.RowsManager
-import com.example.game.wheels.WheelsManager
+import com.example.game.gamesclasses.rows.RowsManager
+import com.example.game.gamesclasses.wheels.WheelsManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay

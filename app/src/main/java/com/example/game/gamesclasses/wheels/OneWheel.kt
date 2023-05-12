@@ -1,4 +1,4 @@
-package com.example.game.wheels
+package com.example.game.gamesclasses.wheels
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
