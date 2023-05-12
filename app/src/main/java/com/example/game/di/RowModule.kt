@@ -1,9 +1,7 @@
 package com.example.game.di
 
 import android.content.Context
-import com.example.game.repository.GameRepository
 import com.example.game.rows.RowsManager
-import com.example.game.wheels.WheelsManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,16 +11,16 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object RepositoryModule {
+object RowModule {
 
     @Singleton
     @Provides
-    fun provideGameRepository(
-        wheelsManager: WheelsManager,
-        rowsManager: RowsManager,
+    fun provideRowsManager(
         @ApplicationContext applicationContext: Context
-    ): GameRepository {
-        return GameRepository(wheelsManager, applicationContext)
+    ): RowsManager {
+        return RowsManager(applicationContext)
     }
+
+
 
 }

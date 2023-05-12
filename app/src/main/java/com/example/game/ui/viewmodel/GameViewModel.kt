@@ -14,7 +14,7 @@ class GameViewModel @Inject constructor(
     val gamerBalance: StateFlow<Int> = gameRepository.gamerBalance
     val gamerRate: StateFlow<Int> = gameRepository.rateGame
     val isWheelsRotate: StateFlow<Boolean> = gameRepository.isWheelsRotate
-
+    val isRowsPlay: StateFlow<Boolean> = gameRepository.isRowsPlay
     fun changeRate(plus: Boolean) {
         gameRepository.changeRateGame(plus)
     }

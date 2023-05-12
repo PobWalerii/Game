@@ -111,6 +111,8 @@
         android:layout_height="@dimen/size_game_arrow"
         android:layout_marginStart="@dimen/margin_game_arrow"
         android:layout_marginTop="@dimen/margin_game_arrow"
+        android:minWidth="50dp"
+        android:minHeight="50dp"
         android:src="@drawable/game_arrow"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

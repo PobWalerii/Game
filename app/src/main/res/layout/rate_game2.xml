@@ -5,7 +5,7 @@
 
     <data>
         <variable
-            name="balance2"
+            name="rate2"
             type="Integer" />
     </data>
 
@@ -15,7 +15,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/balance"
+            android:id="@+id/rate"
             android:layout_width="@dimen/image_balance_width"
             android:layout_height="@dimen/image_balance_height"
             android:scaleType="fitXY"
@@ -27,15 +27,15 @@
             tools:ignore="ContentDescription" />
 
         <TextView
-            android:id="@+id/text_balance"
+            android:id="@+id/text_rate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{@string/text_balance + ' ' + balance2.toString()}"
+            android:text="@{@string/text_rate + ' ' + rate2.toString()}"
             android:textSize="@dimen/text_game_info_size"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/balance"
-            app:layout_constraintStart_toStartOf="@+id/balance"
+            app:layout_constraintEnd_toEndOf="@+id/rate"
+            app:layout_constraintStart_toStartOf="@+id/rate"
             app:layout_constraintTop_toTopOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

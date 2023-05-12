@@ -5,6 +5,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.game.constants.GamesConstants.DELAY_START_WHEEL_INTERVAL
+import com.example.game.dataclass.ItemImages
 import com.example.game.ui.adapter.WheelsAdapter
 import com.example.game.utils.RecyclerViewDisabler
 import kotlinx.coroutines.*
@@ -13,7 +14,7 @@ import kotlinx.coroutines.flow.*
 class OneWheel(
     private val adapter: WheelsAdapter,
     private val recycler: RecyclerView,
-    private val list: MutableList<WheelImages>,
+    private val list: MutableList<ItemImages>,
     private val lifecycleOwner: LifecycleOwner,
 ) {
 

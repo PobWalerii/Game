@@ -4,6 +4,7 @@ import android.content.Context
 import com.example.game.constants.GamesConstants.DELTA_CHANGE_RATE_GAME
 import com.example.game.constants.GamesConstants.PARTS_OF_BALANCE_SHEET
 import com.example.game.constants.GamesConstants.START_GAMER_BALANCE
+import com.example.game.rows.RowsManager
 import com.example.game.wheels.WheelsManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -16,6 +17,7 @@ import javax.inject.Singleton
 @Singleton
 class GameRepository @Inject constructor(
     wheelsManager: WheelsManager,
+    rowsManager: RowsManager,
     private val context: Context
 ) {
 
@@ -29,6 +31,9 @@ class GameRepository @Inject constructor(
 
     private val gameResult: StateFlow<String> = wheelsManager.gameResult
 
+    val isRowsPlay: StateFlow<Boolean> = rowsManager.isPlay
+
+    private val playResult: StateFlow<String> = rowsManager.playResult
 
     init {
         startGamerBalance()
@@ -38,27 +43,38 @@ class GameRepository @Inject constructor(
     private fun observeGameResult() {
         CoroutineScope(Dispatchers.Main).launch {
             gameResult.collect { stringResult ->
-                var delta = when (stringResult) {
-                    "x2" -> rateGame.value*2
-                    "x5" -> rateGame.value*5
-                    "--" -> -rateGame.value
-                    else -> 0
-                }
-                var newBalance = gamerBalance.value + delta
-                if(newBalance<0) {
-                    newBalance = 0
-                }
-                delta = newBalance - gamerBalance.value
-
-                if(delta !=0) {
-                    val shift = delta/(PARTS_OF_BALANCE_SHEET)
-                    repeat(PARTS_OF_BALANCE_SHEET-1) {
-                        delay(5)
-                        _gamerBalance.value = gamerBalance.value + shift
-                    }
-                }
-                _gamerBalance.value = newBalance
+                showResult(stringResult)
             }
+        }
+        CoroutineScope(Dispatchers.Main).launch {
+            playResult.collect { stringResult ->
+                showResult(stringResult)
+            }
+        }
+    }
+
+    private fun showResult(stringResult: String) {
+        CoroutineScope(Dispatchers.Main).launch {
+            var delta = when (stringResult) {
+                "x2" -> rateGame.value * 2
+                "x5" -> rateGame.value * 5
+                "--" -> -rateGame.value
+                else -> 0
+            }
+            var newBalance = gamerBalance.value + delta
+            if (newBalance < 0) {
+                newBalance = 0
+            }
+            delta = newBalance - gamerBalance.value
+
+            if (delta != 0) {
+                val shift = delta / (PARTS_OF_BALANCE_SHEET)
+                repeat(PARTS_OF_BALANCE_SHEET - 1) {
+                    delay(5)
+                    _gamerBalance.value = gamerBalance.value + shift
+                }
+            }
+            _gamerBalance.value = newBalance
         }
     }
 

@@ -6,6 +6,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.example.game.R
+import com.example.game.dataclass.ItemImages
 import com.example.game.ui.adapter.WheelsAdapter
 import com.example.game.utils.Vibrator.startVibrator
 import kotlinx.coroutines.flow.*
@@ -104,12 +105,12 @@ class WheelsManager @Inject constructor(
         wheel3.startRotate(startOrder[2],shiftSize)
     }
 
-    private fun getRandomList(listImages: List<Int>): MutableList<WheelImages> {
-        val list = mutableListOf<WheelImages>()
+    private fun getRandomList(listImages: List<Int>): MutableList<ItemImages> {
+        val list = mutableListOf<ItemImages>()
         val random = Random()
         var startImage = random.nextInt(listImages.size)
         repeat(listImages.size*2) {
-            list.add(WheelImages(startImage+1.toLong(), listImages[startImage]))
+            list.add(ItemImages(startImage+1.toLong(), listImages[startImage]))
             startImage++
             if (startImage == listImages.size) {
                 startImage = 0

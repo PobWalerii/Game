@@ -14,6 +14,8 @@
     <dimen name="size_game_arrow">20dp</dimen>
     <dimen name="margin_game_arrow">35dp</dimen>
 
-    <dimen name="image_balance_height">67dp</dimen>
+    <dimen name="image_balance_height">70dp</dimen>
+    <dimen name="image_balance_width">230dp</dimen>
     <dimen name="text_game_info_size">18sp</dimen>
+    <dimen name="rate_land_margin_top">125dp</dimen>
 </resources>

@@ -8,13 +8,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.game.R
 import com.example.game.databinding.WheelItemBinding
-import com.example.game.wheels.WheelImages
+import com.example.game.dataclass.ItemImages
 
-class WheelsAdapter: ListAdapter<WheelImages, WheelsAdapter.ViewHolder>(COMPARATOR) {
+class WheelsAdapter: ListAdapter<ItemImages, WheelsAdapter.ViewHolder>(COMPARATOR) {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = WheelItemBinding.bind(itemView)
-        fun bind(item: WheelImages) {
+        fun bind(item: ItemImages) {
             binding.itemImage = item.image
         }
     }
@@ -32,11 +32,11 @@ class WheelsAdapter: ListAdapter<WheelImages, WheelsAdapter.ViewHolder>(COMPARAT
     override fun getItemId(position: Int): Long = currentList[position].id
 
     companion object {
-        private val COMPARATOR = object : DiffUtil.ItemCallback<WheelImages>() {
-            override fun areItemsTheSame(oldItem: WheelImages, newItem: WheelImages): Boolean {
+        private val COMPARATOR = object : DiffUtil.ItemCallback<ItemImages>() {
+            override fun areItemsTheSame(oldItem: ItemImages, newItem: ItemImages): Boolean {
                 return oldItem == newItem
             }
-            override fun areContentsTheSame(oldItem: WheelImages, newItem: WheelImages): Boolean {
+            override fun areContentsTheSame(oldItem: ItemImages, newItem: ItemImages): Boolean {
                 return oldItem.id == newItem.id
             }
         }
