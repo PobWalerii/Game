@@ -3,8 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/g2_port">
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:src="@drawable/g2_port"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
 
     <ImageView
         android:id="@+id/back_arrow"
@@ -40,16 +50,6 @@
         tools:ignore="ContentDescription" />
 
     <include
-        android:id="@+id/balance2_include"
-        layout="@layout/game2_balance"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/balance_margin_top"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <include
         android:id="@+id/rate2_include"
         layout="@layout/game2_rate"
         android:layout_width="match_parent"
@@ -74,12 +74,22 @@
     <include
         android:id="@+id/container_include"
         layout="@layout/game2_row_container"
-        android:layout_width="262dp"
-        android:layout_height="244dp"
-        android:layout_marginTop="68dp"
+        android:layout_width="295dp"
+        android:layout_height="260dp"
+        android:layout_marginTop="320dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/balance2_include" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/balance2_include"
+        layout="@layout/game2_balance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/balance_margin_top"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <!--android:background="@drawable/game2_back_portr">-->

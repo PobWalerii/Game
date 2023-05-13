@@ -8,19 +8,19 @@
         android:id="@+id/image1"
         layout="@layout/game2_row_item"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"/>
     <include
         android:id="@+id/image2"
         layout="@layout/game2_row_item"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"/>
     <include
         android:id="@+id/image3"
         layout="@layout/game2_row_item"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"/>
 
 </LinearLayout>

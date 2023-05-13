@@ -3,7 +3,7 @@ package com.example.game.gamesclasses.rows
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.example.game.constants.GamesConstants.DELAY_START_ROW_INTERVAL
-import com.example.game.databinding.Game2RowContainerBinding
+import com.example.game.databinding.Game2RowBinding
 import com.example.game.dataclass.ItemImages
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.withContext
 
 class OneRow (
-    private val rowBinding: Game2RowContainerBinding,
+    private val rowBinding: Game2RowBinding,
     private val list: MutableList<ItemImages>,
     private val lifecycleOwner: LifecycleOwner,
 ) {
