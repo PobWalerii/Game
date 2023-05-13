@@ -1,4 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/g2_land">
+
+    <ImageView
+        android:id="@+id/back_arrow"
+        android:layout_width="@dimen/arrow_size"
+        android:layout_height="@dimen/arrow_size"
+        android:layout_marginStart="@dimen/arrow_margin"
+        android:layout_marginTop="@dimen/arrow_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/button"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/minus"
+        android:layout_width="@dimen/key_oper_width"
+        android:layout_height="@dimen/key_oper_height"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="125dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/button"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/plus"
+        android:layout_width="@dimen/key_oper_width"
+        android:layout_height="@dimen/key_oper_height"
+        android:layout_marginTop="70dp"
+        app:layout_constraintEnd_toEndOf="@+id/minus"
+        app:layout_constraintStart_toStartOf="@id/minus"
+        app:layout_constraintTop_toBottomOf="@+id/minus"
+        app:srcCompat="@drawable/button"
+        tools:ignore="ContentDescription" />
+
+    <include
+        android:id="@+id/balance2_include"
+        layout="@layout/game2_balance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="95dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.245"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/rate2_include"
+        layout="@layout/game2_rate"
+        android:layout_width="198dp"
+        android:layout_height="63dp"
+        app:layout_constraintBottom_toTopOf="@id/plus"
+        app:layout_constraintEnd_toEndOf="@+id/minus"
+        app:layout_constraintStart_toStartOf="@+id/minus"
+        app:layout_constraintTop_toBottomOf="@id/minus" />
+
+    <include
+        android:id="@+id/splin_include"
+        layout="@layout/game2_splin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/splin_margin_bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/plus"
+        app:layout_constraintStart_toStartOf="@+id/plus"
+        app:layout_constraintTop_toBottomOf="@+id/plus" />
+
+    <include
+        android:id="@+id/container_include"
+        layout="@layout/game2_row_container"
+        android:layout_width="261dp"
+        android:layout_height="241dp"
+        android:layout_marginStart="104dp"
+        android:layout_marginTop="48dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/balance2_include" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+<!--
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -190,4 +276,4 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
-</LinearLayout>
+</LinearLayout>-->

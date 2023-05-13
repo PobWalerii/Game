@@ -48,9 +48,9 @@ class Game2Fragment : Fragment() {
 
     private fun setupRowManager() {
         rowsManager.init(
-            binding.row1,
-            binding.row2,
-            binding.row3,
+            binding.containerInclude.row1,
+            binding.containerInclude.row2,
+            binding.containerInclude.row3,
             viewLifecycleOwner,
         )
     }
@@ -58,7 +58,7 @@ class Game2Fragment : Fragment() {
     private fun observeGamersBalance() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.gamerBalance.collect { balance ->
-                binding.balanceInclude2.balance2 = balance
+                binding.balance2Include.balance2 = balance
             }
         }
     }
@@ -66,7 +66,7 @@ class Game2Fragment : Fragment() {
     private fun observeRateChange() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.gamerRate.collect { rate ->
-                binding.rateInclude2.rate2 = rate
+                binding.rate2Include.rate2 = rate
             }
         }
     }
@@ -101,7 +101,7 @@ class Game2Fragment : Fragment() {
     }
 
     private fun setupNaviButton() {
-        binding.arrow.setOnClickListener {
+        binding.backArrow.setOnClickListener {
             (activity as MainActivity).onSupportNavigateUp()
         }
     }

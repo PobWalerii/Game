@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.example.game.R
-import com.example.game.databinding.RowGame2Binding
+import com.example.game.databinding.Game2RowContainerBinding
 import com.example.game.utils.RandomList.makeRandomList
 import com.example.game.utils.Vibrator
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -34,9 +34,9 @@ class RowsManager @Inject constructor(
     private var allPlay = false
 
     fun init(
-        row1Binding: RowGame2Binding,
-        row2Binding: RowGame2Binding,
-        row3Binding: RowGame2Binding,
+        row1Binding: Game2RowContainerBinding,
+        row2Binding: Game2RowContainerBinding,
+        row3Binding: Game2RowContainerBinding,
         lifecycleOwner: LifecycleOwner,
     ) {
 
