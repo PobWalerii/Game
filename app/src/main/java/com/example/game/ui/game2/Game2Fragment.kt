@@ -1,26 +1,22 @@
 package com.example.game.ui.game2
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
-import com.example.game.databinding.FragmentGame2Binding
-import com.example.game.gamesclasses.rows.RowsManager
-import com.example.game.ui.main.MainActivity
-import com.example.game.ui.viewmodel.GameViewModel
-import com.example.game.utils.ScreenStatus
+import com.example.game.R
+import com.example.game.ui.basefragment.BaseGameFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
+
+class GameFragment1 : BaseGameFragment() {
+
+    override val layoutResId = R.layout.fragment_game2
+
+}
+/*
 class Game2Fragment : Fragment() {
 
-    private var _binding: FragmentGame2Binding? = null
+    private val args: Game2FragmentArgs by navArgs()
+
+    private var _binding: Any? = null
     private val binding get() = requireNotNull(_binding)
 
     private val viewModel by viewModels<GameViewModel>()
@@ -31,8 +27,17 @@ class Game2Fragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentGame2Binding.inflate(inflater, container, false)
-        return binding.root
+         when(args.gameNumber) {
+            1 -> {
+                _binding = FragmentGame1Binding.inflate(inflater, container, false)
+                return (binding as FragmentGame1Binding).root
+            }
+            else -> {
+                _binding = FragmentGameBinding.inflate(inflater, container, false)
+                return (binding as FragmentGameBinding).root
+            }
+        }
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -112,3 +117,5 @@ class Game2Fragment : Fragment() {
     }
 
 }
+
+ */
