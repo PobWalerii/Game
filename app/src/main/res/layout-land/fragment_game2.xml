@@ -5,10 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <ImageView
-        android:layout_height="match_parent"
+        android:id="@+id/imageView"
         android:layout_width="wrap_content"
-        android:src="@drawable/g2_land"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/g2_back_land"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -16,273 +19,87 @@
         tools:ignore="ContentDescription" />
 
     <ImageView
-        android:id="@+id/back_arrow"
-        android:layout_width="@dimen/arrow_size"
-        android:layout_height="@dimen/arrow_size"
-        android:layout_marginStart="@dimen/arrow_margin"
-        android:layout_marginTop="@dimen/arrow_margin"
+        android:id="@+id/image"
+        android:layout_width="297dp"
+        android:layout_height="384dp"
+        android:layout_marginStart="85dp"
+        android:src="@drawable/g2_land"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/button"
         tools:ignore="ContentDescription" />
 
-    <ImageView
-        android:id="@+id/minus"
-        android:layout_width="@dimen/key_oper_width"
-        android:layout_height="@dimen/key_oper_height"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="125dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/button"
-        tools:ignore="ContentDescription" />
-
-    <ImageView
-        android:id="@+id/plus"
-        android:layout_width="@dimen/key_oper_width"
-        android:layout_height="@dimen/key_oper_height"
-        android:layout_marginTop="70dp"
-        app:layout_constraintEnd_toEndOf="@+id/minus"
-        app:layout_constraintStart_toStartOf="@id/minus"
-        app:layout_constraintTop_toBottomOf="@+id/minus"
-        app:srcCompat="@drawable/button"
-        tools:ignore="ContentDescription" />
+    <include
+        android:id="@+id/container_include"
+        layout="@layout/game2_row_container"
+        android:layout_width="265dp"
+        android:layout_height="240dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginStart="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/image"
+        app:layout_constraintEnd_toEndOf="@+id/image"
+        app:layout_constraintStart_toStartOf="@+id/image"
+        app:layout_constraintTop_toTopOf="@+id/balance2_include"/>
 
     <include
         android:id="@+id/balance2_include"
         layout="@layout/game2_balance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="95dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.245"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="85dp"
+        app:layout_constraintEnd_toEndOf="@+id/image"
+        app:layout_constraintStart_toStartOf="@+id/image"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/minus"
+        layout="@layout/game2_minus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="62dp"
+        app:layout_constraintBottom_toBottomOf="@+id/rate2_include"
+        app:layout_constraintEnd_toEndOf="@+id/rate2_include"
+        app:layout_constraintStart_toStartOf="@+id/rate2_include" />
+
+    <include
+        android:id="@+id/plus"
+        layout="@layout/game2_plus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="62dp"
+        app:layout_constraintEnd_toEndOf="@+id/rate2_include"
+        app:layout_constraintStart_toStartOf="@+id/rate2_include"
+        app:layout_constraintTop_toTopOf="@+id/rate2_include" />
 
     <include
         android:id="@+id/rate2_include"
         layout="@layout/game2_rate"
-        android:layout_width="198dp"
-        android:layout_height="63dp"
-        app:layout_constraintBottom_toTopOf="@id/plus"
-        app:layout_constraintEnd_toEndOf="@+id/minus"
-        app:layout_constraintStart_toStartOf="@+id/minus"
-        app:layout_constraintTop_toBottomOf="@id/minus" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="45dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/image"
+        app:layout_constraintTop_toTopOf="@+id/balance2_include" />
 
     <include
         android:id="@+id/splin_include"
         layout="@layout/game2_splin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/splin_margin_bottom"
+        android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/plus"
-        app:layout_constraintStart_toStartOf="@+id/plus"
+        app:layout_constraintEnd_toEndOf="@+id/rate2_include"
+        app:layout_constraintStart_toStartOf="@+id/rate2_include"
         app:layout_constraintTop_toBottomOf="@+id/plus" />
 
-    <include
-        android:id="@+id/container_include"
-        layout="@layout/game2_row_container"
-        android:layout_width="261dp"
-        android:layout_height="241dp"
-        android:layout_marginStart="104dp"
-        android:layout_marginTop="48dp"
+    <ImageView
+        android:id="@+id/back"
+        android:layout_width="@dimen/size_game_arrow"
+        android:layout_height="@dimen/size_game_arrow"
+        android:src="@drawable/arrow_back"
+        android:layout_marginTop="@dimen/margin_game_arrow"
+        android:layout_marginStart="@dimen/margin_game_arrow"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/balance2_include" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-<!--
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="fill_parent"
-    android:background="@drawable/game2_back_land"
-    android:baselineAligned="false"
-    android:orientation="horizontal"
-    android:weightSum="100">
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="fill_parent"
-        android:layout_weight="55"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/arrow"
-                android:layout_width="@dimen/size_game_arrow"
-                android:layout_height="@dimen/size_game_arrow"
-                android:layout_margin="@dimen/margin_game_arrow"
-                android:minWidth="50dp"
-                android:minHeight="50dp"
-                android:src="@drawable/game_arrow"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ContentDescription" />
-
-            <ImageView
-                android:id="@+id/image"
-                android:layout_width="478dp"
-                android:layout_height="140dp"
-                android:layout_marginStart="40dp"
-                android:src="@drawable/game2_pers"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHeight_percent="0.45"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ContentDescription" />
-
-            <ImageView
-                android:id="@+id/plaing"
-                android:layout_width="300dp"
-                android:layout_height="300dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="10dp"
-                android:src="@drawable/game2_playing"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/balance_include2"
-                tools:ignore="ContentDescription" />
-
-            <LinearLayout
-                android:id="@+id/container"
-                android:layout_width="284dp"
-                android:layout_height="249dp"
-                android:layout_marginTop="25dp"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="@+id/plaing"
-                app:layout_constraintStart_toStartOf="@+id/plaing"
-                app:layout_constraintTop_toTopOf="@+id/plaing"
-                tools:ignore="DisableBaselineAlignment,UselessLeaf">
-
-                <include
-                    android:id="@+id/row1"
-                    layout="@layout/row_game2"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-
-                <include
-                    android:id="@+id/row2"
-                    layout="@layout/row_game2"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-
-                <include
-                    android:id="@+id/row3"
-                    layout="@layout/row_game2"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-            </LinearLayout>
-
-
-            <include
-                android:id="@+id/balance_include2"
-                layout="@layout/balance_game2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="80dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/image" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="fill_parent"
-        android:layout_weight="45"
-        android:gravity="center"
-        android:orientation="vertical"
-        tools:ignore="UselessLeaf">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/minus"
-                android:layout_width="100dp"
-                android:layout_height="@dimen/image_balance_height"
-                android:layout_marginBottom="50dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/game2_rate_oper"
-                app:layout_constraintBottom_toBottomOf="@+id/rate_include2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:ignore="ContentDescription" />
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/minus"
-                android:textSize="35sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/minus"
-                app:layout_constraintEnd_toEndOf="@+id/minus"
-                app:layout_constraintStart_toStartOf="@+id/minus"
-                app:layout_constraintTop_toTopOf="@+id/minus" />
-
-            <ImageView
-                android:id="@+id/plus"
-                android:layout_width="100dp"
-                android:layout_height="@dimen/image_balance_height"
-                android:layout_marginTop="50dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/game2_rate_oper"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/rate_include2"
-                tools:ignore="ContentDescription" />
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/plus"
-                android:textSize="25sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/plus"
-                app:layout_constraintEnd_toEndOf="@+id/plus"
-                app:layout_constraintStart_toStartOf="@+id/plus"
-                app:layout_constraintTop_toTopOf="@+id/plus" />
-
-
-            <include
-                android:id="@+id/rate_include2"
-                layout="@layout/rate_game2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/rate_land_margin_top"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <include
-                android:id="@+id/splin_include"
-                layout="@layout/splin_game2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/plus" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </LinearLayout>
-</LinearLayout>-->

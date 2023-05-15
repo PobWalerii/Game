@@ -10,27 +10,42 @@
     <dimen name="back_menu_end">60dp</dimen>
     <dimen name="play_padding_vertical">10dp</dimen>
     <dimen name="play_padding_horizontal">15dp</dimen>
-
-    <dimen name="size_game_arrow">20dp</dimen>
-    <dimen name="margin_game_arrow">35dp</dimen>
     <dimen name="rate_land_margin_top">125dp</dimen>
 
 
-    <dimen name="image_balance_height">80dp</dimen>
-    <dimen name="image_balance_width">225dp</dimen>
-    <dimen name="text_game_info_size">18sp</dimen>
-    <dimen name="balance_margin_top">255dp</dimen>
-    <dimen name="rate_margin_bottom">117dp</dimen>
-    <dimen name="splin_margin_bottom">15dp</dimen>
+
+
+
+    <dimen name="size_game_arrow">24dp</dimen>
+    <dimen name="margin_game_arrow">30dp</dimen>
+
+    <dimen name="g2_image_balance_height">86dp</dimen>
+    <dimen name="g2_image_balance_width">250dp</dimen>
+    <dimen name="g2_text_info_size">18sp</dimen>
+    <dimen name="g1_image_balance_height">70dp</dimen>
+    <dimen name="g1_image_balance_width">250dp</dimen>
+    <dimen name="g1_image_rate_height">96dp</dimen>
+    <dimen name="g1_image_rate_width">210dp</dimen>
+    <dimen name="g1_image_oper_width">96dp</dimen>
+    <dimen name="g1_image_oper_margin">175dp</dimen>
+
     <dimen name="splin_padding_horizontal">20dp</dimen>
     <dimen name="splin_padding_vertical">15dp</dimen>
     <dimen name="splin_text_size">25sp</dimen>
+
+
+
+    <dimen name="image_balance_height">86dp</dimen>
+    <dimen name="text_game_info_size">18sp</dimen>
+
+    <dimen name="balance_margin_top">255dp</dimen>
+    <dimen name="rate_margin_bottom">117dp</dimen>
+    <dimen name="splin_margin_bottom">15dp</dimen>
+
     <dimen name="key_oper_width">75dp</dimen>
     <dimen name="key_oper_height">60dp</dimen>
     <dimen name="key_oper_margin">38dp</dimen>
     <dimen name="arrow_size">70dp</dimen>
     <dimen name="arrow_margin">16dp</dimen>
 
-    <dimen name="game2_image_height">656dp</dimen>
-    <dimen name="game2_image_width">854dp</dimen>
 </resources>

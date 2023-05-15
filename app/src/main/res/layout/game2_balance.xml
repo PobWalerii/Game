@@ -9,15 +9,14 @@
             type="Integer" />
     </data>
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/balance"
-            android:layout_width="@dimen/image_balance_width"
-            android:layout_height="@dimen/image_balance_height"
+            android:layout_width="@dimen/g2_image_balance_width"
+            android:layout_height="@dimen/g2_image_balance_height"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -31,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{@string/text_balance + ' ' + balance2.toString()}"
-            android:textSize="@dimen/text_game_info_size"
+            android:textSize="@dimen/g2_text_info_size"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/balance"

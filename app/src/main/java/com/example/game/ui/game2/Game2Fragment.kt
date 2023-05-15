@@ -72,10 +72,10 @@ class Game2Fragment : Fragment() {
     }
 
     private fun rateKeysListener() {
-        binding.plus.setOnClickListener {
+        binding.plus.oper.setOnClickListener {
             viewModel.changeRate(true)
         }
-        binding.minus.setOnClickListener {
+        binding.minus.oper.setOnClickListener {
             viewModel.changeRate(false)
         }
     }
@@ -101,7 +101,7 @@ class Game2Fragment : Fragment() {
     }
 
     private fun setupNaviButton() {
-        binding.backArrow.setOnClickListener {
+        binding.back.setOnClickListener {
             (activity as MainActivity).onSupportNavigateUp()
         }
     }
