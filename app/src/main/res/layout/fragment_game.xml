@@ -74,7 +74,7 @@
 
     <include
         android:id="@+id/rate2_include"
-        layout="@layout/game_rate"
+        layout="@layout/game2_rate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="500dp"
