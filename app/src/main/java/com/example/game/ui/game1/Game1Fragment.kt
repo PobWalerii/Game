@@ -1,18 +1,24 @@
 package com.example.game.ui.game1
 
-import com.example.game.databinding.FragmentGameBinding
-import com.example.game.ui.basefragment.BaseGameFragment
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.RecyclerView
+import com.example.game.databinding.FragmentGame1Binding
+import com.example.game.ui.adapter.WheelsAdapter
+import com.example.game.ui.main.MainActivity
+import com.example.game.ui.viewmodel.GameViewModel
+import com.example.game.utils.ScreenStatus.setScreenStatus
+import com.example.game.gamesclasses.wheels.WheelsManager
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.combine
+import javax.inject.Inject
 
-@AndroidEntryPoint
-class Game1Fragment : BaseGameFragment<FragmentGameBinding>(
-    FragmentGameBinding::inflate
-) {
-    override fun FragmentGameBinding.initialize() {
-    }
-}
-
-/*
 @AndroidEntryPoint
 class Game1Fragment : Fragment() {
 
@@ -131,5 +137,3 @@ class Game1Fragment : Fragment() {
     }
 
 }
-
- */
