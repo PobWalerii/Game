@@ -1,4 +1,4 @@
-package com.example.game.gamesclasses.wheels
+package com.example.game.gameclasses.wheels
 
 import android.content.Context
 import android.content.res.Configuration
@@ -6,13 +6,11 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.example.game.R
-import com.example.game.dataclass.ItemImages
 import com.example.game.ui.adapter.WheelsAdapter
 import com.example.game.utils.RandomList.makeRandomList
 import com.example.game.utils.Vibrator.startVibrator
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 

@@ -1,7 +1,7 @@
 package com.example.game.di
 
 import android.content.Context
-import com.example.game.gamesclasses.wheels.WheelsManager
+import com.example.game.gameclasses.wheels.WheelsManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

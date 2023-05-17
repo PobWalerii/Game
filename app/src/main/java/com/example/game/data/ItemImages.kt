@@ -1,4 +1,4 @@
-package com.example.game.dataclass
+package com.example.game.data
 
 data class ItemImages (
     val id: Long,

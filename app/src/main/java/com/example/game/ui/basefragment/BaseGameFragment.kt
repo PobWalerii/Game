@@ -12,7 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
 import com.example.game.BR
 import com.example.game.R
-import com.example.game.gamesclasses.rows.RowsManager
+import com.example.game.gameclasses.rows.RowsManager
 import com.example.game.ui.main.MainActivity
 import com.example.game.ui.viewmodel.GameViewModel
 import com.example.game.utils.ScreenStatus

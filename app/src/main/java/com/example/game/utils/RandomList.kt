@@ -1,6 +1,6 @@
 package com.example.game.utils
 
-import com.example.game.dataclass.ItemImages
+import com.example.game.data.ItemImages
 import java.util.*
 
 object RandomList {

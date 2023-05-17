@@ -1,22 +1,11 @@
 package com.example.game.ui.game2
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import com.example.game.databinding.FragmentGame2Binding
-import com.example.game.gamesclasses.rows.RowsManager
 import com.example.game.ui.basefragment.BaseGameFragment
-import com.example.game.ui.main.MainActivity
 import com.example.game.ui.viewmodel.GameViewModel
-import com.example.game.utils.ScreenStatus
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class Game2Fragment : BaseGameFragment<FragmentGame2Binding>() {

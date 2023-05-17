@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.game.R
 import com.example.game.databinding.WheelItemBinding
-import com.example.game.dataclass.ItemImages
+import com.example.game.data.ItemImages
 
 class WheelsAdapter: ListAdapter<ItemImages, WheelsAdapter.ViewHolder>(COMPARATOR) {
 
