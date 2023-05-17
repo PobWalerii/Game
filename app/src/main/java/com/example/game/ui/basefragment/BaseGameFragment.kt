@@ -4,98 +4,126 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-<<<<<<< HEAD
-import android.widget.ImageView
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
+import com.example.game.BR
 import com.example.game.R
 import com.example.game.gamesclasses.rows.RowsManager
 import com.example.game.ui.main.MainActivity
 import com.example.game.ui.viewmodel.GameViewModel
+import com.example.game.utils.ScreenStatus
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-abstract class BaseGameFragment<T : ViewBinding>(
-    private val inflateMethod : (LayoutInflater, ViewGroup?, Boolean) -> T
-) : Fragment() {
+abstract class BaseGameFragment<T : ViewBinding> : Fragment() {
 
     private var _binding: T? = null
-    private val binding get() = requireNotNull(_binding)
+    protected val binding: T
+        get() = requireNotNull(_binding)
 
-    private val viewModel by viewModels<GameViewModel>()
+    private val balance2Binding: ViewDataBinding? by lazy {
+        DataBindingUtil.bind(binding.root.findViewById(R.id.balance2_include))
+    }
+    private val rate2Binding: ViewDataBinding? by lazy {
+        DataBindingUtil.bind(binding.root.findViewById(R.id.rate2_include))
+    }
+    private val splinBinding: ViewDataBinding? by lazy {
+        DataBindingUtil.bind(binding.root.findViewById(R.id.splin_include))
+    }
+
+    abstract var gameNumber: Int
+
+    protected lateinit var viewModel: GameViewModel
+    protected abstract fun getViewModelClass(): Class<GameViewModel>
 
     @Inject
     lateinit var rowsManager: RowsManager
 
-    open fun T.initialize(){
-    }
+    abstract fun inflateBinding(inflater: LayoutInflater, container: ViewGroup?): T
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this).get(getViewModelClass())
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        _binding = inflateMethod.invoke(inflater, container, false)
-        binding.initialize()
-        return _binding!!.root
-=======
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
-import com.example.game.R
-import com.example.game.ui.main.MainActivity
-import dagger.hilt.android.AndroidEntryPoint
-
-
-@AndroidEntryPoint
-abstract class BaseGameFragment : Fragment() {
-
-    protected abstract val layoutResId: Int
-    private var _binding: ViewDataBinding? = null
-    private val binding get() = requireNotNull(_binding)
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = DataBindingUtil.inflate(inflater, layoutResId, container, false)
+    ): View {
+        _binding = inflateBinding(inflater, container)
         return binding.root
->>>>>>> origin/main
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-<<<<<<< HEAD
+        setupRowManager()
+        observeGamersBalance()
         observeRateChange()
         rateKeysListener()
+        observeSplinPress()
+        observePlayStatus()
         setupNaviButton()
+    }
+
+    private fun setupRowManager() {
+        rowsManager.init(
+            gameNumber,
+            binding.root.findViewById(R.id.container_include),
+            viewLifecycleOwner
+        )
+    }
+
+    private fun observeGamersBalance() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.gamerBalance.collect { balance ->
+                balance2Binding?.setVariable(BR.balance2, balance)
+            }
+        }
     }
 
     private fun observeRateChange() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.gamerRate.collect { rate ->
-                //childFragmentManager.setRate(rate)
+                rate2Binding?.setVariable(BR.rate2,rate)
             }
         }
     }
 
     private fun rateKeysListener() {
-        //binding.plus.oper.setOnClickListener {
-        //    viewModel.changeRate(true)
-        //}
-        //binding.minus.oper.setOnClickListener {
-        //    viewModel.changeRate(false)
-        //}
+        binding.root.findViewById<View>(R.id.plus).setOnClickListener {
+            viewModel.changeRate(true)
+        }
+        binding.root.findViewById<View>(R.id.minus).setOnClickListener {
+            viewModel.changeRate(false)
+        }
     }
 
+    private fun observeSplinPress() {
+        binding.root.findViewById<View>(R.id.splin_include).setOnClickListener {
+            rowsManager.startPlay()
+        }
+    }
+
+    private fun observePlayStatus() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            combine(
+                viewModel.isRowsPlay,
+                viewModel.gamerRate
+            ) { isPlay, rate ->
+                !isPlay && rate !=0
+            }.collect {
+                splinBinding?.setVariable(BR.isEnable,it)
+                ScreenStatus.setScreenStatus(requireActivity(), it)
+            }
+        }
+    }
 
     private fun setupNaviButton() {
-        binding.root.findViewById<ImageView>(R.id.back).setOnClickListener {
-=======
         binding.root.findViewById<View>(R.id.back).setOnClickListener {
->>>>>>> origin/main
             (activity as MainActivity).onSupportNavigateUp()
         }
     }
@@ -104,9 +132,4 @@ abstract class BaseGameFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> origin/main

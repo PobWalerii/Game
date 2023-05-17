@@ -9,17 +9,31 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.example.game.databinding.FragmentGame1Binding
+import com.example.game.databinding.FragmentGameBinding
 import com.example.game.ui.adapter.WheelsAdapter
 import com.example.game.ui.main.MainActivity
 import com.example.game.ui.viewmodel.GameViewModel
 import com.example.game.utils.ScreenStatus.setScreenStatus
 import com.example.game.gamesclasses.wheels.WheelsManager
+import com.example.game.ui.basefragment.BaseGameFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.combine
 import javax.inject.Inject
 
 @AndroidEntryPoint
+class Game1Fragment : BaseGameFragment<FragmentGameBinding>() {
+    override fun inflateBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentGameBinding {
+        return FragmentGameBinding.inflate(inflater, container, false)
+    }
+    override fun getViewModelClass() = GameViewModel::class.java
+
+    override var gameNumber = 1
+
+}
+
+
+/*
 class Game1Fragment : Fragment() {
 
     private var _binding: FragmentGame1Binding? = null
@@ -137,3 +151,5 @@ class Game1Fragment : Fragment() {
     }
 
 }
+
+ */

@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.game.databinding.FragmentGame2Binding
 import com.example.game.gamesclasses.rows.RowsManager
+import com.example.game.ui.basefragment.BaseGameFragment
 import com.example.game.ui.main.MainActivity
 import com.example.game.ui.viewmodel.GameViewModel
 import com.example.game.utils.ScreenStatus
@@ -18,6 +19,20 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
+class Game2Fragment : BaseGameFragment<FragmentGame2Binding>() {
+
+    override fun inflateBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentGame2Binding {
+        return FragmentGame2Binding.inflate(inflater, container, false)
+    }
+    override fun getViewModelClass() = GameViewModel::class.java
+
+    override var gameNumber = 2
+
+}
+
+
+
+/*
 class Game2Fragment : Fragment() {
 
     private var _binding: FragmentGame2Binding? = null
@@ -112,3 +127,5 @@ class Game2Fragment : Fragment() {
     }
 
 }
+
+ */

@@ -1,10 +1,10 @@
 package com.example.game.gamesclasses.rows
 
 import android.content.Context
+import android.view.View
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.example.game.R
-import com.example.game.databinding.Game2RowBinding
 import com.example.game.utils.RandomList.makeRandomList
 import com.example.game.utils.Vibrator
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -34,21 +34,32 @@ class RowsManager @Inject constructor(
     private var allPlay = false
 
     fun init(
-        row1Binding: Game2RowBinding,
-        row2Binding: Game2RowBinding,
-        row3Binding: Game2RowBinding,
+        gameNumber: Int,
+        containerBinding: View,
         lifecycleOwner: LifecycleOwner,
     ) {
+        val listImages =
+            if(gameNumber == 1) {
+                listOf(
+                    R.drawable.game1_slot1,
+                    R.drawable.game1_slot2,
+                    R.drawable.game1_slot3,
+                    R.drawable.game1_slot4,
+                    R.drawable.game1_slot5,
+                    R.drawable.game1_slot6,
+                    R.drawable.game1_slot7
+                )
+            } else {
+                listOf(
+                    R.drawable.game2_img1,
+                    R.drawable.game2_img2,
+                    R.drawable.game2_img3,
+                )
+            }
 
-        val listImages = listOf(
-            R.drawable.game2_img1,
-            R.drawable.game2_img2,
-            R.drawable.game2_img3,
-        )
-
-        row1 = OneRow(row1Binding, makeRandomList(listImages), lifecycleOwner)
-        row2 = OneRow(row2Binding, makeRandomList(listImages), lifecycleOwner)
-        row3 = OneRow(row3Binding, makeRandomList(listImages), lifecycleOwner)
+        row1 = OneRow(containerBinding.findViewById(R.id.row1), makeRandomList(listImages), lifecycleOwner)
+        row2 = OneRow(containerBinding.findViewById(R.id.row2), makeRandomList(listImages), lifecycleOwner)
+        row3 = OneRow(containerBinding.findViewById(R.id.row3), makeRandomList(listImages), lifecycleOwner)
 
         lifecycleOwner.lifecycleScope.launch {
             combine(row1.isPlay, row2.isPlay, row3.isPlay) { isRt1, isRt2, isRt3 ->
