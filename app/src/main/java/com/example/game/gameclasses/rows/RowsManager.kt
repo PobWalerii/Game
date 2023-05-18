@@ -91,7 +91,7 @@ class RowsManager @Inject constructor(
         _playResult.value = ""
         val startOrder = mutableListOf(0,1,2)
         startOrder.shuffle()
-        val speed = mutableListOf(5,7,9)
+        val speed = mutableListOf(3,5,7)
         speed.shuffle()
         row1.startPlay(startOrder[0],speed[0])
         row2.startPlay(startOrder[1],speed[1])
