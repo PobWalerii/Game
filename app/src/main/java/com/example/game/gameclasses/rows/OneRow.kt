@@ -1,5 +1,6 @@
 package com.example.game.gameclasses.rows
 
+import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.view.View
 import androidx.databinding.DataBindingUtil
@@ -31,6 +32,10 @@ class OneRow (
         rowBinding.findViewById(R.id.image2)
     private val imageView3: View =
         rowBinding.findViewById(R.id.image3)
+    private val imageView4: View =
+        rowBinding.findViewById(R.id.image4)
+    private val imageView5: View =
+        rowBinding.findViewById(R.id.image5)
 
     private val image1Binding: ViewDataBinding? =
         DataBindingUtil.bind(imageView1)
@@ -38,6 +43,10 @@ class OneRow (
         DataBindingUtil.bind(imageView2)
     private val image3Binding: ViewDataBinding? =
         DataBindingUtil.bind(imageView3)
+    private val image4Binding: ViewDataBinding? =
+        DataBindingUtil.bind(imageView4)
+    private val image5Binding: ViewDataBinding? =
+        DataBindingUtil.bind(imageView5)
 
 
     private val _isPlay = MutableStateFlow(false)
@@ -77,9 +86,12 @@ class OneRow (
                         imageView1.translationY = 0F
                         imageView2.translationY = 0F
                         imageView3.translationY = 0F
+                        imageView4.translationY = 0F
+                        imageView5.translationY = 0F
                     }
                     shiftList()
                 }
+
                 if(slide) {
                     val animation1 = ObjectAnimator.ofFloat(
                         imageView1,
@@ -97,15 +109,28 @@ class OneRow (
                         "translationY",
                         imageView3.translationY + shift
                     )
+                    val animation4 = ObjectAnimator.ofFloat(
+                        imageView4,
+                        "translationY",
+                        imageView4.translationY + shift
+                    )
+                    val animation5 = ObjectAnimator.ofFloat(
+                        imageView5,
+                        "translationY",
+                        imageView5.translationY + shift
+                    )
 
-                    animation1.duration = 500
-                    animation2.duration = 500
-                    animation3.duration = 500
+                    animation1.duration = 100
+                    animation2.duration = 100
+                    animation3.duration = 100
+                    animation4.duration = 100
+                    animation5.duration = 100
 
-                    animation1.start()
-                    animation2.start()
-                    animation3.start()
-                    delay(500)
+                    val animatorSet = AnimatorSet()
+                    animatorSet.playTogether(animation1, animation2, animation3, animation4, animation5)
+                    animatorSet.start()
+                    delay(100)
+
                 } else {
                     delay(20 * speed.toLong())
                 }
@@ -127,7 +152,7 @@ class OneRow (
 
     private fun stopPlay() {
         _isPlay.value = false
-        _isStop.value = listImages[1].id.toInt()
+        _isStop.value = listImages[2].id.toInt()
     }
 
     private fun setImages() {
@@ -139,6 +164,8 @@ class OneRow (
         image1Binding?.setVariable(BR.itemImage,list[0].image)
         image2Binding?.setVariable(BR.itemImage,list[1].image)
         image3Binding?.setVariable(BR.itemImage,list[2].image)
+        image4Binding?.setVariable(BR.itemImage,list[3].image)
+        image5Binding?.setVariable(BR.itemImage,list[4].image)
     }
 
     private fun shiftList() {

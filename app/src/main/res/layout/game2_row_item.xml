@@ -11,10 +11,12 @@
 
     <ImageView
         android:id="@+id/slot"
-        android:layout_width="854dp"
-        android:layout_height="656dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:showImage="@{itemImage}"
-        android:paddingVertical="10dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
         android:paddingHorizontal="10dp"
+        android:paddingVertical="5dp"
         tools:ignore="ContentDescription"/>
 </layout>

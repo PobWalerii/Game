@@ -6,11 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    app:layout_constraintBottom_toBottomOf="@+id/plaing"
-    app:layout_constraintEnd_toEndOf="@+id/plaing"
-    app:layout_constraintStart_toStartOf="@+id/plaing"
-    app:layout_constraintTop_toTopOf="@+id/plaing"
-    tools:ignore="DisableBaselineAlignment,UselessLeaf">
+    tools:ignore="DisableBaselineAlignment">
 
 <include
     android:id="@+id/row1"
@@ -32,4 +28,5 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_weight="1" />
+
 </LinearLayout>

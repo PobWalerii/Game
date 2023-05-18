@@ -5,7 +5,6 @@ import android.view.View
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.example.game.R
-import com.example.game.data.GameCollection
 import com.example.game.data.GameCollection.getGame
 import com.example.game.utils.RandomList.makeRandomList
 import com.example.game.utils.Vibrator

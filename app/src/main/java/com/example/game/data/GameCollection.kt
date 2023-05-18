@@ -22,7 +22,7 @@ object GameCollection {
                 )
             )
             else -> GameSettings(
-                direction = 3,
+                direction = 1,
                 slide = false,
                 listOf(
                     R.drawable.game2_img1,
