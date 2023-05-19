@@ -6,7 +6,6 @@ import android.view.View
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.databinding.library.baseAdapters.BR
@@ -80,83 +79,42 @@ class OneRow (
         _isPlay.value = true
         stopPlay = false
 
-        lifecycleOwner.lifecycleScope.launchWhenStarted {
-            delay(DELAY_START_ROW_INTERVAL *order.toLong())
-            for(i in 1..40) {
-                val delayShift =
-                    if (i < 4) {
-                        100L+speed
-                    } else if (i < 6) {
-                        70L+speed
-                    } else {
-                        50L+speed
-                    }
-                if(i!=1) {
-                    withContext(Dispatchers.Main) {
-                        shiftList()
-                    }
+        lifecycleOwner.lifecycleScope.launch {
+            delay(DELAY_START_ROW_INTERVAL * order.toLong())
+            for (i in 1..40) {
+                if (i != 1) {
+                    shiftList()
                 }
-                if(slide) {
-                    val animation1 = ObjectAnimator.ofFloat(
-                        imageView1,
-                        "translationY",
-                        imageView1.translationY + shift
-                    )
-
-                    val animation2 = ObjectAnimator.ofFloat(
-                        imageView2,
-                        "translationY",
-                        imageView2.translationY + shift
-                    )
-                    val animation3 = ObjectAnimator.ofFloat(
-                        imageView3,
-                        "translationY",
-                        imageView3.translationY + shift
-                    )
-                    val animation4 = ObjectAnimator.ofFloat(
-                        imageView4,
-                        "translationY",
-                        imageView4.translationY + shift
-                    )
-                    val animation5 = ObjectAnimator.ofFloat(
-                        imageView5,
-                        "translationY",
-                        imageView5.translationY + shift
-                    )
-                    animation1.duration = delayShift
-                    animation2.duration = delayShift
-                    animation3.duration = delayShift
-                    animation4.duration = delayShift
-                    animation5.duration = delayShift
-
-                    val interpolator = AccelerateDecelerateInterpolator()
-                    animation1.interpolator = interpolator
-                    animation2.interpolator = interpolator
-                    animation3.interpolator = interpolator
-                    animation4.interpolator = interpolator
-                    animation5.interpolator = interpolator
-
-                    val animatorSet = AnimatorSet()
-                    animatorSet.playTogether(animation1, animation2, animation3, animation4, animation5)
-                    animatorSet.start()
-                    delay(delayShift)
+                if (slide) {
+                    val delayShift =
+                        if (i < 4) {
+                            120L
+                        } else if (i < 6) {
+                            80L
+                        } else {
+                            40L + speed * 2L
+                        }
+                    val animatorSet = makeAnimation(delayShift, shift)
+                    delay(delayShift + 10L)
+                    animatorSet.cancel()
                 } else {
                     delay(20 * speed.toLong())
                 }
-                if(stopPlay) {
+                if (stopPlay) {
                     break
                 }
             }
-            withContext(Dispatchers.Main) {
-                delay(100)
-                shiftList()
-                stopPlay()
-            }
+            delay(100)
+            shiftList()
+            stopPlay()
         }
     }
 
-    fun stopAll() {
-        stopPlay = true
+    fun stopAll(delay: Int) {
+        CoroutineScope(Dispatchers.Default).launch {
+            delay(DELAY_START_ROW_INTERVAL * delay)
+            stopPlay = true
+        }
     }
 
     private fun stopPlay() {
@@ -191,5 +149,55 @@ class OneRow (
         setImages()
     }
 
+    private fun makeAnimation(delayShift: Long, shift: Int): AnimatorSet {
+        val animation1 = ObjectAnimator.ofFloat(
+            imageView1,
+            "translationY",
+            imageView1.translationY + shift
+        )
+        val animation2 = ObjectAnimator.ofFloat(
+            imageView2,
+            "translationY",
+            imageView2.translationY + shift
+        )
+        val animation3 = ObjectAnimator.ofFloat(
+            imageView3,
+            "translationY",
+            imageView3.translationY + shift
+        )
+        val animation4 = ObjectAnimator.ofFloat(
+            imageView4,
+            "translationY",
+            imageView4.translationY + shift
+        )
+        val animation5 = ObjectAnimator.ofFloat(
+            imageView5,
+            "translationY",
+            imageView5.translationY + shift
+        )
+        animation1.duration = delayShift
+        animation2.duration = delayShift
+        animation3.duration = delayShift
+        animation4.duration = delayShift
+        animation5.duration = delayShift
+
+        val interpolator = AccelerateDecelerateInterpolator()
+        animation1.interpolator = interpolator
+        animation2.interpolator = interpolator
+        animation3.interpolator = interpolator
+        animation4.interpolator = interpolator
+        animation5.interpolator = interpolator
+
+        val animatorSet = AnimatorSet()
+        animatorSet.playTogether(
+            animation1,
+            animation2,
+            animation3,
+            animation4,
+            animation5
+        )
+        animatorSet.start()
+        return animatorSet
+    }
 
 }

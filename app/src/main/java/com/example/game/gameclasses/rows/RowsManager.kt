@@ -8,11 +8,13 @@ import com.example.game.R
 import com.example.game.data.GameCollection.getGame
 import com.example.game.utils.RandomList.makeRandomList
 import com.example.game.utils.Vibrator
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -64,12 +66,12 @@ class RowsManager @Inject constructor(
             combine(row1.isStop, row2.isStop, row3.isStop) { isSt1, isSt2, isSt3 ->
                 Triple(isSt1, isSt2, isSt3)
             }.collect { (isSt1, isSt2, isSt3) ->
-                if (isSt1 !=0 || isSt2 !=0 || isSt3 !=0) {
-                    if(allPlay) {
+                if (isSt1 != 0 || isSt2 != 0 || isSt3 != 0) {
+                    if (allPlay) {
                         allPlay = false
-                        row1.stopAll()
-                        row2.stopAll()
-                        row3.stopAll()
+                        row1.stopAll(1)
+                        row2.stopAll(2)
+                        row3.stopAll(3)
                     }
                     if (firstPlay) {
                         Vibrator.startVibrator(context)
