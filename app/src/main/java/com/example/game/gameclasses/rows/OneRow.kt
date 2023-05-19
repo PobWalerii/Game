@@ -1,14 +1,12 @@
 package com.example.game.gameclasses.rows
 
-import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.view.View
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
-import androidx.core.view.marginBottom
-import androidx.core.view.marginTop
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.databinding.library.baseAdapters.BR
@@ -17,17 +15,15 @@ import androidx.lifecycle.lifecycleScope
 import com.example.game.R
 import com.example.game.constants.GamesConstants.DELAY_START_ROW_INTERVAL
 import com.example.game.data.ItemImages
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.withContext
 
 class OneRow (
     private val rowBinding: View,
     private val listImages: MutableList<ItemImages>,
-    private val direction: Int,
+    private val setDirection: Boolean,
     private val slide: Boolean,
     private val lifecycleOwner: LifecycleOwner,
 ) {
@@ -63,14 +59,12 @@ class OneRow (
 
     private var stopPlay = false
 
-    private var setDirection = true
-
     init {
-        setImages()
+        shiftList()
     }
 
     fun startPlay(order: Int, speed: Int) {
-        val shift = imageView3.height
+        var shift = imageView3.height
         if(slide) {
             val layoutParams = rowBinding.layoutParams as ViewGroup.MarginLayoutParams
             layoutParams.topMargin = -shift
@@ -78,25 +72,30 @@ class OneRow (
             rowBinding.requestLayout()
             imageView1.visibility = VISIBLE
             imageView5.visibility = VISIBLE
+            if (setDirection) {
+                shift = -shift
+            }
         }
         _isStop.value = 0
         _isPlay.value = true
         stopPlay = false
-        setDirection =
-            if (direction == 3) {
-                val dir = mutableListOf(true, false)
-                dir.shuffle()
-                dir[0]
-            } else {
-                direction == 1
-            }
 
         lifecycleOwner.lifecycleScope.launchWhenStarted {
             delay(DELAY_START_ROW_INTERVAL *order.toLong())
-            var delayShift = 1000L
-            var i = 0
-            while(i < 50) {
-                shiftList()
+            for(i in 1..40) {
+                val delayShift =
+                    if (i < 4) {
+                        100L+speed
+                    } else if (i < 6) {
+                        70L+speed
+                    } else {
+                        50L+speed
+                    }
+                if(i!=1) {
+                    withContext(Dispatchers.Main) {
+                        shiftList()
+                    }
+                }
                 if(slide) {
                     val animation1 = ObjectAnimator.ofFloat(
                         imageView1,
@@ -136,35 +135,23 @@ class OneRow (
                     animation3.interpolator = interpolator
                     animation4.interpolator = interpolator
                     animation5.interpolator = interpolator
+
                     val animatorSet = AnimatorSet()
                     animatorSet.playTogether(animation1, animation2, animation3, animation4, animation5)
-
-                    animation5.addListener(object : Animator.AnimatorListener {
-                        override fun onAnimationStart(animation: Animator) {
-                        }
-                        override fun onAnimationEnd(animation: Animator) {
-                            i++
-                        }
-                        override fun onAnimationCancel(animation: Animator) {
-                        }
-                        override fun onAnimationRepeat(animation: Animator) {
-                        }
-                    })
-
-
                     animatorSet.start()
-                    //delay(delayShift)
-
+                    delay(delayShift)
                 } else {
                     delay(20 * speed.toLong())
-                    i++
                 }
-
                 if(stopPlay) {
                     break
                 }
             }
-            stopPlay()
+            withContext(Dispatchers.Main) {
+                delay(100)
+                shiftList()
+                stopPlay()
+            }
         }
     }
 
@@ -178,11 +165,13 @@ class OneRow (
     }
 
     private fun setImages() {
+
         val list = if(setDirection) {
             listImages
         } else {
             listImages.reversed()
         }
+
         image1Binding?.setVariable(BR.itemImage,list[0].image)
         imageView1.translationY = 0F
         image2Binding?.setVariable(BR.itemImage,list[1].image)

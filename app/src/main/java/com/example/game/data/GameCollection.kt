@@ -2,14 +2,14 @@ package com.example.game.data
 
 import com.example.game.R
 
-// direction: 1 - up, 2 - down, 3 - random
+// direction: true - up, false - down
 // slide: true or false
 
 object GameCollection {
     fun getGame(gameNumber: Int): GameSettings {
         return when (gameNumber) {
             1 -> GameSettings(
-                direction = 2,
+                direction = false,
                 slide = true,
                 listOf(
                     R.drawable.game1_slot1,
@@ -22,7 +22,7 @@ object GameCollection {
                 )
             )
             else -> GameSettings(
-                direction = 1,
+                direction = false,
                 slide = false,
                 listOf(
                     R.drawable.game2_img1,
