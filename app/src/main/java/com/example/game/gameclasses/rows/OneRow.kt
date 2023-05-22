@@ -81,7 +81,7 @@ class OneRow (
 
         lifecycleOwner.lifecycleScope.launch {
             delay(DELAY_START_ROW_INTERVAL * order.toLong())
-            for (i in 1..40) {
+            for (i in 1..50) {
                 if (i != 1) {
                     shiftList()
                 }
@@ -89,10 +89,10 @@ class OneRow (
                     val delayShift =
                         if (i < 4) {
                             120L
-                        } else if (i < 6) {
-                            80L
+                        //} else if (i < 6) {
+                        //    80L
                         } else {
-                            40L + speed * 2L
+                            35L + speed * 2L
                         }
                     val animatorSet = makeAnimation(delayShift, shift)
                     delay(delayShift + 10L)

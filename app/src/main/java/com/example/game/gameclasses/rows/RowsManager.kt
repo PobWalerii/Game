@@ -69,9 +69,11 @@ class RowsManager @Inject constructor(
                 if (isSt1 != 0 || isSt2 != 0 || isSt3 != 0) {
                     if (allPlay) {
                         allPlay = false
-                        row1.stopAll(1)
-                        row2.stopAll(2)
-                        row3.stopAll(3)
+                        val stopTime = mutableListOf(1,2,3)
+                        stopTime.shuffle()
+                        row1.stopAll(stopTime[0])
+                        row2.stopAll(stopTime[1])
+                        row3.stopAll(stopTime[2])
                     }
                     if (firstPlay) {
                         Vibrator.startVibrator(context)

@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         app:showImage="@{itemImage}"
         android:paddingHorizontal="5dp"
-        android:paddingVertical="5dp"
+        android:paddingVertical="10dp"
         tools:ignore="ContentDescription"/>
 
 </layout>
