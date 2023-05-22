@@ -23,7 +23,6 @@
         android:id="@+id/imagePers"
         android:layout_width="231dp"
         android:layout_height="280dp"
-        android:layout_marginTop="16dp"
         android:src="@drawable/g2_pers"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,7 +74,7 @@
         layout="@layout/game2_minus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="220dp"
+        android:layout_marginEnd="218dp"
         app:layout_constraintEnd_toEndOf="@+id/rate2_include"
         app:layout_constraintTop_toTopOf="@+id/rate2_include"
         app:layout_constraintBottom_toBottomOf="@+id/rate2_include" />
@@ -85,7 +84,7 @@
         layout="@layout/game2_plus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="220dp"
+        android:layout_marginStart="218dp"
         app:layout_constraintStart_toStartOf="@+id/rate2_include"
         app:layout_constraintTop_toTopOf="@+id/rate2_include"
         app:layout_constraintBottom_toBottomOf="@+id/rate2_include" />
