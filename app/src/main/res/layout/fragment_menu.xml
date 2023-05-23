@@ -72,7 +72,7 @@
             android:layout_width="260dp"
             android:layout_height="277dp"
             android:layout_gravity="start"
-            android:src="@drawable/game1_pers"
+            android:src="@drawable/g1_pers"
             tools:ignore="ContentDescription" />
 
     </FrameLayout>

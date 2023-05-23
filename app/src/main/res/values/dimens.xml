@@ -21,6 +21,7 @@
 
     <dimen name="g2_image_balance_height">86dp</dimen>
     <dimen name="g2_image_balance_width">250dp</dimen>
+    <dimen name="g2_oper_width">75dp</dimen>
     <dimen name="g2_text_info_size">18sp</dimen>
     <dimen name="g1_image_balance_height">70dp</dimen>
     <dimen name="g1_image_balance_width">250dp</dimen>

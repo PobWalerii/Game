@@ -18,15 +18,24 @@
         tools:ignore="ContentDescription" />
 
     <ImageView
-        android:id="@+id/image"
-        android:layout_width="343dp"
-        android:layout_height="381dp"
-        android:layout_marginStart="70dp"
-        android:src="@drawable/g1_land"
-        app:layout_constraintHeight_percent="0.75"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/imagePers"
+        android:layout_width="141dp"
+        android:layout_height="136dp"
+        android:layout_marginBottom="12dp"
+        android:src="@drawable/g1_pers"
+        app:layout_constraintBottom_toBottomOf="@+id/image"
+        app:layout_constraintStart_toEndOf="@+id/image"
         tools:ignore="ContentDescription" />
+
+    <include
+        android:id="@+id/image"
+        layout="@layout/game1_field"
+        android:layout_width="295dp"
+        android:layout_height="275dp"
+        android:layout_marginStart="85dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/balance2_include"/>
 
     <include
         android:id="@+id/container_include"
@@ -41,31 +50,30 @@
 
     <include
         android:id="@+id/balance2_include"
-        layout="@layout/game_balance"
+        layout="@layout/game2_balance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="104dp"
         app:layout_constraintEnd_toEndOf="@+id/image"
-        app:layout_constraintHorizontal_bias="0.559"
         app:layout_constraintStart_toStartOf="@+id/image"
         app:layout_constraintTop_toTopOf="parent" />
 
     <include
         android:id="@+id/minus"
-        layout="@layout/game_minus"
+        layout="@layout/game2_minus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="83dp"
+        android:layout_marginBottom="62dp"
         app:layout_constraintBottom_toBottomOf="@+id/rate2_include"
         app:layout_constraintEnd_toEndOf="@+id/rate2_include"
         app:layout_constraintStart_toStartOf="@+id/rate2_include" />
 
     <include
         android:id="@+id/plus"
-        layout="@layout/game_plus"
+        layout="@layout/game2_plus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="83dp"
+        android:layout_marginTop="62dp"
         app:layout_constraintEnd_toEndOf="@+id/rate2_include"
         app:layout_constraintStart_toStartOf="@+id/rate2_include"
         app:layout_constraintTop_toTopOf="@+id/rate2_include" />
@@ -78,7 +86,7 @@
         android:layout_marginTop="45dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/image"
-        app:layout_constraintTop_toTopOf="@+id/balance2_include" />
+        app:layout_constraintTop_toTopOf="@+id/image" />
 
     <include
         android:id="@+id/splin_include"

@@ -16,13 +16,13 @@
         <ImageView
             android:id="@+id/balance"
             android:layout_width="@dimen/g1_image_balance_width"
-            android:layout_height="@dimen/g1_image_balance_height"
+            android:layout_height="@dimen/g2_image_balance_height"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/g1_balance"
+            app:srcCompat="@drawable/g2_balance"
             tools:ignore="ContentDescription" />
 
         <TextView

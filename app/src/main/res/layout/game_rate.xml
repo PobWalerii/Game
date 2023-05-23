@@ -22,7 +22,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/g1_rate"
+            app:srcCompat="@drawable/g2_balance"
             tools:ignore="ContentDescription" />
 
         <TextView
