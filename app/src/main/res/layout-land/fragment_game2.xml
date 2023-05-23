@@ -27,21 +27,21 @@
         app:layout_constraintStart_toEndOf="@+id/image"
         tools:ignore="ContentDescription" />
 
-    <ImageView
+    <include
         android:id="@+id/image"
+        layout="@layout/game2_field"
         android:layout_width="295dp"
         android:layout_height="275dp"
-        android:layout_marginStart="84dp"
-        android:src="@drawable/g2_field"
+        android:layout_marginStart="85dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/balance2_include"
-        tools:ignore="ContentDescription" />
+        app:layout_constraintTop_toBottomOf="@+id/balance2_include"/>
 
     <include
         android:id="@+id/container_include"
         layout="@layout/game2_row_container"
-        android:layout_width="274dp"
-        android:layout_height="250dp"
+        android:layout_width="292dp"
+        android:layout_height="272dp"
         app:layout_constraintBottom_toBottomOf="@+id/image"
         app:layout_constraintEnd_toEndOf="@+id/image"
         app:layout_constraintStart_toStartOf="@+id/image"
@@ -52,7 +52,7 @@
         layout="@layout/game2_balance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="@+id/image"
         app:layout_constraintStart_toStartOf="@+id/image"
         app:layout_constraintTop_toTopOf="parent" />
