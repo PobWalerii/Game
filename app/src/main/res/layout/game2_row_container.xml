@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
@@ -8,25 +7,25 @@
     android:orientation="horizontal"
     tools:ignore="DisableBaselineAlignment">
 
-<include
-    android:id="@+id/row1"
-    layout="@layout/game2_row"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_weight="1" />
+    <include
+        android:id="@+id/row1"
+        layout="@layout/game2_row"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
 
-<include
-    android:id="@+id/row2"
-    layout="@layout/game2_row"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_weight="1" />
+    <include
+        android:id="@+id/row2"
+        layout="@layout/game2_row"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
 
-<include
-    android:id="@+id/row3"
-    layout="@layout/game2_row"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_weight="1" />
+    <include
+        android:id="@+id/row3"
+        layout="@layout/game2_row"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
 
 </LinearLayout>

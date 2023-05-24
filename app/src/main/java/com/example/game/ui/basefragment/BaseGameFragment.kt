@@ -121,7 +121,7 @@ abstract class BaseGameFragment<T : ViewBinding> : Fragment() {
                     _isPressPlus.value = false
                 }
             }
-            true
+            false
         }
         buttonMinus.setOnTouchListener { _, event ->
             when (event.action) {
@@ -132,7 +132,7 @@ abstract class BaseGameFragment<T : ViewBinding> : Fragment() {
                     _isPressMinus.value = false
                 }
             }
-            true
+            false
         }
     }
 

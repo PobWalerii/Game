@@ -5,7 +5,7 @@ import java.util.*
 
 object RandomList {
 
-    fun makeRandomList(listImages: List<Int>, iterations: Int = 3): MutableList<ItemImages> {
+    fun makeRandomList(listImages: List<Int>, iterations: Int = 2): MutableList<ItemImages> {
         val list = mutableListOf<ItemImages>()
         val random = Random()
         var startImage = random.nextInt(listImages.size)

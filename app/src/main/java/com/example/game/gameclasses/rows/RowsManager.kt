@@ -8,13 +8,11 @@ import com.example.game.R
 import com.example.game.data.GameCollection.getGame
 import com.example.game.utils.RandomList.makeRandomList
 import com.example.game.utils.Vibrator
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
