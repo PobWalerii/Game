@@ -31,6 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:visibility="gone"
             android:layout_weight="1" />
 
         <include
@@ -51,6 +52,23 @@
 
         <include
             android:id="@+id/image5"
+            layout="@layout/game2_row_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1" />
+
+        <include
+            android:id="@+id/image6"
+            layout="@layout/game2_row_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:layout_weight="1" />
+
+        <include
+            android:id="@+id/image7"
             layout="@layout/game2_row_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

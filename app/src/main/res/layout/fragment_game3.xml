@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/game1_back_portr">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:src="@drawable/game1_pers"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.55"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/playing"
+        android:layout_width="357dp"
+        android:layout_height="318dp"
+        android:layout_marginTop="270dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/image"
+        app:srcCompat="@drawable/game1_playing_portr"
+        tools:ignore="ContentDescription" />
+
+    <include
+        android:id="@+id/layout_wheels"
+        layout="@layout/collection_game1"
+        android:layout_width="290dp"
+        android:layout_height="260dp"
+        android:layout_marginHorizontal="65dp"
+        app:layout_constraintBottom_toBottomOf="@+id/playing"
+        app:layout_constraintEnd_toEndOf="@+id/playing"
+        app:layout_constraintStart_toStartOf="@+id/playing"
+        app:layout_constraintTop_toTopOf="@+id/playing" />
+
+    <include
+        android:id="@+id/balance_include"
+        layout="@layout/balance_game1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="240dp"
+        android:elevation="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/image" />
+
+    <include
+        android:id="@+id/minus"
+        layout="@layout/oper_game1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/rate_include"
+        app:layout_constraintStart_toStartOf="@+id/playing"
+        app:layout_constraintTop_toTopOf="@+id/rate_include" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:text="@string/minus"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/minus"
+        app:layout_constraintEnd_toEndOf="@+id/minus"
+        app:layout_constraintStart_toStartOf="@+id/minus"
+        app:layout_constraintTop_toTopOf="@+id/minus" />
+
+    <include
+        android:id="@+id/plus"
+        layout="@layout/oper_game1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/rate_include"
+        app:layout_constraintEnd_toEndOf="@+id/playing"
+        app:layout_constraintTop_toTopOf="@+id/rate_include" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="@string/plus"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/plus"
+        app:layout_constraintEnd_toEndOf="@+id/plus"
+        app:layout_constraintStart_toStartOf="@+id/plus"
+        app:layout_constraintTop_toTopOf="@+id/plus" />
+
+    <include
+        android:id="@+id/rate_include"
+        layout="@layout/rate_game1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="550dp"
+        android:elevation="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/image" />
+
+    <ImageView
+        android:id="@+id/arrow"
+        android:layout_width="@dimen/size_game_arrow"
+        android:layout_height="@dimen/size_game_arrow"
+        android:layout_marginStart="@dimen/margin_game_arrow"
+        android:layout_marginTop="@dimen/margin_game_arrow"
+        android:minWidth="50dp"
+        android:minHeight="50dp"
+        android:src="@drawable/game_arrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <include
+        android:id="@+id/splin_include"
+        layout="@layout/splin_game1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rate_include" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

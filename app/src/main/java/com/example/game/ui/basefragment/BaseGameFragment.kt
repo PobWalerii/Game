@@ -1,7 +1,9 @@
 package com.example.game.ui.basefragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -16,7 +18,7 @@ import com.example.game.gameclasses.rows.RowsManager
 import com.example.game.ui.main.MainActivity
 import com.example.game.ui.viewmodel.GameViewModel
 import com.example.game.utils.ScreenStatus
-import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -35,6 +37,12 @@ abstract class BaseGameFragment<T : ViewBinding> : Fragment() {
     private val splinBinding: ViewDataBinding? by lazy {
         DataBindingUtil.bind(binding.root.findViewById(R.id.splin_include))
     }
+
+    private val _isPressPlus = MutableStateFlow(false)
+    val isPressPlus: StateFlow<Boolean> = _isPressPlus.asStateFlow()
+
+    private val _isPressMinus = MutableStateFlow(false)
+    val isPressMinus: StateFlow<Boolean> = _isPressMinus.asStateFlow()
 
     abstract var gameNumber: Int
 
@@ -64,6 +72,7 @@ abstract class BaseGameFragment<T : ViewBinding> : Fragment() {
         observeGamersBalance()
         observeRateChange()
         rateKeysListener()
+        observeLongKeyPress()
         observeSplinPress()
         observePlayStatus()
         setupNaviButton()
@@ -93,12 +102,48 @@ abstract class BaseGameFragment<T : ViewBinding> : Fragment() {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun rateKeysListener() {
-        binding.root.findViewById<View>(R.id.plus).setOnClickListener {
+        val buttonPlus = binding.root.findViewById<View>(R.id.plus)
+        val buttonMinus = binding.root.findViewById<View>(R.id.minus)
+        buttonPlus.setOnClickListener {
             viewModel.changeRate(true)
         }
-        binding.root.findViewById<View>(R.id.minus).setOnClickListener {
+        buttonMinus.setOnClickListener {
             viewModel.changeRate(false)
+        }
+        buttonPlus.setOnTouchListener { _, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    _isPressPlus.value = true
+                }
+                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                    _isPressPlus.value = false
+                }
+            }
+            true
+        }
+        buttonMinus.setOnTouchListener { _, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    _isPressMinus.value = true
+                }
+                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                    _isPressMinus.value = false
+                }
+            }
+            true
+        }
+    }
+
+    private fun observeLongKeyPress() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            combine( isPressPlus, isPressMinus, viewModel.gamerRate) { isPlus, isMinus, rate ->
+                Triple(isPlus, isMinus, rate)}.collect {(isPlus, isMinus) ->
+                    if(isPlus || isMinus) {
+                        viewModel.changeRate(isPlus)
+                    }
+            }
         }
     }
 
