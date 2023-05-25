@@ -67,7 +67,7 @@ class OneRow (
         val dir = mutableListOf(false,true,false,true,false,true)
         dir.shuffle()
         direction = setDirection ?: dir[0]
-        var shift = imageView4.height
+        var shift = imageView3.height
         if(slide) {
             val layoutParams = rowBinding.layoutParams as ViewGroup.MarginLayoutParams
             layoutParams.topMargin = -shift
@@ -95,7 +95,7 @@ class OneRow (
                         if (i < 2 || i>49) {
                             100L
                         } else {
-                            20L + speed * 5L
+                            15L + speed * 5L
                         }
                     val animatorSet =
                     makeAnimation(delayShift, shift)
@@ -123,12 +123,11 @@ class OneRow (
 
     private fun stopPlay() {
         _isPlay.value = false
-        _isStop.value = listImages[2].id.toInt()
+        _isStop.value = listImages[listImages.size/2].id.toInt()
     }
 
     private fun setImages() {
         val centrPosition = listImages.size/2
-
         image1Binding?.setVariable(BR.itemImage,listImages[centrPosition-2].image)
         imageView1.translationY = 0F
         image2Binding?.setVariable(BR.itemImage,listImages[centrPosition-1].image)

@@ -4,6 +4,7 @@ import android.content.Context
 import com.example.game.constants.GamesConstants.DELTA_CHANGE_RATE_GAME
 import com.example.game.constants.GamesConstants.PARTS_OF_BALANCE_SHEET
 import com.example.game.constants.GamesConstants.START_GAMER_BALANCE
+import com.example.game.constants.GamesConstants.START_RATE_GAME
 import com.example.game.gameclasses.rows.RowsManager
 import com.example.game.gameclasses.wheels.WheelsManager
 import kotlinx.coroutines.CoroutineScope
@@ -75,12 +76,15 @@ class GameRepository @Inject constructor(
                 }
             }
             _gamerBalance.value = newBalance
+            if(newBalance<rateGame.value) {
+                _rateGame.value = newBalance
+            }
         }
     }
 
     private fun startGamerBalance() {
         _gamerBalance.value = START_GAMER_BALANCE
-        _rateGame.value = DELTA_CHANGE_RATE_GAME
+        _rateGame.value = START_RATE_GAME
     }
 
     fun changeRateGame(plus: Boolean) {
