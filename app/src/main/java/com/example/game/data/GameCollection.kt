@@ -2,7 +2,7 @@ package com.example.game.data
 
 import com.example.game.R
 
-// direction: true - up, false - down
+// direction: true - up, false - down, null - random
 // slide: true or false
 
 object GameCollection {

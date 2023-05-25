@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
+import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -18,6 +19,7 @@ import com.example.game.gameclasses.rows.RowsManager
 import com.example.game.ui.main.MainActivity
 import com.example.game.ui.viewmodel.GameViewModel
 import com.example.game.utils.ScreenStatus
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -40,7 +42,6 @@ abstract class BaseGameFragment<T : ViewBinding> : Fragment() {
 
     private val _isPressPlus = MutableStateFlow(false)
     val isPressPlus: StateFlow<Boolean> = _isPressPlus.asStateFlow()
-
     private val _isPressMinus = MutableStateFlow(false)
     val isPressMinus: StateFlow<Boolean> = _isPressMinus.asStateFlow()
 
@@ -72,7 +73,6 @@ abstract class BaseGameFragment<T : ViewBinding> : Fragment() {
         observeGamersBalance()
         observeRateChange()
         rateKeysListener()
-        observeLongKeyPress()
         observeSplinPress()
         observePlayStatus()
         setupNaviButton()
@@ -98,52 +98,71 @@ abstract class BaseGameFragment<T : ViewBinding> : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.gamerRate.collect { rate ->
                 rate2Binding?.setVariable(BR.rate2,rate)
+                if(isPressPlus.value || isPressMinus.value) {
+                    delay(1)
+                    viewModel.changeRate(isPressPlus.value)
+                }
             }
         }
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     private fun rateKeysListener() {
         val buttonPlus = binding.root.findViewById<View>(R.id.plus)
         val buttonMinus = binding.root.findViewById<View>(R.id.minus)
+
         buttonPlus.setOnClickListener {
             viewModel.changeRate(true)
         }
         buttonMinus.setOnClickListener {
             viewModel.changeRate(false)
         }
-        buttonPlus.setOnTouchListener { _, event ->
-            when (event.action) {
-                MotionEvent.ACTION_DOWN -> {
-                    _isPressPlus.value = true
-                }
-                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                    _isPressPlus.value = false
-                }
-            }
-            false
+        buttonPlus.setOnLongClickListener {
+            _isPressPlus.value = true
+            createTouch(true)
+            viewModel.changeRate(true)
+            true
         }
-        buttonMinus.setOnTouchListener { _, event ->
-            when (event.action) {
-                MotionEvent.ACTION_DOWN -> {
-                    _isPressMinus.value = true
-                }
-                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                    _isPressMinus.value = false
-                }
-            }
-            false
+        buttonMinus.setOnLongClickListener {
+            _isPressMinus.value = true
+            createTouch(false)
+            viewModel.changeRate(false)
+            true
         }
     }
 
-    private fun observeLongKeyPress() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            combine( isPressPlus, isPressMinus, viewModel.gamerRate) { isPlus, isMinus, rate ->
-                Triple(isPlus, isMinus, rate)}.collect {(isPlus, isMinus) ->
-                    if(isPlus || isMinus) {
-                        viewModel.changeRate(isPlus)
-                    }
+    @SuppressLint("ClickableViewAccessibility")
+    private fun createTouch(oper: Boolean) {
+        val button = if(oper) {
+            binding.root.findViewById<View>(R.id.plus)
+        } else {
+            binding.root.findViewById<View>(R.id.minus)
+        }
+        val touchListener = OnTouchListener { _, event ->
+            when (event.action) {
+                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                    clearTouch()
+                }
             }
+            true
+        }
+        button.setOnTouchListener(touchListener)
+    }
+
+    private fun clearTouch() {
+        _isPressPlus.value = false
+        _isPressMinus.value = false
+        val buttonPlus = binding.root.findViewById<View>(R.id.plus)
+        val buttonMinus = binding.root.findViewById<View>(R.id.minus)
+        buttonPlus.setOnTouchListener(null)
+        buttonMinus.setOnTouchListener(null)
+    }
+
+    private fun createMinusTouch(create: Boolean) {
+        val buttonMinus = binding.root.findViewById<View>(R.id.minus)
+        if(create) {
+
+        } else {
+
         }
     }
 

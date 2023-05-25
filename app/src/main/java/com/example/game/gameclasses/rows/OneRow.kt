@@ -86,20 +86,20 @@ class OneRow (
 
         lifecycleOwner.lifecycleScope.launch {
             delay(DELAY_START_ROW_INTERVAL * order.toLong())
-            for (i in 1..70) {
+            for (i in 1..50) {
                 if (i != 1) {
                     shiftList()
                 }
                 if (slide) {
                     val delayShift =
-                        if (i < 2 || i>69) {
+                        if (i < 2 || i>49) {
                             100L
                         } else {
                             20L + speed * 5L
                         }
                     val animatorSet =
                     makeAnimation(delayShift, shift)
-                    delay(delayShift+5L)
+                    delay(delayShift)
                     animatorSet.cancel()
                 } else {
                     delay(20 * speed.toLong())
@@ -127,29 +127,30 @@ class OneRow (
     }
 
     private fun setImages() {
+        val centrPosition = listImages.size/2
 
-        val list = if(direction) {
-            listImages
-        } else {
-            listImages.reversed()
-        }
-
-        image1Binding?.setVariable(BR.itemImage,list[0].image)
+        image1Binding?.setVariable(BR.itemImage,listImages[centrPosition-2].image)
         imageView1.translationY = 0F
-        image2Binding?.setVariable(BR.itemImage,list[1].image)
+        image2Binding?.setVariable(BR.itemImage,listImages[centrPosition-1].image)
         imageView2.translationY = 0F
-        image3Binding?.setVariable(BR.itemImage,list[2].image)
+        image3Binding?.setVariable(BR.itemImage,listImages[centrPosition].image)
         imageView3.translationY = 0F
-        image4Binding?.setVariable(BR.itemImage,list[3].image)
+        image4Binding?.setVariable(BR.itemImage,listImages[centrPosition+1].image)
         imageView4.translationY = 0F
-        image5Binding?.setVariable(BR.itemImage,list[4].image)
+        image5Binding?.setVariable(BR.itemImage,listImages[centrPosition+2].image)
         imageView5.translationY = 0F
     }
 
     private fun shiftList() {
-        val first = listImages[0]
-        listImages.removeAt(0)
-        listImages.add(first)
+        if (direction) {
+            val first = listImages[0]
+            listImages.removeAt(0)
+            listImages.add(first)
+        } else {
+            val last = listImages.last()
+            listImages.removeAt(listImages.size - 1)
+            listImages.add(0, last)
+        }
         setImages()
     }
 
