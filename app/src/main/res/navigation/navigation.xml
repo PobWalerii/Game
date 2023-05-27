@@ -24,6 +24,9 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_menuFragment_to_game3Fragment"
+            app:destination="@id/game3Fragment" />
     </fragment>
     <fragment
         android:id="@+id/game2Fragment"
@@ -34,4 +37,8 @@
         android:id="@+id/game1Fragment"
         android:name="com.example.game.ui.game1.Game1Fragment"
         android:label="Game1Fragment" />
+    <fragment
+        android:id="@+id/game3Fragment"
+        android:name="com.example.game.ui.game3.Game3Fragment"
+        android:label="Game3Fragment" />
 </navigation>

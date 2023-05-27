@@ -1,7 +1,5 @@
 package com.example.game.ui.menu
 
-import android.annotation.SuppressLint
-import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -32,11 +30,14 @@ class MenuFragment : Fragment() {
     }
 
     private fun setMenuListeners() {
-        binding.play1.setOnClickListener {
+        binding.play1.play.setOnClickListener {
             startGame1()
         }
-        binding.play2.setOnClickListener {
+        binding.play2.play.setOnClickListener {
             startGame2()
+        }
+        binding.play3.play.setOnClickListener {
+            startGame3()
         }
         binding.arrow.setOnClickListener {
             (activity as MainActivity).finish()
@@ -51,15 +52,12 @@ class MenuFragment : Fragment() {
         findNavController().navigate(MenuFragmentDirections.actionMenuFragmentToGame2Fragment())
     }
 
-    @SuppressLint("SourceLockedOrientationActivity")
-    override fun onResume() {
-        super.onResume()
-        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+    private fun startGame3() {
+        findNavController().navigate(MenuFragmentDirections.actionMenuFragmentToGame3Fragment())
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
         _binding = null
     }
 

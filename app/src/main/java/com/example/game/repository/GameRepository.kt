@@ -1,6 +1,5 @@
 package com.example.game.repository
 
-import android.content.Context
 import com.example.game.constants.GamesConstants.DELTA_CHANGE_RATE_GAME
 import com.example.game.constants.GamesConstants.PARTS_OF_BALANCE_SHEET
 import com.example.game.constants.GamesConstants.START_GAMER_BALANCE
@@ -19,7 +18,6 @@ import javax.inject.Singleton
 class GameRepository @Inject constructor(
     wheelsManager: WheelsManager,
     rowsManager: RowsManager,
-    private val context: Context
 ) {
 
     private val _gamerBalance = MutableStateFlow(0)

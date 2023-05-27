@@ -35,11 +35,11 @@
         android:layout_marginStart="85dp"
         android:layout_marginTop="5dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/balance2_include"/>
+        app:layout_constraintTop_toBottomOf="@+id/balance_include"/>
 
     <include
         android:id="@+id/container_include"
-        layout="@layout/game2_row_container"
+        layout="@layout/row_container"
         android:layout_width="292dp"
         android:layout_height="272dp"
         app:layout_constraintBottom_toBottomOf="@+id/image"
@@ -48,7 +48,7 @@
         app:layout_constraintTop_toTopOf="@+id/image" />
 
     <include
-        android:id="@+id/balance2_include"
+        android:id="@+id/balance_include"
         layout="@layout/game2_balance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -63,9 +63,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="62dp"
-        app:layout_constraintBottom_toBottomOf="@+id/rate2_include"
-        app:layout_constraintEnd_toEndOf="@+id/rate2_include"
-        app:layout_constraintStart_toStartOf="@+id/rate2_include" />
+        app:layout_constraintBottom_toBottomOf="@+id/rate_include"
+        app:layout_constraintEnd_toEndOf="@+id/rate_include"
+        app:layout_constraintStart_toStartOf="@+id/rate_include" />
 
     <include
         android:id="@+id/plus"
@@ -73,12 +73,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="62dp"
-        app:layout_constraintEnd_toEndOf="@+id/rate2_include"
-        app:layout_constraintStart_toStartOf="@+id/rate2_include"
-        app:layout_constraintTop_toTopOf="@+id/rate2_include" />
+        app:layout_constraintEnd_toEndOf="@+id/rate_include"
+        app:layout_constraintStart_toStartOf="@+id/rate_include"
+        app:layout_constraintTop_toTopOf="@+id/rate_include" />
 
     <include
-        android:id="@+id/rate2_include"
+        android:id="@+id/rate_include"
         layout="@layout/game2_rate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -91,10 +91,10 @@
         layout="@layout/game2_splin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="@dimen/splin_margin_bottom"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/rate2_include"
-        app:layout_constraintStart_toStartOf="@+id/rate2_include"
+        app:layout_constraintEnd_toEndOf="@+id/rate_include"
+        app:layout_constraintStart_toStartOf="@+id/rate_include"
         app:layout_constraintTop_toBottomOf="@+id/plus" />
 
     <ImageView

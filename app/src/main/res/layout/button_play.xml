@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/play"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/menu_button"
+    android:elevation="2dp"
+    android:paddingHorizontal="15dp"
+    android:paddingVertical="10dp"
+    android:text="@string/text_play"
+    android:textColor="@color/black"
+    android:textSize="20sp"
+    android:textStyle="bold"/>

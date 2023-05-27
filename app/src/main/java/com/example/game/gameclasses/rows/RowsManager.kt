@@ -78,6 +78,9 @@ class RowsManager @Inject constructor(
                     }
                 }
                 if (isSt1 !=0 && isSt2 !=0 && isSt3 !=0) {
+                    row1.finishAnim()
+                    row2.finishAnim()
+                    row3.finishAnim()
                     _playResult.value = when {
                         isSt1 == isSt2 && isSt2 == isSt3 -> "x5"
                         isSt1 == isSt2 || isSt1 == isSt3 || isSt2 == isSt3 -> "x2"

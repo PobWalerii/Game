@@ -30,24 +30,24 @@ abstract class BaseGameFragment<T : ViewBinding> : Fragment() {
     protected val binding: T
         get() = requireNotNull(_binding)
 
-    private val balance2Binding: ViewDataBinding? by lazy {
-        DataBindingUtil.bind(binding.root.findViewById(R.id.balance2_include))
+    private val balanceBinding: ViewDataBinding? by lazy {
+        DataBindingUtil.bind(binding.root.findViewById(R.id.balance_include))
     }
-    private val rate2Binding: ViewDataBinding? by lazy {
-        DataBindingUtil.bind(binding.root.findViewById(R.id.rate2_include))
+    private val rateBinding: ViewDataBinding? by lazy {
+        DataBindingUtil.bind(binding.root.findViewById(R.id.rate_include))
     }
     private val splinBinding: ViewDataBinding? by lazy {
         DataBindingUtil.bind(binding.root.findViewById(R.id.splin_include))
     }
 
     private val _isPressPlus = MutableStateFlow(false)
-    val isPressPlus: StateFlow<Boolean> = _isPressPlus.asStateFlow()
+    private val isPressPlus: StateFlow<Boolean> = _isPressPlus.asStateFlow()
     private val _isPressMinus = MutableStateFlow(false)
-    val isPressMinus: StateFlow<Boolean> = _isPressMinus.asStateFlow()
+    private val isPressMinus: StateFlow<Boolean> = _isPressMinus.asStateFlow()
 
     abstract var gameNumber: Int
 
-    protected lateinit var viewModel: GameViewModel
+    private lateinit var viewModel: GameViewModel
     protected abstract fun getViewModelClass(): Class<GameViewModel>
 
     @Inject
@@ -57,7 +57,7 @@ abstract class BaseGameFragment<T : ViewBinding> : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(getViewModelClass())
+        viewModel = ViewModelProvider(this)[getViewModelClass()]
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -89,7 +89,7 @@ abstract class BaseGameFragment<T : ViewBinding> : Fragment() {
     private fun observeGamersBalance() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.gamerBalance.collect { balance ->
-                balance2Binding?.setVariable(BR.balance2, balance)
+                balanceBinding?.setVariable(BR.balance, balance)
             }
         }
     }
@@ -97,7 +97,7 @@ abstract class BaseGameFragment<T : ViewBinding> : Fragment() {
     private fun observeRateChange() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.gamerRate.collect { rate ->
-                rate2Binding?.setVariable(BR.rate2,rate)
+                rateBinding?.setVariable(BR.rate,rate)
                 if(isPressPlus.value || isPressMinus.value) {
                     delay(1)
                     viewModel.changeRate(isPressPlus.value)
@@ -133,7 +133,7 @@ abstract class BaseGameFragment<T : ViewBinding> : Fragment() {
     @SuppressLint("ClickableViewAccessibility")
     private fun createTouch(oper: Boolean) {
         val button = if(oper) {
-            binding.root.findViewById<View>(R.id.plus)
+            binding.root.findViewById(R.id.plus)
         } else {
             binding.root.findViewById<View>(R.id.minus)
         }
@@ -155,15 +155,6 @@ abstract class BaseGameFragment<T : ViewBinding> : Fragment() {
         val buttonMinus = binding.root.findViewById<View>(R.id.minus)
         buttonPlus.setOnTouchListener(null)
         buttonMinus.setOnTouchListener(null)
-    }
-
-    private fun createMinusTouch(create: Boolean) {
-        val buttonMinus = binding.root.findViewById<View>(R.id.minus)
-        if(create) {
-
-        } else {
-
-        }
     }
 
     private fun observeSplinPress() {

@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/menu_back"
     tools:context=".ui.menu.MenuFragment">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/menu_back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
 
     <ImageView
         android:id="@+id/arrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="40dp"
+        android:layout_margin="@dimen/margin_game_arrow"
         android:src="@drawable/menu_arrow"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -25,7 +35,7 @@
         android:textColor="@color/white"
         android:textSize="@dimen/menu_text_size"
         android:gravity="center_horizontal"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="@dimen/menu_text_margin_top"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
@@ -34,43 +44,36 @@
         android:id="@+id/back_menu1"
         android:layout_width="match_parent"
         android:layout_height="@dimen/back_menu_height"
-        android:src="@drawable/menu_button_back"
         android:layout_marginStart="@dimen/back_menu_start"
         android:layout_marginEnd="@dimen/back_menu_end"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/menu_button_back"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/layout_game1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/arrow"
         tools:ignore="ContentDescription" />
 
-    <TextView
+    <include
         android:id="@+id/play1"
+        layout="@layout/button_play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/text_play"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:textSize="@dimen/menu_button_text_size"
-        android:background="@drawable/menu_button"
-        android:paddingVertical="@dimen/play_padding_vertical"
-        android:paddingHorizontal="@dimen/play_padding_horizontal"
-        android:layout_marginEnd="15dp"
-        android:elevation="2dp"
-        app:layout_constraintTop_toTopOf="@+id/back_menu1"
+        android:layout_marginEnd="25dp"
+        app:layout_constraintBottom_toBottomOf="@+id/back_menu1"
         app:layout_constraintEnd_toEndOf="@+id/back_menu1"
-        app:layout_constraintBottom_toBottomOf="@+id/layout_game1"/>
+        app:layout_constraintTop_toTopOf="@+id/back_menu1"/>
 
     <FrameLayout
         android:id="@+id/layout_game1"
-        android:layout_width="match_parent"
-        android:layout_height="215dp"
-        android:layout_marginTop="110dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="411dp"
+        android:layout_height="189dp"
+        app:layout_constraintBottom_toBottomOf="@id/back_menu1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
-            android:layout_width="260dp"
-            android:layout_height="277dp"
+            android:layout_width="329dp"
+            android:layout_height="351dp"
             android:layout_gravity="start"
             android:src="@drawable/g1_pers"
             tools:ignore="ContentDescription" />
@@ -81,25 +84,20 @@
         android:id="@+id/back_menu2"
         android:layout_width="match_parent"
         android:layout_height="@dimen/back_menu_height"
-        android:src="@drawable/menu_button_back"
         android:layout_marginStart="@dimen/back_menu_start"
         android:layout_marginEnd="@dimen/back_menu_end"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/menu_button_back"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/layout_game2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/back_menu1"
         tools:ignore="ContentDescription" />
 
-    <TextView
+    <include
         android:id="@+id/play2"
+        layout="@layout/button_play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/text_play"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:textSize="@dimen/menu_button_text_size"
-        android:background="@drawable/menu_button"
-        android:paddingVertical="@dimen/play_padding_vertical"
-        android:paddingHorizontal="@dimen/play_padding_horizontal"
         android:layout_marginStart="25dp"
         app:layout_constraintTop_toTopOf="@+id/back_menu2"
         app:layout_constraintStart_toStartOf="@+id/back_menu2"
@@ -109,10 +107,9 @@
         android:id="@+id/layout_game2"
         android:layout_width="match_parent"
         android:layout_height="215dp"
-        android:layout_marginTop="225dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/back_menu2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/layout_game1">
+        app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
             android:layout_width="142dp"
@@ -124,6 +121,44 @@
 
     </FrameLayout>
 
+    <ImageView
+        android:id="@+id/back_menu3"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/back_menu_height"
+        android:layout_marginStart="@dimen/back_menu_start"
+        android:layout_marginEnd="@dimen/back_menu_end"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/menu_button_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/back_menu2"
+        tools:ignore="ContentDescription" />
 
+    <include
+        android:id="@+id/play3"
+        layout="@layout/button_play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="25dp"
+        app:layout_constraintBottom_toBottomOf="@+id/back_menu3"
+        app:layout_constraintEnd_toEndOf="@+id/back_menu3"
+        app:layout_constraintTop_toTopOf="@+id/back_menu3" />
+
+    <FrameLayout
+        android:id="@+id/layout_game3"
+        android:layout_width="395dp"
+        android:layout_height="158dp"
+        app:layout_constraintBottom_toBottomOf="@+id/back_menu3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:layout_width="221dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:src="@drawable/g3_pers"
+            tools:ignore="ContentDescription" />
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

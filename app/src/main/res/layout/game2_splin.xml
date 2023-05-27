@@ -3,31 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="isEnable"
             type="Boolean" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <TextView
+        android:id="@+id/splin"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/splin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:enabled="@{isEnable}"
-            android:paddingHorizontal="@dimen/splin_padding_horizontal"
-            android:paddingVertical="@dimen/splin_padding_vertical"
-            android:text="@string/text_spin"
-            android:textColor="@{isEnable ? @color/gray : @color/dark}"
-            android:textSize="@dimen/splin_text_size"
-            app:background="@{isEnable ? @drawable/g2_button : @drawable/disabled_button}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="wrap_content"
+        android:enabled="@{isEnable}"
+        android:paddingHorizontal="@dimen/splin_padding_horizontal"
+        android:paddingVertical="@dimen/splin_padding_vertical"
+        android:text="@string/text_spin"
+        android:textColor="@{isEnable ? @color/gray : @color/dark}"
+        android:textSize="@dimen/splin_text_size"
+        app:background="@{isEnable ? @drawable/g2_button : @drawable/disabled_button}" />
 
 </layout>

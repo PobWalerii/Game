@@ -2,10 +2,13 @@ package com.example.game.gameclasses.rows
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
+import android.annotation.SuppressLint
 import android.view.View
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.AnticipateInterpolator
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.databinding.library.baseAdapters.BR
@@ -97,10 +100,8 @@ class OneRow (
                         } else {
                             15L + speed * 5L
                         }
-                    val animatorSet =
                     makeAnimation(delayShift, shift)
                     delay(delayShift)
-                    animatorSet.cancel()
                 } else {
                     delay(20 * speed.toLong())
                 }
@@ -121,9 +122,25 @@ class OneRow (
         }
     }
 
+    @SuppressLint("ObjectAnimatorBinding")
     private fun stopPlay() {
         _isPlay.value = false
         _isStop.value = listImages[listImages.size/2].id.toInt()
+    }
+
+    fun finishAnim() {
+        val anim = ObjectAnimator.ofPropertyValuesHolder(imageView3, PropertyValuesHolder.ofFloat("scaleX", 1.2f),
+            PropertyValuesHolder.ofFloat("scaleY", 1.2f))
+        anim.duration = 500L
+        anim.start()
+        val restoreAnimator = ObjectAnimator.ofPropertyValuesHolder(
+            imageView3,
+            PropertyValuesHolder.ofFloat("scaleX", 1.0f),
+            PropertyValuesHolder.ofFloat("scaleY", 1.0f),
+        )
+        restoreAnimator.startDelay = 500L
+        restoreAnimator.duration = 500L
+        restoreAnimator.start()
     }
 
     private fun setImages() {
@@ -153,7 +170,7 @@ class OneRow (
         setImages()
     }
 
-    private fun makeAnimation(delayShift: Long, shift: Int): AnimatorSet {
+    private fun makeAnimation(delayShift: Long, shift: Int) {
         val animation1 = ObjectAnimator.ofFloat(
             imageView1,
             "translationY",
@@ -180,19 +197,6 @@ class OneRow (
             imageView5.translationY + shift
         )
 
-        animation1.duration = delayShift
-        animation2.duration = delayShift
-        animation3.duration = delayShift
-        animation4.duration = delayShift
-        animation5.duration = delayShift
-
-        val interpolator = AccelerateDecelerateInterpolator()
-        animation1.interpolator = interpolator
-        animation2.interpolator = interpolator
-        animation3.interpolator = interpolator
-        animation4.interpolator = interpolator
-        animation5.interpolator = interpolator
-
         val animatorSet = AnimatorSet()
         animatorSet.playTogether(
             animation1,
@@ -201,8 +205,9 @@ class OneRow (
             animation4,
             animation5,
         )
+        animatorSet.duration = delayShift
+        animatorSet.interpolator = AccelerateDecelerateInterpolator()
         animatorSet.start()
-        return animatorSet
     }
 
 }
