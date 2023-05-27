@@ -8,12 +8,10 @@ import android.view.View
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
-import android.view.animation.AnticipateInterpolator
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.lifecycleScope
 import com.example.game.R
 import com.example.game.constants.GamesConstants.DELAY_START_ROW_INTERVAL
 import com.example.game.data.ItemImages
@@ -28,7 +26,7 @@ class OneRow (
     private val setDirection: Boolean?,
     private val slide: Boolean,
     private val lifecycleOwner: LifecycleOwner,
-) {
+): BaseRow() {
 
     private val imageView1: View =
         rowBinding.findViewById(R.id.image1)
@@ -53,10 +51,10 @@ class OneRow (
         DataBindingUtil.bind(imageView5)
 
     private val _isPlay = MutableStateFlow(false)
-    val isPlay: StateFlow<Boolean> = _isPlay.asStateFlow()
+    override val isPlay: StateFlow<Boolean> = _isPlay.asStateFlow()
 
     private val _isStop = MutableStateFlow(0)
-    val isStop: StateFlow<Int> = _isStop.asStateFlow()
+    override val isStop: StateFlow<Int> = _isStop.asStateFlow()
 
     private var direction = false
 
@@ -66,7 +64,7 @@ class OneRow (
         shiftList()
     }
 
-    fun startPlay(order: Int, speed: Int) {
+    override fun startPlay(order: Int, speed: Int) {
         val dir = mutableListOf(false,true,false,true,false,true)
         dir.shuffle()
         direction = setDirection ?: dir[0]
@@ -86,8 +84,8 @@ class OneRow (
         _isStop.value = 0
         _isPlay.value = true
         stopPlay = false
-
-        lifecycleOwner.lifecycleScope.launch {
+        CoroutineScope(Dispatchers.Main).launch {
+        //lifecycleOwner.lifecycleScope.launch {
             delay(DELAY_START_ROW_INTERVAL * order.toLong())
             for (i in 1..50) {
                 if (i != 1) {
@@ -115,7 +113,7 @@ class OneRow (
         }
     }
 
-    fun stopAll(delay: Int) {
+    override fun stopAll(delay: Int) {
         CoroutineScope(Dispatchers.Default).launch {
             delay(DELAY_START_ROW_INTERVAL * delay)
             stopPlay = true
@@ -128,7 +126,7 @@ class OneRow (
         _isStop.value = listImages[listImages.size/2].id.toInt()
     }
 
-    fun finishAnim() {
+    override fun finishAnim() {
         val anim = ObjectAnimator.ofPropertyValuesHolder(imageView3, PropertyValuesHolder.ofFloat("scaleX", 1.2f),
             PropertyValuesHolder.ofFloat("scaleY", 1.2f))
         anim.duration = 500L

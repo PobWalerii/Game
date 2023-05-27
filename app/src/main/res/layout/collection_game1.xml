@@ -9,21 +9,21 @@
 
     <include
         android:id="@+id/wheel1"
-        layout="@layout/wheel_game1"
+        layout="@layout/wheel_recycler"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1" />
 
     <include
         android:id="@+id/wheel2"
-        layout="@layout/wheel_game1"
+        layout="@layout/wheel_recycler"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1" />
 
     <include
         android:id="@+id/wheel3"
-        layout="@layout/wheel_game1"
+        layout="@layout/wheel_recycler"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1" />

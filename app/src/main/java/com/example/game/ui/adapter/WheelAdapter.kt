@@ -10,7 +10,7 @@ import com.example.game.R
 import com.example.game.databinding.WheelItemBinding
 import com.example.game.data.ItemImages
 
-class WheelsAdapter: ListAdapter<ItemImages, WheelsAdapter.ViewHolder>(COMPARATOR) {
+class WheelAdapter: ListAdapter<ItemImages, WheelAdapter.ViewHolder>(COMPARATOR) {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = WheelItemBinding.bind(itemView)

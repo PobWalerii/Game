@@ -6,14 +6,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.game.constants.GamesConstants.DELAY_START_WHEEL_INTERVAL
 import com.example.game.data.ItemImages
-import com.example.game.ui.adapter.WheelsAdapter
+import com.example.game.ui.adapter.WheelAdapter
 import com.example.game.utils.RecyclerViewDisabler
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 
-class OneWheel(
-    private val adapter: WheelsAdapter,
-    private val recycler: RecyclerView,
+class OneWheel_(
+    //private val adapter: WheelAdapter,
+    //private val recycler: RecyclerView,
     private val list: MutableList<ItemImages>,
     private val lifecycleOwner: LifecycleOwner,
 ) {
@@ -23,6 +23,10 @@ class OneWheel(
 
     private val _isStop = MutableStateFlow(0)
     val isStop: StateFlow<Int> = _isStop.asStateFlow()
+
+    private lateinit var adapter: WheelAdapter
+    private lateinit var recycler: RecyclerView
+
 
     init {
         CoroutineScope(Dispatchers.Main).launch {
