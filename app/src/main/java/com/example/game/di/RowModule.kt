@@ -1,7 +1,7 @@
 package com.example.game.di
 
 import android.content.Context
-import com.example.game.gameclasses.rows.RowsManager
+import com.example.game.gameclasses.RowsManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,7 +20,5 @@ object RowModule {
     ): RowsManager {
         return RowsManager(applicationContext)
     }
-
-
 
 }

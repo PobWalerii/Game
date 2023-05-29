@@ -1,9 +1,8 @@
-package com.example.game.gameclasses.rows
+package com.example.game.gameclasses.rowlist
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
-import android.annotation.SuppressLint
 import android.view.View
 import android.view.View.VISIBLE
 import android.view.ViewGroup
@@ -12,9 +11,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import com.example.game.R
 import com.example.game.constants.GamesConstants.DELAY_START_ROW_INTERVAL
 import com.example.game.data.ItemImages
+import com.example.game.gameclasses.RowBase
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -26,8 +27,7 @@ class OneRow (
     private val setDirection: Boolean?,
     private val slide: Boolean,
     private val lifecycleOwner: LifecycleOwner,
-): BaseRow() {
-
+): RowBase() {
     private val imageView1: View =
         rowBinding.findViewById(R.id.image1)
     private val imageView2: View =
@@ -84,8 +84,8 @@ class OneRow (
         _isStop.value = 0
         _isPlay.value = true
         stopPlay = false
-        CoroutineScope(Dispatchers.Main).launch {
-        //lifecycleOwner.lifecycleScope.launch {
+
+        lifecycleOwner.lifecycleScope.launch {
             delay(DELAY_START_ROW_INTERVAL * order.toLong())
             for (i in 1..50) {
                 if (i != 1) {
@@ -114,13 +114,12 @@ class OneRow (
     }
 
     override fun stopAll(delay: Int) {
-        CoroutineScope(Dispatchers.Default).launch {
+        CoroutineScope(Dispatchers.IO).launch {
             delay(DELAY_START_ROW_INTERVAL * delay)
             stopPlay = true
         }
     }
 
-    @SuppressLint("ObjectAnimatorBinding")
     private fun stopPlay() {
         _isPlay.value = false
         _isStop.value = listImages[listImages.size/2].id.toInt()

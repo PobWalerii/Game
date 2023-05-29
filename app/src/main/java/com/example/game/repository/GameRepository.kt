@@ -4,8 +4,7 @@ import com.example.game.constants.GamesConstants.DELTA_CHANGE_RATE_GAME
 import com.example.game.constants.GamesConstants.PARTS_OF_BALANCE_SHEET
 import com.example.game.constants.GamesConstants.START_GAMER_BALANCE
 import com.example.game.constants.GamesConstants.START_RATE_GAME
-import com.example.game.gameclasses.rows.RowsManager
-import com.example.game.gameclasses.wheels.WheelsManager
+import com.example.game.gameclasses.RowsManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -16,7 +15,6 @@ import javax.inject.Singleton
 
 @Singleton
 class GameRepository @Inject constructor(
-    wheelsManager: WheelsManager,
     rowsManager: RowsManager,
 ) {
 
@@ -25,10 +23,6 @@ class GameRepository @Inject constructor(
 
     private val _rateGame = MutableStateFlow(0)
     val rateGame: StateFlow<Int> = _rateGame.asStateFlow()
-
-    val isWheelsRotate: StateFlow<Boolean> = wheelsManager.isRotate
-
-    private val gameResult: StateFlow<String> = wheelsManager.gameResult
 
     val isRowsPlay: StateFlow<Boolean> = rowsManager.isPlay
 
@@ -40,11 +34,6 @@ class GameRepository @Inject constructor(
     }
 
     private fun observeGameResult() {
-        CoroutineScope(Dispatchers.Main).launch {
-            gameResult.collect { stringResult ->
-                showResult(stringResult)
-            }
-        }
         CoroutineScope(Dispatchers.Main).launch {
             playResult.collect { stringResult ->
                 showResult(stringResult)

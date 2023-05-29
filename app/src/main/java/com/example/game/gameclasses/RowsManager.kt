@@ -1,12 +1,16 @@
-package com.example.game.gameclasses.rows
+package com.example.game.gameclasses
 
+import android.app.Activity
 import android.content.Context
 import android.view.View
+import androidx.annotation.UiThread
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.example.game.R
 import com.example.game.data.GameCollection.getGame
+import com.example.game.gameclasses.rowlist.OneRow
+import com.example.game.gameclasses.rowrecycler.OneWheel
 import com.example.game.utils.RandomList.makeRandomList
 import com.example.game.utils.Vibrator
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,9 +32,9 @@ class RowsManager @Inject constructor(
     private val _playResult = MutableStateFlow("")
     val playResult: StateFlow<String> = _playResult.asStateFlow()
 
-    private lateinit var row1: BaseRow
-    private lateinit var row2: BaseRow
-    private lateinit var row3: BaseRow
+    private lateinit var row1: RowBase
+    private lateinit var row2: RowBase
+    private lateinit var row3: RowBase
 
     private var firstPlay = false
     private var allPlay = false
@@ -39,6 +43,7 @@ class RowsManager @Inject constructor(
         gameNumber: Int,
         containerBinding: View,
         lifecycleOwner: LifecycleOwner,
+        //activity: Activity
     ) {
         val gameSettings = getGame(gameNumber)
         val row1View: View = containerBinding.findViewById(R.id.row1)
@@ -46,17 +51,17 @@ class RowsManager @Inject constructor(
         val row3View: View = containerBinding.findViewById(R.id.row3)
 
         row1 = if(row1View is RecyclerView)  {
-            OneWheel(row1View, makeRandomList(gameSettings.listImages), gameSettings.direction, lifecycleOwner)
+            OneWheel(row1View, makeRandomList(gameSettings.listImages), gameSettings.direction, gameSettings.slide, lifecycleOwner)
         } else {
             OneRow(row1View, makeRandomList(gameSettings.listImages), gameSettings.direction, gameSettings.slide, lifecycleOwner)
         }
         row2 = if(row2View is RecyclerView)  {
-            OneWheel(row2View, makeRandomList(gameSettings.listImages), gameSettings.direction, lifecycleOwner)
+            OneWheel(row2View, makeRandomList(gameSettings.listImages), gameSettings.direction, gameSettings.slide, lifecycleOwner)
         } else {
             OneRow(row2View, makeRandomList(gameSettings.listImages), gameSettings.direction, gameSettings.slide, lifecycleOwner)
         }
         row3 = if(row3View is RecyclerView)  {
-            OneWheel(row3View, makeRandomList(gameSettings.listImages), gameSettings.direction, lifecycleOwner)
+            OneWheel(row3View, makeRandomList(gameSettings.listImages), gameSettings.direction, gameSettings.slide, lifecycleOwner)
         } else {
             OneRow(row3View, makeRandomList(gameSettings.listImages), gameSettings.direction, gameSettings.slide, lifecycleOwner)
         }

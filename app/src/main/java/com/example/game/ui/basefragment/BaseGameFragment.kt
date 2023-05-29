@@ -15,7 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
 import com.example.game.BR
 import com.example.game.R
-import com.example.game.gameclasses.rows.RowsManager
+import com.example.game.gameclasses.RowsManager
 import com.example.game.ui.main.MainActivity
 import com.example.game.ui.viewmodel.GameViewModel
 import com.example.game.utils.ScreenStatus
@@ -82,7 +82,7 @@ abstract class BaseGameFragment<T : ViewBinding> : Fragment() {
         rowsManager.init(
             gameNumber,
             binding.root.findViewById(R.id.container_include),
-            viewLifecycleOwner
+            viewLifecycleOwner,
         )
     }
 

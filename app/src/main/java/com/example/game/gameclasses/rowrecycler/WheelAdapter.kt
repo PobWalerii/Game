@@ -1,4 +1,4 @@
-package com.example.game.ui.adapter
+package com.example.game.gameclasses.rowrecycler
 
 import android.view.LayoutInflater
 import android.view.View
@@ -29,7 +29,7 @@ class WheelAdapter: ListAdapter<ItemImages, WheelAdapter.ViewHolder>(COMPARATOR)
     }
 
     override fun getItemCount() = currentList.size
-    override fun getItemId(position: Int): Long = currentList[position].id
+    override fun getItemId(position: Int): Long = currentList[position].idPosition
 
     companion object {
         private val COMPARATOR = object : DiffUtil.ItemCallback<ItemImages>() {
@@ -37,10 +37,11 @@ class WheelAdapter: ListAdapter<ItemImages, WheelAdapter.ViewHolder>(COMPARATOR)
                 return oldItem == newItem
             }
             override fun areContentsTheSame(oldItem: ItemImages, newItem: ItemImages): Boolean {
-                return oldItem.id == newItem.id
+                return oldItem.idPosition == newItem.idPosition
             }
         }
     }
+
 
 }
 

@@ -1,8 +1,8 @@
-package com.example.game.gameclasses.rows
+package com.example.game.gameclasses
 
 import kotlinx.coroutines.flow.StateFlow
 
-abstract class BaseRow {
+abstract class RowBase {
     abstract val isPlay: StateFlow<Boolean>
     abstract val isStop: StateFlow<Int>
     abstract fun stopAll(delay: Int)
