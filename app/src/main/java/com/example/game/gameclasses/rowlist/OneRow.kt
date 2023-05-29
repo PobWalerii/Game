@@ -2,7 +2,6 @@ package com.example.game.gameclasses.rowlist
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
-import android.animation.PropertyValuesHolder
 import android.view.View
 import android.view.View.VISIBLE
 import android.view.ViewGroup
@@ -15,7 +14,8 @@ import androidx.lifecycle.lifecycleScope
 import com.example.game.R
 import com.example.game.constants.GamesConstants.DELAY_START_ROW_INTERVAL
 import com.example.game.data.ItemImages
-import com.example.game.gameclasses.RowBase
+import com.example.game.gameclasses.utils.RowBase
+import com.example.game.gameclasses.utils.ItemAnim.makeItemAnim
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -126,18 +126,7 @@ class OneRow (
     }
 
     override fun finishAnim() {
-        val anim = ObjectAnimator.ofPropertyValuesHolder(imageView3, PropertyValuesHolder.ofFloat("scaleX", 1.2f),
-            PropertyValuesHolder.ofFloat("scaleY", 1.2f))
-        anim.duration = 500L
-        anim.start()
-        val restoreAnimator = ObjectAnimator.ofPropertyValuesHolder(
-            imageView3,
-            PropertyValuesHolder.ofFloat("scaleX", 1.0f),
-            PropertyValuesHolder.ofFloat("scaleY", 1.0f),
-        )
-        restoreAnimator.startDelay = 500L
-        restoreAnimator.duration = 500L
-        restoreAnimator.start()
+        makeItemAnim(imageView3)
     }
 
     private fun setImages() {

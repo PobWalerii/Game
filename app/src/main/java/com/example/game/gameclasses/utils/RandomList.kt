@@ -1,4 +1,4 @@
-package com.example.game.utils
+package com.example.game.gameclasses.utils
 
 import com.example.game.data.ItemImages
 import java.util.*

@@ -1,4 +1,4 @@
-package com.example.game.gameclasses
+package com.example.game.gameclasses.utils
 
 import kotlinx.coroutines.flow.StateFlow
 

@@ -14,6 +14,6 @@ class Game3Fragment : BaseGameFragment<FragmentGame3Binding>() {
     }
     override fun getViewModelClass() = GameViewModel::class.java
 
-    override var gameNumber = 1
+    override var gameNumber = 3
 
 }

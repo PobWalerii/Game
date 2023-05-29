@@ -1,4 +1,4 @@
-package com.example.game.utils
+package com.example.game.gameclasses.utils
 
 import android.annotation.SuppressLint
 import android.content.Context
