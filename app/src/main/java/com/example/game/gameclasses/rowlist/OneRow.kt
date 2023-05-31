@@ -5,7 +5,6 @@ import android.animation.ObjectAnimator
 import android.view.View
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.databinding.library.baseAdapters.BR
@@ -192,7 +191,6 @@ class OneRow (
             animation5,
         )
         animatorSet.duration = delayShift
-        animatorSet.interpolator = AccelerateDecelerateInterpolator()
         animatorSet.start()
     }
 

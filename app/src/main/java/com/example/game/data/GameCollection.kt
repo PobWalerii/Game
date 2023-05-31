@@ -12,13 +12,13 @@ object GameCollection {
                 direction = null,
                 slide = true,
                 listOf(
-                    R.drawable.game1_slot1,
-                    R.drawable.game1_slot2,
-                    R.drawable.game1_slot3,
-                    R.drawable.game1_slot4,
-                    R.drawable.game1_slot5,
-                    R.drawable.game1_slot6,
-                    R.drawable.game1_slot7
+                    R.drawable.game1_img1,
+                    R.drawable.game1_img2,
+                    R.drawable.game1_img3,
+                    R.drawable.game1_img4,
+                    R.drawable.game1_img5,
+                    R.drawable.game1_img6,
+                    R.drawable.game1_img7
                 )
             )
             2 -> GameSettings(
@@ -34,13 +34,13 @@ object GameCollection {
                 direction = null,
                 slide = true,
                 listOf(
-                    R.drawable.game1_slot1,
-                    R.drawable.game1_slot2,
-                    R.drawable.game1_slot3,
-                    R.drawable.game1_slot4,
-                    R.drawable.game1_slot5,
-                    R.drawable.game1_slot6,
-                    R.drawable.game1_slot7
+                    R.drawable.game1_img1,
+                    R.drawable.game1_img2,
+                    R.drawable.game1_img3,
+                    R.drawable.game1_img4,
+                    R.drawable.game1_img5,
+                    R.drawable.game1_img6,
+                    R.drawable.game1_img7,
                 )
             )
         }

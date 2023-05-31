@@ -1,6 +1,7 @@
 package com.example.game.ui.basefragment
 
 import android.annotation.SuppressLint
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -18,7 +19,6 @@ import com.example.game.R
 import com.example.game.gameclasses.RowsManager
 import com.example.game.ui.main.MainActivity
 import com.example.game.ui.viewmodel.GameViewModel
-import com.example.game.utils.ScreenStatus
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -172,9 +172,18 @@ abstract class BaseGameFragment<T : ViewBinding> : Fragment() {
                 !isPlay && rate !=0
             }.collect {
                 splinBinding?.setVariable(BR.isEnable,it)
-                ScreenStatus.setScreenStatus(requireActivity(), it)
+                setScreenStatus(it)
             }
         }
+    }
+
+    private fun setScreenStatus(unblock: Boolean) {
+        activity?.requestedOrientation =
+            if (unblock) {
+                ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+            } else {
+                ActivityInfo.SCREEN_ORIENTATION_LOCKED
+            }
     }
 
     private fun setupNaviButton() {

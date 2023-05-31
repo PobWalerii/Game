@@ -42,7 +42,6 @@ class RowsManager @Inject constructor(
         gameNumber: Int,
         containerBinding: View,
         lifecycleOwner: LifecycleOwner,
-        //activity: Activity
     ) {
         val gameSettings = getGame(gameNumber)
         val row1View: View = containerBinding.findViewById(R.id.row1)

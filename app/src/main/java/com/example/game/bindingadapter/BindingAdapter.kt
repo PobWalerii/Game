@@ -8,20 +8,15 @@ object BindingAdapter {
     @JvmStatic
     @BindingAdapter("showImage")
     fun showImages(view: ImageView, image: Int) {
-        //view.setImageResource(image)
+        view.setImageResource(image)
+    }
 
+    @JvmStatic
+    @BindingAdapter("showImageGlide")
+    fun showImagesGlide(view: ImageView, image: Int) {
         Glide.with(view)
             .load(image)
             .override(200,200)
             .into(view)
-
-
-
-
-
-
-
-
-
     }
 }
