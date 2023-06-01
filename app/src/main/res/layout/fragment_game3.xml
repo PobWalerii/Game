@@ -45,7 +45,6 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription" />
 
-
     <include
         android:id="@+id/container_include"
         layout="@layout/game3_row_container"
@@ -74,7 +73,6 @@
         app:layout_constraintTop_toBottomOf="@+id/balance_include"
         app:layout_constraintStart_toStartOf="@+id/balance_include" />
 
-
     <include
         android:id="@+id/minus"
         layout="@layout/game3_minus"
@@ -94,7 +92,6 @@
         app:layout_constraintStart_toEndOf="@+id/minus"
         app:layout_constraintTop_toTopOf="@+id/rate_include"
         app:layout_constraintBottom_toBottomOf="@+id/rate_include" />
-
 
     <include
         android:id="@+id/splin_include"

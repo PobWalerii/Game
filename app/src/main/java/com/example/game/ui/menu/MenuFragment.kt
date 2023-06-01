@@ -61,6 +61,4 @@ class MenuFragment : Fragment() {
         _binding = null
     }
 
-
-
 }

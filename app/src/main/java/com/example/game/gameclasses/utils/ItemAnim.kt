@@ -19,6 +19,5 @@ object ItemAnim {
         restoreAnimator.startDelay = 500L
         restoreAnimator.duration = 500L
         restoreAnimator.start()
-
     }
 }

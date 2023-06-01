@@ -28,7 +28,6 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription" />
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/image"
         android:layout_width="295dp"
@@ -70,7 +69,6 @@
             tools:ignore="ContentDescription" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
     <include
         android:id="@+id/balance_include"

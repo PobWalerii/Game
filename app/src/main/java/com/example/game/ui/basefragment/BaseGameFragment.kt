@@ -42,6 +42,7 @@ abstract class BaseGameFragment<T : ViewBinding> : Fragment() {
 
     private val _isPressPlus = MutableStateFlow(false)
     private val isPressPlus: StateFlow<Boolean> = _isPressPlus.asStateFlow()
+
     private val _isPressMinus = MutableStateFlow(false)
     private val isPressMinus: StateFlow<Boolean> = _isPressMinus.asStateFlow()
 
@@ -59,6 +60,7 @@ abstract class BaseGameFragment<T : ViewBinding> : Fragment() {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this)[getViewModelClass()]
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

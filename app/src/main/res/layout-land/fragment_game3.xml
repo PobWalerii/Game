@@ -38,7 +38,6 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription" />
 
-
     <include
         android:id="@+id/container_include"
         layout="@layout/game3_row_container"

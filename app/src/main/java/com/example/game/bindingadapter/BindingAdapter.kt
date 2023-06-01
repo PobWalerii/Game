@@ -7,13 +7,7 @@ import com.bumptech.glide.Glide
 object BindingAdapter {
     @JvmStatic
     @BindingAdapter("showImage")
-    fun showImages(view: ImageView, image: Int) {
-        view.setImageResource(image)
-    }
-
-    @JvmStatic
-    @BindingAdapter("showImageGlide")
-    fun showImagesGlide(view: ImageView, image: Int) {
+    fun showImage(view: ImageView, image: Int) {
         Glide.with(view)
             .load(image)
             .override(200,200)

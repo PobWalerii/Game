@@ -27,6 +27,4 @@
     <dimen name="back_menu_start">50dp</dimen>
     <dimen name="back_menu_end">50dp</dimen>
 
-    <dimen name="size_wheel_image_slot">80dp</dimen>
-
 </resources>
